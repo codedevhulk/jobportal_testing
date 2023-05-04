@@ -1,0 +1,2 @@
+const employerLoginApi = "";
+const jobSeekerLoginApi = "";
