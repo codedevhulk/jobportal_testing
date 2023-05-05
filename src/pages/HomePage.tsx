@@ -4,6 +4,7 @@ import Header from "../ui/Header";
 import Footer from "../ui/Footer";
 import JobCard from "../components/JobCard";
 import AdContent from "../ui/AdContent";
+// import AddOnAboveSearchBar from "../components/addoncomponents/AddOnAboveSearchBar";
 
 interface Job {
   title: string;
@@ -33,8 +34,14 @@ const SearchBar = styled.input`
   box-shadow: 0px 0px 5px #98c1d9;
   font-size: 16px;
   outline: none;
+  margin-top: 50px;
+  height: 30px;
+  padding-left: 30px;
   font-family: "san-serif";
   color: rgba(0, 0, 0, 0.5);
+  @media screen and (max-width: 700px) {
+    width: 60%;
+  }
 `;
 
 const JobCardContainer = styled.div`
@@ -74,6 +81,7 @@ const HomePage: FC<HomePageProps> = ({ landing = false }) => {
   return (
     <HomePageContainer>
       <Header page="landing" />
+      {/* <AddOnAboveSearchBar /> */}
       <SearchBar placeholder="Search for Jobs" type="text" />
       <JobCardContainer>
         {jobData.map((job, index) => (

@@ -32,6 +32,9 @@ const Logo = styled.div`
 const Navigation = styled.nav`
   display: flex;
   gap: 10px;
+  @media screen and (max-width: 700px) {
+    display: none;
+  }
 `;
 
 const NavigationLink = styled.button<{ active?: boolean }>`
@@ -83,6 +86,7 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
   return (
     <HeaderContainer>
       <Logo>JOBPORTAL</Logo>
+
       <Navigation>
         <NavigationLink active={page === "landing"}>About Us</NavigationLink>
         {page === "landing" ? (
