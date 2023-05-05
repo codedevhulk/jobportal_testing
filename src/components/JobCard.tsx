@@ -41,7 +41,7 @@ const Location = styled.p`
   font-size: 14px;
 `;
 
-const ApplyButton = styled.button`
+const DetailsButton = styled.button`
   background-color: #0a66c2;
   color: white;
   border: none;
@@ -59,7 +59,7 @@ const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
       <Company>{company}</Company>
       <Salary>{salary}</Salary>
       <Location>{location}</Location>
-      <ApplyButton onClick={onApply}>Apply</ApplyButton>
+      <DetailsButton onClick={onApply}>Show Details</DetailsButton>
     </Card>
   );
 };
