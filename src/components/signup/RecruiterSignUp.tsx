@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { TextField, IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
 
 // interface SignInProps {
 //   onSignIn: (email: string, password: string) => void;
@@ -70,11 +73,15 @@ const RecruiterSignIn: React.FC<any> = () => {
   const [recruiterSignUpDetails, setRecruiterSignUpDetails] = useState<
     any | TRecruiterSignUpDetails
   >(null);
+  const [showPassword, setShowPassword] = useState<any>(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSignUp = (event: any) => {
     event.preventDefault();
   };
-  const getSiginDetails = (e: any) => {
+  const getSigUpDetails = (e: any) => {
     setRecruiterSignUpDetails({
       ...recruiterSignUpDetails,
       [e.target.name]: e.target.value,
@@ -116,6 +123,30 @@ const RecruiterSignIn: React.FC<any> = () => {
           required
         /> */}
           <TextField
+            type="text"
+            id="outlined-basic"
+            label="First Name"
+            name="firstName"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={recruiterSignUpDetails?.firstName}
+            onChange={getSigUpDetails}
+            required
+          />
+          <TextField
+            type="text"
+            id="outlined-basic"
+            label="Last Name"
+            name="lastName"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={recruiterSignUpDetails?.lastName}
+            onChange={getSigUpDetails}
+            required
+          />
+          <TextField
             type="email"
             id="outlined-basic"
             label="Email"
@@ -124,18 +155,54 @@ const RecruiterSignIn: React.FC<any> = () => {
             variant="outlined"
             fullWidth
             value={recruiterSignUpDetails?.email}
-            onChange={getSiginDetails}
+            onChange={getSigUpDetails}
+            required
           />
+
           <TextField
-            type="password"
+            type="text"
+            id="outlined-basic"
+            label="Mobile Number"
+            name="mobileNumber"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={recruiterSignUpDetails?.mobileNumber}
+            onChange={getSigUpDetails}
+            required
+          />
+
+          <TextField
+            type={showPassword ? "text" : "password"}
             id="outlined-basic"
             label="Password"
             size="small"
             variant="outlined"
             fullWidth
             name="password"
-            value={recruiterSignUpDetails?.email}
-            onChange={getSiginDetails}
+            value={recruiterSignUpDetails?.password}
+            onChange={getSigUpDetails}
+            required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={togglePasswordVisibility}>
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            type="text"
+            id="outlined-basic"
+            label="Address"
+            name="address"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={recruiterSignUpDetails?.address}
+            onChange={getSigUpDetails}
           />
           {/* <SignInInput
           type="password"

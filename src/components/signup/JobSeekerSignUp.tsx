@@ -1,11 +1,10 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { TextField, IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
-
-// interface SignInProps {
-//   onSignIn: (email: string, password: string) => void;
-// }
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
 
 const SignUpFormContainer = styled.div`
   display: flex;
@@ -50,12 +49,6 @@ const SignUpButton = styled.button`
   }
 `;
 
-// const SignInInput = styled.input`
-//   padding: 10px;
-//   border: 1px solid #cccccc;
-//   border-radius: 5px;
-//   width: 80%;
-// `;
 const Title = styled.label`
   font-family: sans-serif;
   letter-spacing: 1px;
@@ -63,13 +56,24 @@ const Title = styled.label`
   color: #3d5a81;
   margin-bottom: 20px;
 `;
-type TRecruiterSigninDetails = { email?: string; password?: string };
+type TRecruiterSigninDetails = {
+  firstName: string;
+  lastName: string;
+  mobileNumber: string;
+  email: string;
+  address?: string | undefined;
+  password: string;
+};
 
-const RecruiterSignIn: React.FC<any> = () => {
+const RecruiterSignIn: React.FC = () => {
   const navigate = useNavigate();
   const [jobSeekerSignUpDetails, setRecruiterSignUpDetails] = useState<
     any | TRecruiterSigninDetails
   >(null);
+  const [showPassword, setShowPassword] = useState<any>(false);
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
 
   const handleSignUp = (event: any) => {
     event.preventDefault();
@@ -108,13 +112,31 @@ const RecruiterSignIn: React.FC<any> = () => {
       <SignUpFormContainer>
         <SignUpForm onSubmit={handleSignUp}>
           <Title>JobSeeker SignUp</Title>
-          {/* <SignInInput
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        /> */}
+
+          <TextField
+            type="text"
+            id="outlined-basic"
+            label="First Name"
+            name="firstName"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={jobSeekerSignUpDetails?.firstName}
+            onChange={getSigUpDetails}
+            required
+          />
+          <TextField
+            type="text"
+            id="outlined-basic"
+            label="Last Name"
+            name="lastName"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={jobSeekerSignUpDetails?.lastName}
+            onChange={getSigUpDetails}
+            required
+          />
           <TextField
             type="email"
             id="outlined-basic"
@@ -125,25 +147,55 @@ const RecruiterSignIn: React.FC<any> = () => {
             fullWidth
             value={jobSeekerSignUpDetails?.email}
             onChange={getSigUpDetails}
+            required
           />
+
           <TextField
-            type="password"
+            type="text"
+            id="outlined-basic"
+            label="Mobile Number"
+            name="mobileNumber"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={jobSeekerSignUpDetails?.mobileNumber}
+            onChange={getSigUpDetails}
+            required
+          />
+
+          <TextField
+            type={showPassword ? "text" : "password"}
             id="outlined-basic"
             label="Password"
             size="small"
             variant="outlined"
             fullWidth
             name="password"
-            value={jobSeekerSignUpDetails?.email}
+            value={jobSeekerSignUpDetails?.password}
+            onChange={getSigUpDetails}
+            required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={togglePasswordVisibility}>
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
+          />
+          <TextField
+            type="text"
+            id="outlined-basic"
+            label="Address"
+            name="address"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={jobSeekerSignUpDetails?.address}
             onChange={getSigUpDetails}
           />
-          {/* <SignInInput
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        /> */}
+
           <SignUpButton type="submit">Sign Up</SignUpButton>
           <span
             style={{ color: "#98c1d9", cursor: "pointer" }}

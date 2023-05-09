@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import withAuth from "./authentication/withAuth";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 interface IJobInfoProps {
   jobInfo: {
+    id: string;
     jobTitle: string;
     companyName: string;
     location: string;
@@ -51,16 +55,28 @@ const JobDetailsStyle = styled.div`
   }
 `;
 
-const JobDetailsCard: React.FC<IJobInfoProps> = ({ jobInfo }) => {
+const JobDetailsCard: React.FC = () => {
+  const { id: jobid } = useParams();
+  // const jobInfo = useSelector((state) =>
+  //   state?.jobs?.find((job) => job.id === jobid)
+  // );
+  const jobInfo = {
+    id: 1,
+    jobTitle: "Full Stack",
+    companyName: "Persistent",
+    location: "hyderabad",
+    jobType: "full time",
+    jobDescription: "job description",
+    salary: "$6789",
+  };
   const {
+    id,
     jobTitle,
     companyName,
     location,
     jobType,
-    jobCategory,
     jobDescription,
     salary,
-    applicationLink,
   } = jobInfo;
 
   return (
@@ -79,20 +95,10 @@ const JobDetailsCard: React.FC<IJobInfoProps> = ({ jobInfo }) => {
         <span>{jobType}</span>
       </div>
       <div className="details-row">
-        <span className="label">Job Category:</span>
-        <span>{jobCategory}</span>
-      </div>
-      <div className="details-row">
         <span className="label">Salary:</span>
         <span>{salary}</span>
       </div>
 
-      <div className="details-row">
-        <span className="label">Application Link:</span>
-        <a href={applicationLink} target="_blank" rel="noreferrer">
-          {applicationLink}
-        </a>
-      </div>
       <div className="job-description">
         <h6>Job Description</h6>
         <p>{jobDescription}</p>
@@ -101,4 +107,4 @@ const JobDetailsCard: React.FC<IJobInfoProps> = ({ jobInfo }) => {
   );
 };
 
-export default JobDetailsCard;
+export default withAuth(JobDetailsCard);

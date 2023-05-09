@@ -89,7 +89,9 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
       <Logo>JOBPORTAL</Logo>
 
       <Navigation>
-        <NavigationLink active={page === "landing"}>About Us</NavigationLink>
+        <NavigationLink active={page === "landing"}>
+          <Link to="/aboutus">About Us</Link>
+        </NavigationLink>
         {page === "landing" ? (
           <>
             <Link to="/recruiter/signin">

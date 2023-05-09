@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface JobCardProps {
@@ -59,7 +60,9 @@ const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
       <Company>{company}</Company>
       <Salary>{salary}</Salary>
       <Location>{location}</Location>
-      <DetailsButton onClick={onApply}>Show Details</DetailsButton>
+      <Link to="/jobdetails">
+        <DetailsButton onClick={onApply}>Show Details</DetailsButton>
+      </Link>
     </Card>
   );
 };

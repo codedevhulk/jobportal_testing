@@ -14,13 +14,13 @@ function withAuth<T extends WithAuthProps>(WrappedComponent: ComponentType<T>) {
       // If the token doesn't exist or is invalid, redirect to the login page.
       if (!token || !isValidToken(token)) {
         // You can replace this with the appropriate login route in your application.
-        window.location.href = "/signin";
+        window.location.href = "/";
       }
     }, []);
 
     if (!isValidToken(localStorage.getItem("token"))) {
       // If the token is invalid, render a useNavigate component to redirect the user to the login page.
-      navigate("/signin");
+      navigate("/");
     }
 
     // If the user is authenticated, render the wrapped component with the props passed down to this component.

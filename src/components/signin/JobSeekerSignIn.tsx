@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { TextField } from "@mui/material";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 // interface SignInProps {
 //   onSignIn: (email: string, password: string) => void;
@@ -65,7 +65,8 @@ const Title = styled.label`
 `;
 type TRecruiterSigninDetails = { email?: string; password?: string };
 
-const RecruiterSignIn: React.FC<any> = () => {
+const RecruiterSignIn: React.FC = () => {
+  const navigate = useNavigate();
   const [recruiterSigninDetails, setRecruiterSigninDetails] = useState<
     any | TRecruiterSigninDetails
   >(null);
@@ -154,6 +155,12 @@ const RecruiterSignIn: React.FC<any> = () => {
           >
             Create Account
           </Link>
+          <span
+            style={{ color: "#98c1d9", cursor: "pointer" }}
+            onClick={() => navigate(-1)}
+          >
+            back
+          </span>
         </SignInForm>
       </SignInFormContainer>
     </>

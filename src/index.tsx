@@ -11,13 +11,19 @@ import JobSeekerSignIn from "./components/signin/JobSeekerSignIn";
 import RecruiterSignUp from "./components/signup/RecruiterSignUp";
 import JobSeekerSignUp from "./components/signup/JobSeekerSignUp";
 import App from "./App";
+import JobDetailsCard from "./components/JobDetailsCard";
+import AboutUs from "./pages/AboutUs";
 
 const appRouter: any = createBrowserRouter([
   {
     path: "/",
     element: <App />,
     errorElement: <ErrorPage />,
-    children: [{ path: "/", element: <HomePage /> }],
+    children: [
+      { path: "/", element: <HomePage /> },
+      { path: "/jobdetails/:id", element: <JobDetailsCard /> },
+      { path: "/aboutus", element: <AboutUs /> },
+    ],
   },
   {
     path: "/recruiter/signin",
