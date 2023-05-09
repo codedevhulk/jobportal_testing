@@ -1,4 +1,3 @@
-import React, { FC } from "react";
 import styled from "styled-components";
 import Header from "../ui/Header";
 import Footer from "../ui/Footer";
@@ -74,7 +73,7 @@ const jobData: Job[] = [
   },
 ];
 
-const HomePage: FC<HomePageProps> = ({ landing = false }) => {
+const HomePage: React.FC<HomePageProps> = ({ landing = false }) => {
   const onApply: () => void = () => {
     console.log("applied");
   };

@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 interface HeaderProps {
@@ -91,8 +92,12 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
         <NavigationLink active={page === "landing"}>About Us</NavigationLink>
         {page === "landing" ? (
           <>
-            <NavigationLink>Employer Signin</NavigationLink>
-            <NavigationLink>Jobseeker Signin</NavigationLink>
+            <Link to="/recruiter/signin">
+              <NavigationLink>Recruiter Signin/Signup</NavigationLink>
+            </Link>
+            <Link to="/jobseeker/signin">
+              <NavigationLink>Jobseeker Signin/Signup</NavigationLink>
+            </Link>
           </>
         ) : null}
         {page === "jobseeker" ? (

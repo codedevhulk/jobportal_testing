@@ -6,8 +6,10 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import { ErrorPage } from "./pages/ErrorPage";
-import SignIn from "./components/signin/SignIn";
-import SignUp from "./components/signup/SignUp";
+import RecruiterSignIn from "./components/signin/RecruiterSignIn";
+import JobSeekerSignIn from "./components/signin/JobSeekerSignIn";
+import RecruiterSignUp from "./components/signup/RecruiterSignUp";
+import JobSeekerSignUp from "./components/signup/JobSeekerSignUp";
 import App from "./App";
 
 const appRouter: any = createBrowserRouter([
@@ -18,11 +20,25 @@ const appRouter: any = createBrowserRouter([
     children: [{ path: "/", element: <HomePage /> }],
   },
   {
-    path: "/signin",
-    element: <SignIn />,
+    path: "/recruiter/signin",
+    element: <RecruiterSignIn />,
     errorElement: <ErrorPage />,
   },
-  { path: "/signup", element: <SignUp />, errorElement: <ErrorPage /> },
+  {
+    path: "/recruiter/signup",
+    element: <RecruiterSignUp />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/jobseeker/signup",
+    element: <JobSeekerSignUp />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/jobseeker/signin",
+    element: <JobSeekerSignIn />,
+    errorElement: <ErrorPage />,
+  },
 ]);
 
 const root = ReactDOM.createRoot(

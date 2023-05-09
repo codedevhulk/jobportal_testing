@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const FooterContainer = styled.footer`
@@ -72,9 +73,9 @@ const StaticFooter: React.FC = () => {
         <button>Learn More</button>
       </Advertisement>
       <FooterLinks>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <a href="#">Contact Us</a>
+        <Link to="/">Privacy Policy</Link>
+        <Link to="/">Terms of Service</Link>
+        <Link to="/">Contact Us</Link>
       </FooterLinks>
       <p>© 2023 My Job Portal. All Rights Reserved.</p>
     </FooterContainer>
