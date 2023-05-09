@@ -90,7 +90,9 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
 
       <Navigation>
         <NavigationLink active={page === "landing"}>
-          <Link to="/aboutus">About Us</Link>
+          <Link to="/aboutus" style={{ color: "inherit" }}>
+            About Us
+          </Link>
         </NavigationLink>
         {page === "landing" ? (
           <>
