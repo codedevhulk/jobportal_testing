@@ -50,6 +50,7 @@ const DetailsButton = styled.button`
   padding: 8px 16px;
   font-size: 14px;
   cursor: pointer;
+  width: 100%;
 `;
 
 const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
