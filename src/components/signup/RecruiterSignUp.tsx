@@ -53,12 +53,6 @@ const SignUpButton = styled.button`
   }
 `;
 
-const SignInInput = styled.input`
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  width: 80%;
-`;
 const Title = styled.label`
   font-family: sans-serif;
   letter-spacing: 1px;
@@ -115,13 +109,7 @@ const RecruiterSignIn: React.FC<any> = () => {
       <SignUpFormContainer>
         <SignUpForm onSubmit={handleSignUp}>
           <Title>Recruiter Signup</Title>
-          {/* <SignInInput
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        /> */}
+
           <TextField
             type="text"
             id="outlined-basic"
@@ -204,13 +192,7 @@ const RecruiterSignIn: React.FC<any> = () => {
             value={recruiterSignUpDetails?.address}
             onChange={getSigUpDetails}
           />
-          {/* <SignInInput
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        /> */}
+
           <SignUpButton type="submit">Sign Up</SignUpButton>
           <span
             style={{ color: "#98c1d9", cursor: "pointer" }}

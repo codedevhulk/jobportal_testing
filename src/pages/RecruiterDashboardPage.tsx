@@ -4,10 +4,9 @@
 // ShortlistedCandidatesList
 // RejectedCandidatesList
 
-import React from "react";
 import Header from "../ui/Header";
 
-const EmployerDashboardPage = () => {
+const RecruiterDashboardPage = () => {
   return (
     <div>
       <Header page="employer" />
@@ -15,4 +14,4 @@ const EmployerDashboardPage = () => {
   );
 };
 
-export default EmployerDashboardPage;
+export default RecruiterDashboardPage;

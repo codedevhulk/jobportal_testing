@@ -90,7 +90,10 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
 
       <Navigation>
         <NavigationLink active={page === "landing"}>
-          <Link to="/aboutus" style={{ color: "inherit" }}>
+          <Link
+            to="/aboutus"
+            style={{ color: "inherit", textDecoration: "none" }}
+          >
             About Us
           </Link>
         </NavigationLink>
@@ -115,7 +118,7 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
           <>
             <NavigationLink>Applicants</NavigationLink>
             <NavigationLink>Post New Job</NavigationLink>
-            <NavigationLink>Employer Dashboard</NavigationLink>
+            <NavigationLink>Recruiter Profile</NavigationLink>
           </>
         ) : null}
       </Navigation>

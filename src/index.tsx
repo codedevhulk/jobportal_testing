@@ -13,6 +13,8 @@ import JobSeekerSignUp from "./components/signup/JobSeekerSignUp";
 import App from "./App";
 import JobDetailsCard from "./components/JobDetailsCard";
 import AboutUs from "./pages/AboutUs";
+import RecruiterDashboardPage from "./pages/RecruiterDashboardPage";
+import JobSeekerDashboardPage from "./pages/JobSeekerDashboardPage";
 
 const appRouter: any = createBrowserRouter([
   {
@@ -23,6 +25,8 @@ const appRouter: any = createBrowserRouter([
       { path: "/", element: <HomePage /> },
       { path: "/jobdetails/:id", element: <JobDetailsCard /> },
       { path: "/aboutus", element: <AboutUs /> },
+      { path: "/recruiter", element: <RecruiterDashboardPage /> },
+      { path: "/jobseeker", element: <JobSeekerDashboardPage /> },
     ],
   },
   {
