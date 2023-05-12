@@ -24,7 +24,7 @@ const JobDetailsStyle = styled.div`
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   margin: 10px;
   max-width: 60vw;
-
+  box-sizing: border-box;
   .job-title {
     font-size: 1.5rem;
     font-weight: bold;

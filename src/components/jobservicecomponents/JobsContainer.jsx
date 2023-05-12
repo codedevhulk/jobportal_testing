@@ -9,9 +9,10 @@ const JobCardContainer = styled.div`
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   grid-gap: 20px;
-  width: 100%;
+  width: 90%;
   max-width: 1200px;
   padding: 20px;
+  
 
 `;
 const PageLinksContainer = styled.ul`

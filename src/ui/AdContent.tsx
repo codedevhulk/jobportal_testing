@@ -42,16 +42,17 @@ const CompanyLogosContainer = styled.div`
   width: 80%;
   display: flex;
   flex-direction: row;
+  flex-wrap: wrap;
   justify-content: center;
   perspective: 1000px;
-  transform-style: preserve-3d;
+  box-sizing: border-box;
 `;
 
 const CompanyLogo = styled.img`
   width: auto;
   margin: 0 10px;
   animation: spin 5s infinite linear;
-  transform-style: preserve-3d;
+  box-sizing: border-box;
   @keyframes spin {
     0% {
       transform: rotateZ(0);
@@ -102,12 +103,7 @@ const AdContent: React.FC = () => {
       </TextContent>
       <CompanyLogosContainer>
         {companyLogos.map((logo) => (
-          <CompanyLogo
-            src={logo.src}
-            alt={logo.alt}
-            key={logo.alt}
-            width="50px"
-          />
+          <CompanyLogo src={logo.src} alt={logo.alt} key={logo.alt} />
         ))}
       </CompanyLogosContainer>
     </AdContainer>

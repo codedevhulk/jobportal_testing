@@ -24,7 +24,7 @@ const HomePage = ({ landing = false }) => {
       <Header page="landing" />
       <SearchBarComponent/>
       <JobsContainer/>
-        <AdContent />
+        {/* <AdContent /> */}
         <Footer />
     </HomePageContainer>
   );

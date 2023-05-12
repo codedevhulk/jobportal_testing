@@ -22,6 +22,11 @@ const Advertisement = styled.div`
   max-width: 100vw;
   margin-bottom: 30px;
   transition: all 1s;
+  box-sizing: border-box;
+  @media screen and (max-width: 700px) {
+    width: 70%;
+    flex-direction: column;
+  }
   &:hover {
     transform: scale(1.1);
   }
@@ -29,10 +34,16 @@ const Advertisement = styled.div`
   & h4 {
     margin-right: 20px;
     color: #ee6c4d;
+    @media screen and (max-width: 700px) {
+      margin-top: -5px;
+    }
   }
 
   & p {
     color: #293241;
+    @media screen and (max-width: 700px) {
+      margin-top: -10px;
+    }
   }
 
   & button {
