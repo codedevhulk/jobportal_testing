@@ -4,10 +4,14 @@ const searchservice = createSlice({
   name: "searchservice",
   initialState: {
     value: "",
-    loading: false,
-    error: null,
   },
   reducers: {
-    setvalue: (state) => {},
+    setSearchInputValue: (state, action) => {
+      state.value = action.payload;
+    },
   },
 });
+
+export const { setSearchInputValue } = searchservice.actions;
+
+export default searchservice.reducer;

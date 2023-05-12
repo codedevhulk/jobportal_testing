@@ -18,7 +18,9 @@ const HeaderContainer = styled.div`
   overflow: hidden;
   position: relative;
   box-sizing: border-box;
-  box-shadow: 0px 0px 5px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: rgba(238, 108, 77, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 `;
 
 const Logo = styled.div`
@@ -65,7 +67,7 @@ const NavigationLink = styled.button<{ active?: boolean }>`
   touch-action: manipulation;
   vertical-align: baseline;
   white-space: nowrap;
-
+  transition: all 300ms ease-in;
   &:hover,
   &:focus {
     background-color: #b3d3ea;

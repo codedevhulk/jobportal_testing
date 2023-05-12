@@ -21,6 +21,10 @@ const Advertisement = styled.div`
   padding: 20px;
   max-width: 100vw;
   margin-bottom: 30px;
+  transition: all 1s;
+  &:hover {
+    transform: scale(1.1);
+  }
 
   & h4 {
     margin-right: 20px;
@@ -32,6 +36,7 @@ const Advertisement = styled.div`
   }
 
   & button {
+    margin-left: 10px;
     background-color: #ee6c4d;
     color: #e0fbfc;
     border: none;
@@ -41,7 +46,7 @@ const Advertisement = styled.div`
     transition: background-color 0.3s ease;
 
     &:hover {
-      background-color: #98c1d9;
+      background-color: #28a745;
     }
   }
 `;
@@ -70,7 +75,9 @@ const StaticFooter: React.FC = () => {
       <Advertisement>
         <h4>Looking for a job?</h4>
         <p>Check out our job portal and find your dream job today!</p>
-        <button>Learn More</button>
+        <Link to="/aboutus">
+          <button>Learn More</button>
+        </Link>
       </Advertisement>
       <FooterLinks>
         <Link to="/">Privacy Policy</Link>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useParams } from "react-router-dom";
@@ -16,13 +16,27 @@ interface JobCardProps {
 
 const Card = styled.div`
   background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
+    rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px;
   display: flex;
   flex-direction: column;
   gap: 8px;
+  transition: all 500ms;
+  &:hover {
+    transform: scale(1.1);
+    background-color: #e0fbfc;
+    // border: 1px solid #ee6c4d;
+    box-shadow: rgba(238, 108, 77, 0.25) 0px 50px 100px -20px,
+      rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+  }
+  &:hover button {
+    background-color: #ee6c4d;
+  }
 `;
 
 const Title = styled.h3`
@@ -45,7 +59,7 @@ const Location = styled.p`
 `;
 
 const DetailsButton = styled.button`
-  background-color: #0a66c2;
+  background-color: #3d5a80;
   color: white;
   border: none;
   border-radius: 4px;
@@ -53,6 +67,7 @@ const DetailsButton = styled.button`
   font-size: 14px;
   cursor: pointer;
   width: 100%;
+  transition: background-color 500ms;
 `;
 
 const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
