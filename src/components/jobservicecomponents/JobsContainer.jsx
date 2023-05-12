@@ -32,7 +32,7 @@ const PageLinks = styled.li`
     cursor:pointer;
     margin:2px;
     padding:0 12px;
-    background:${({ isActive }) => isActive ? "#98c1d9" : "#007bff"};
+    background:${({ isActive }) => isActive ? "#98c1d9" : "#3d5a80"};
     border-radius:32px;
     color:white;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;

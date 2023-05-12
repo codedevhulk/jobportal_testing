@@ -51,3 +51,7 @@ code {
 .job-details-card .MuiTypography-subtitle1:last-child {
   margin-bottom: 0;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+}
