@@ -1,7 +1,5 @@
-import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useParams } from "react-router-dom";
 
 interface JobCardProps {
   job: {
@@ -76,7 +74,7 @@ const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
     <Card>
       <Title>{jobTitle}</Title>
       <Company>{company}</Company>
-      <Salary>{salary}</Salary>
+      <Salary>{salary}$ /m</Salary>
       <Location>{location}</Location>
       <Link to={`/jobdetails/${id}`}>
         <DetailsButton onClick={onApply}>Show Details</DetailsButton>

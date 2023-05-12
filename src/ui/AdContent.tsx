@@ -43,19 +43,46 @@ const CompanyLogosContainer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
+  perspective: 1000px;
+  transform-style: preserve-3d;
 `;
 
 const CompanyLogo = styled.img`
   width: auto;
   margin: 0 10px;
+  animation: spin 5s infinite linear;
+  transform-style: preserve-3d;
+  @keyframes spin {
+    0% {
+      transform: rotateZ(0);
+    }
+    25% {
+      transform: rotateZ(2deg);
+    }
+    50% {
+      transform: rotateZ(0);
+    }
+    75% {
+      transform: rotateZ(-2deg);
+    }
+    100% {
+      transform: rotateZ(0);
+    }
+  }
 `;
 
 const AdContent: React.FC = () => {
   const companyLogos = [
-    { src: "logo1.png", alt: "Logo 1" },
-    { src: "logo2.png", alt: "Logo 2" },
-    { src: "logo3.png", alt: "Logo 3" },
-    { src: "logo4.png", alt: "Logo 4" },
+    { src: "https://files.codingninjas.in/google-9542.svg", alt: "google" },
+    {
+      src: "https://files.codingninjas.in/microsoft-9541.svg",
+      alt: "microsoft",
+    },
+    { src: "https://files.codingninjas.in/adobe-9540.svg", alt: "Adobe" },
+    // { src: "https://files.codingninjas.in/amazon-9538.svg", alt: "Amazon" },
+    // { src: "https://files.codingninjas.in/flipkart-9536.svg", alt: "Flipkart" },
+    { src: "https://files.codingninjas.in/samsung-9534.svg", alt: "Samsung" },
+    // { src: "https://files.codingninjas.in/expedia-9533.svg", alt: "Expedia" },
   ];
 
   return (
@@ -75,7 +102,12 @@ const AdContent: React.FC = () => {
       </TextContent>
       <CompanyLogosContainer>
         {companyLogos.map((logo) => (
-          <CompanyLogo src={logo.src} alt={logo.alt} key={logo.alt} />
+          <CompanyLogo
+            src={logo.src}
+            alt={logo.alt}
+            key={logo.alt}
+            width="50px"
+          />
         ))}
       </CompanyLogosContainer>
     </AdContainer>
