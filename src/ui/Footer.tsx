@@ -41,6 +41,7 @@ const Advertisement = styled.div`
 
   & p {
     color: #293241;
+    text-align: center;
     @media screen and (max-width: 700px) {
       margin-top: -10px;
     }

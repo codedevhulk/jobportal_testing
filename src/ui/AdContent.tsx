@@ -2,13 +2,14 @@ import React from "react";
 import styled from "styled-components";
 
 const AdContainer = styled.div`
-  height: 500px;
   width: 100vw;
   background-color: #3d5a80;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  box-sizing: border-box;
+  padding-top: 50px;
 `;
 
 const Title = styled.h2`
@@ -39,20 +40,28 @@ const TextContent = styled.div`
 
 const CompanyLogosContainer = styled.div`
   height: 50px;
-  width: 80%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: center;
   perspective: 1000px;
   box-sizing: border-box;
+  @media screen and (max-width: 900px) {
+    margin-top: 100px;
+    margin-bottom: 110px;
+  }
+  @media screen and (min-width: 900px) {
+    margin-top: 40px;
+    margin-bottom: 100px;
+  }
 `;
 
 const CompanyLogo = styled.img`
-  width: auto;
-  margin: 0 10px;
+  margin: 20px;
   animation: spin 5s infinite linear;
   box-sizing: border-box;
+
   @keyframes spin {
     0% {
       transform: rotateZ(0);
