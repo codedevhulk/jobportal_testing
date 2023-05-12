@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { TextField, IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useDispatch } from "react-redux";
+import { recruiterSignUp } from "../../store/slices/recruiterslice";
+import { useSelector } from "react-redux";
 
 // interface SignInProps {
 //   onSignIn: (email: string, password: string) => void;
@@ -35,7 +38,7 @@ const SignUpForm = styled.form`
   @media screen and (max-width: 700px) {
     width: 80vw;
     padding: 10px;
-    margin-top: -200px;
+    margin-top: -50px;
   }
 `;
 
@@ -60,28 +63,46 @@ const Title = styled.label`
   color: #3d5a81;
   margin-bottom: 20px;
 `;
-type TRecruiterSignUpDetails = { email?: string; password?: string };
 
-const RecruiterSignIn: React.FC<any> = () => {
+const RecruiterSignUp = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [recruiterSignUpDetails, setRecruiterSignUpDetails] = useState<
-    any | TRecruiterSignUpDetails
-  >(null);
-  const [showPassword, setShowPassword] = useState<any>(false);
+  const {error} =  useSelector(state=>state.recruiterApp)
+  const [actionResponseMessage, setActionResponseMessage] = useState(null);
+  const [recruiterSignUpDetails, setRecruiterSignUpDetails] = useState({});
+  const [showPassword, setShowPassword] = useState(false);
+  const [rtoken,setRtoken] = useState();
+
+
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
 
-  const handleSignUp = (event: any) => {
-    event.preventDefault();
-  };
-  const getSigUpDetails = (e: any) => {
+  const getSigUpDetails = (e) => {
     setRecruiterSignUpDetails({
       ...recruiterSignUpDetails,
       [e.target.name]: e.target.value,
     });
   };
+  useEffect(()=>{
+    if(rtoken){
+      navigate("/recruiter")
+    }
+  },[rtoken])
 
+  const handleSignUp = async (event) => {
+    event.preventDefault();
+    const result = await dispatch(recruiterSignUp(recruiterSignUpDetails));
+    if(!result.error ){
+      const token = localStorage.getItem("rtoken");
+      if(token){
+        setRtoken(token)
+      }
+
+    }
+    
+   
+  };
   return (
     <>
       <div>
@@ -112,7 +133,7 @@ const RecruiterSignIn: React.FC<any> = () => {
 
           <TextField
             type="text"
-            id="outlined-basic"
+             
             label="First Name"
             name="firstName"
             size="small"
@@ -124,7 +145,7 @@ const RecruiterSignIn: React.FC<any> = () => {
           />
           <TextField
             type="text"
-            id="outlined-basic"
+             
             label="Last Name"
             name="lastName"
             size="small"
@@ -136,7 +157,7 @@ const RecruiterSignIn: React.FC<any> = () => {
           />
           <TextField
             type="email"
-            id="outlined-basic"
+             
             label="Email"
             name="email"
             size="small"
@@ -149,7 +170,7 @@ const RecruiterSignIn: React.FC<any> = () => {
 
           <TextField
             type="text"
-            id="outlined-basic"
+             
             label="Mobile Number"
             name="mobileNumber"
             size="small"
@@ -162,7 +183,7 @@ const RecruiterSignIn: React.FC<any> = () => {
 
           <TextField
             type={showPassword ? "text" : "password"}
-            id="outlined-basic"
+             
             label="Password"
             size="small"
             variant="outlined"
@@ -183,7 +204,7 @@ const RecruiterSignIn: React.FC<any> = () => {
           />
           <TextField
             type="text"
-            id="outlined-basic"
+             
             label="Address"
             name="address"
             size="small"
@@ -194,6 +215,7 @@ const RecruiterSignIn: React.FC<any> = () => {
           />
 
           <SignUpButton type="submit">Sign Up</SignUpButton>
+          {actionResponseMessage && <div>{actionResponseMessage}</div>}
           <span
             style={{ color: "#98c1d9", cursor: "pointer" }}
             onClick={() => navigate(-1)}
@@ -206,6 +228,5 @@ const RecruiterSignIn: React.FC<any> = () => {
   );
 };
 
-export default RecruiterSignIn;
+export default RecruiterSignUp;
 
-//[#3d5a80 : dark slate color,#98c1d9 : sky blue,#e0fbfc : light skyblue,#ee6c4d : brick color,#293241 :black]

@@ -1,7 +1,12 @@
-import React, { useState } from "react";
+import  { useEffect, useState } from "react";
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { TextField, IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import InputAdornment from "@mui/material/InputAdornment";
+import {useDispatch, useSelector} from 'react-redux';
+import {recruiterSignin} from "../../store/slices/recruiterslice"
 
 // interface SignInProps {
 //   onSignIn: (email: string, password: string) => void;
@@ -50,12 +55,6 @@ const SignInButton = styled.button`
   }
 `;
 
-const SignInInput = styled.input`
-  padding: 10px;
-  border: 1px solid #cccccc;
-  border-radius: 5px;
-  width: 80%;
-`;
 const Title = styled.label`
   font-family: sans-serif;
   letter-spacing: 1px;
@@ -63,23 +62,40 @@ const Title = styled.label`
   color: #3d5a81;
   margin-bottom: 20px;
 `;
-type TRecruiterSigninDetails = { email?: string; password?: string };
 
-const RecruiterSignIn: React.FC = () => {
+const RecruiterSignIn= () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [recruiterSigninDetails, setRecruiterSigninDetails] = useState<
-    any | TRecruiterSigninDetails
-  >(null);
+  const {error} = useSelector(state=>state.recruiterApp)
+  const [showPassword, setShowPassword] = useState(false);
+  const [recruiterSignInDetails, setRecruiterSignInDetails] = useState(null);
+  const token = localStorage.getItem("rtoken");
+ useEffect(()=>{
+ if(token){
+   navigate("/recruiter")
+ }},[token])
 
-  const handleSignIn = (event: any) => {
+
+  const handleSignIn =async (event) => {
     event.preventDefault();
-  };
-  const getSiginDetails = (e: any) => {
-    setRecruiterSigninDetails({
-      ...recruiterSigninDetails,
+    console.log(recruiterSignInDetails)
+    const result  = await dispatch(recruiterSignin(recruiterSignInDetails));
+    if(!result.error){
+      navigate("/recruiter")
+    }
+    
+  }
+ 
+
+  const getSignInDetails = (e) => {
+    setRecruiterSignInDetails({
+      ...recruiterSignInDetails,
       [e.target.name]: e.target.value,
     });
-  };
+  }
+  const togglePasswordVisibility = ()=>{
+    setShowPassword(!showPassword);
+  }
 
   return (
     <>
@@ -107,47 +123,43 @@ const RecruiterSignIn: React.FC = () => {
       </div>
       <SignInFormContainer>
         <SignInForm onSubmit={handleSignIn}>
-          <Title>JobSeeker Signin</Title>
-          {/* <SignInInput
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(event) => setEmail(event.target.value)}
-          required
-        /> */}
+          <Title>Recruiter Signin</Title>
+
           <TextField
             type="email"
-            id="outlined-basic"
+            
             label="Email"
             name="email"
             size="small"
             variant="outlined"
             fullWidth
-            value={recruiterSigninDetails?.email}
-            onChange={getSiginDetails}
+            value={recruiterSignInDetails?.email}
+            onChange={getSignInDetails}
           />
           <TextField
-            type="password"
-            id="outlined-basic"
+            type={showPassword ? "text" : "password"}
+            
             label="Password"
             size="small"
             variant="outlined"
             fullWidth
             name="password"
-            value={recruiterSigninDetails?.email}
-            onChange={getSiginDetails}
+            value={recruiterSignInDetails?.password}
+            onChange={getSignInDetails}
+            required
+            InputProps={{
+              endAdornment: (
+                <InputAdornment position="end">
+                  <IconButton onClick={togglePasswordVisibility}>
+                    {showPassword ? <VisibilityIcon /> : <VisibilityOffIcon />}
+                  </IconButton>
+                </InputAdornment>
+              ),
+            }}
           />
-          {/* <SignInInput
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(event) => setPassword(event.target.value)}
-          required
-        /> */}
-
           <SignInButton type="submit">Sign In</SignInButton>
           <Link
-            to="/jobseeker/signup"
+            to="/recruiter/signup"
             style={{
               textDecoration: "none",
               color: "#16488a",
@@ -165,7 +177,6 @@ const RecruiterSignIn: React.FC = () => {
       </SignInFormContainer>
     </>
   );
-};
+}
 
-export default RecruiterSignIn;
-//[#3d5a80 : dark slate color,#98c1d9 : sky blue,#e0fbfc : light skyblue,#ee6c4d : brick color,#293241 :black]
+export default RecruiterSignIn

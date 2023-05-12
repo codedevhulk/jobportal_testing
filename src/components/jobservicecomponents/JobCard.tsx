@@ -1,10 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { useParams } from "react-router-dom";
 
 interface JobCardProps {
   job: {
-    title: string;
+    id: string;
+    jobTitle: string;
     company: string;
     salary: number;
     location: string;
@@ -54,14 +56,14 @@ const DetailsButton = styled.button`
 `;
 
 const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
-  const { title, company, salary, location, onApply } = props.job;
+  const { id, jobTitle, company, salary, location, onApply } = props.job;
   return (
     <Card>
-      <Title>{title}</Title>
+      <Title>{jobTitle}</Title>
       <Company>{company}</Company>
       <Salary>{salary}</Salary>
       <Location>{location}</Location>
-      <Link to="/jobdetails">
+      <Link to={`/jobdetails/${id}`}>
         <DetailsButton onClick={onApply}>Show Details</DetailsButton>
       </Link>
     </Card>

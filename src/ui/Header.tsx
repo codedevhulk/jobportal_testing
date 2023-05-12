@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 interface HeaderProps {
@@ -84,9 +84,27 @@ const NavigationLink = styled.button<{ active?: boolean }>`
 `;
 
 const Header: React.FC<HeaderProps> = ({ page }) => {
+  const navigate = useNavigate();
+  const handleSignOut = () => {
+    console.log("hello signout");
+    const rtoken = localStorage.getItem("rtoken");
+    const jtoken = localStorage.getItem("jtoken");
+    if (rtoken) {
+      localStorage.removeItem("rtoken");
+      navigate("/recruiter/signin");
+    }
+    if (jtoken) {
+      localStorage.removeItem("jtoken");
+      navigate("/jobseeker/signin");
+    }
+  };
   return (
     <HeaderContainer>
-      <Logo>JOBPORTAL</Logo>
+      <Logo>
+        <Link to="/" style={{ color: "inherit", textDecoration: "none" }}>
+          JOBPORTAL
+        </Link>
+      </Logo>
 
       <Navigation>
         <NavigationLink active={page === "landing"}>
@@ -109,9 +127,11 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
         ) : null}
         {page === "jobseeker" ? (
           <>
+            {console.log("jobseeker header")}
             <NavigationLink>Search Jobs</NavigationLink>
             <NavigationLink>Applied Jobs</NavigationLink>
             <NavigationLink>Profile</NavigationLink>
+            <NavigationLink onClick={handleSignOut}>Sign out</NavigationLink>
           </>
         ) : null}
         {page === "employer" ? (
@@ -119,6 +139,7 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
             <NavigationLink>Applicants</NavigationLink>
             <NavigationLink>Post New Job</NavigationLink>
             <NavigationLink>Recruiter Profile</NavigationLink>
+            <NavigationLink onClick={handleSignOut}>Sign out</NavigationLink>
           </>
         ) : null}
       </Navigation>

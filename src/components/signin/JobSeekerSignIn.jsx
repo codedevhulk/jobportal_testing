@@ -1,12 +1,18 @@
-import React, { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { TextField, IconButton } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
+import { useDispatch, useSelector } from "react-redux";
+import {  jobseekerSignIn } from "../../store/slices/jobseekerslice";
 
-const SignUpFormContainer = styled.div`
+// interface SignInProps {
+//   onSignIn: (email: string, password: string) => void;
+// }
+
+const SignInFormContainer = styled.div`
   display: flex;
   height: 100vh;
   width: 100vw;
@@ -17,7 +23,7 @@ const SignUpFormContainer = styled.div`
   padding: 20px;
 `;
 
-const SignUpForm = styled.form`
+const SignInForm = styled.form`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -35,7 +41,7 @@ const SignUpForm = styled.form`
   }
 `;
 
-const SignUpButton = styled.button`
+const SignInButton = styled.button`
   background-color: #0077cc;
   color: #ffffff;
   border: none;
@@ -56,33 +62,45 @@ const Title = styled.label`
   color: #3d5a81;
   margin-bottom: 20px;
 `;
-type TRecruiterSigninDetails = {
-  firstName: string;
-  lastName: string;
-  mobileNumber: string;
-  email: string;
-  address?: string | undefined;
-  password: string;
-};
 
-const RecruiterSignIn: React.FC = () => {
+const JobseekerSignIn = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [jobSeekerSignUpDetails, setRecruiterSignUpDetails] = useState<
-    any | TRecruiterSigninDetails
-  >(null);
-  const [showPassword, setShowPassword] = useState<any>(false);
-  const togglePasswordVisibility = () => {
-    setShowPassword(!showPassword);
+  const [showPassword, setShowPassword] = useState(false);
+  const [actionResponseMessage,setActionResponseMessage] = useState(null)
+  const [jobseekerSignInDetails, setJobseekerSignInDetails] = useState({email:"",password:""});
+  const [jwttoken,setJwtToken] = useState(localStorage.getItem("jtoken"));
+  useEffect(() => {
+    if (!jwttoken) {
+      navigate("/jobseeker/signin");
+    }
+  }, [navigate,jwttoken]);
+
+  const handleSignIn = async (event) => {
+    event.preventDefault();
+    console.log(  jobseekerSignInDetails);
+    const result = await dispatch( jobseekerSignIn(jobseekerSignInDetails));
+    
+    if(localStorage.getItem("jtoken")){
+      navigate("/jobseeker")
+    }
+    else
+    {
+      setActionResponseMessage(result.payload.message + "  Try Again")
+    }    
+    setTimeout(()=>{
+    setActionResponseMessage(null);
+  },3000)    
   };
 
-  const handleSignUp = (event: any) => {
-    event.preventDefault();
-  };
-  const getSigUpDetails = (e: any) => {
-    setRecruiterSignUpDetails({
-      ...jobSeekerSignUpDetails,
+  const getSignInDetails = (e) => {
+    setJobseekerSignInDetails({
+      ...jobseekerSignInDetails,
       [e.target.name]: e.target.value,
     });
+  };
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
   };
 
   return (
@@ -109,70 +127,29 @@ const RecruiterSignIn: React.FC = () => {
           Home
         </Link>
       </div>
-      <SignUpFormContainer>
-        <SignUpForm onSubmit={handleSignUp}>
-          <Title>JobSeeker SignUp</Title>
+      <SignInFormContainer>
+        <SignInForm onSubmit={handleSignIn}>
+          <Title>Jobseeker Signin</Title>
 
           <TextField
-            type="text"
-            id="outlined-basic"
-            label="First Name"
-            name="firstName"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobSeekerSignUpDetails?.firstName}
-            onChange={getSigUpDetails}
-            required
-          />
-          <TextField
-            type="text"
-            id="outlined-basic"
-            label="Last Name"
-            name="lastName"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobSeekerSignUpDetails?.lastName}
-            onChange={getSigUpDetails}
-            required
-          />
-          <TextField
             type="email"
-            id="outlined-basic"
             label="Email"
             name="email"
             size="small"
             variant="outlined"
             fullWidth
-            value={jobSeekerSignUpDetails?.email}
-            onChange={getSigUpDetails}
-            required
+            value={  jobseekerSignInDetails?.email}
+            onChange={getSignInDetails}
           />
-
-          <TextField
-            type="text"
-            id="outlined-basic"
-            label="Mobile Number"
-            name="mobileNumber"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobSeekerSignUpDetails?.mobileNumber}
-            onChange={getSigUpDetails}
-            required
-          />
-
           <TextField
             type={showPassword ? "text" : "password"}
-            id="outlined-basic"
             label="Password"
             size="small"
             variant="outlined"
             fullWidth
             name="password"
-            value={jobSeekerSignUpDetails?.password}
-            onChange={getSigUpDetails}
+            value={  jobseekerSignInDetails?.password}
+            onChange={getSignInDetails}
             required
             InputProps={{
               endAdornment: (
@@ -184,30 +161,27 @@ const RecruiterSignIn: React.FC = () => {
               ),
             }}
           />
-          <TextField
-            type="text"
-            id="outlined-basic"
-            label="Address"
-            name="address"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobSeekerSignUpDetails?.address}
-            onChange={getSigUpDetails}
-          />
-
-          <SignUpButton type="submit">Sign Up</SignUpButton>
+          <SignInButton type="submit">Sign In</SignInButton>
+          <Link
+            to="/jobseeker/signup"
+            style={{
+              textDecoration: "none",
+              color: "#16488a",
+            }}
+          >
+            Create Account
+          </Link>
+          {actionResponseMessage && <p>{actionResponseMessage}</p>}
           <span
             style={{ color: "#98c1d9", cursor: "pointer" }}
             onClick={() => navigate(-1)}
           >
             back
           </span>
-        </SignUpForm>
-      </SignUpFormContainer>
+        </SignInForm>
+      </SignInFormContainer>
     </>
   );
 };
 
-export default RecruiterSignIn;
-//[#3d5a80 : dark slate color,#98c1d9 : sky blue,#e0fbfc : light skyblue,#ee6c4d : brick color,#293241 :black]
+export default  JobseekerSignIn;

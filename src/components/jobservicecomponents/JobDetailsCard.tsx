@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import withAuth from "./authentication/withAuth";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
-interface IJobInfoProps {
-  jobInfo: {
-    id: string;
-    jobTitle: string;
-    companyName: string;
-    location: string;
-    jobType: string;
-    jobCategory: string;
-    jobDescription: string;
-    salary: string;
-    applicationLink: string;
-  };
-}
+// interface IJobInfoProps {
+//   jobInfo: {
+//     id: string;
+//     jobTitle: string;
+//     companyName: string;
+//     location: string;
+//     jobType: string;
+//     jobCategory: string;
+//     jobDescription: string;
+//     salary: string;
+//     applicationLink: string;
+//   };
+// }
 
 const JobDetailsStyle = styled.div`
   display: flex;
@@ -57,11 +55,18 @@ const JobDetailsStyle = styled.div`
 
 const JobDetailsCard: React.FC = () => {
   const { id: jobid } = useParams();
-  // const jobInfo = useSelector((state) =>
-  //   state?.jobs?.find((job) => job.id === jobid)
-  // );
+  const navigate = useNavigate();
+  const [jtoken, setJtoken] = useState(localStorage.getItem("jtoken"));
+  useEffect(() => {
+    if (jtoken) {
+      navigate(`/jobdetails/${id}`);
+    } else {
+      navigate("/jobseeker/signin");
+    }
+  }, []);
+
   const jobInfo = {
-    id: 1,
+    id: jobid,
     jobTitle: "Full Stack",
     companyName: "Persistent",
     location: "hyderabad",
@@ -107,4 +112,4 @@ const JobDetailsCard: React.FC = () => {
   );
 };
 
-export default withAuth(JobDetailsCard);
+export default JobDetailsCard;
