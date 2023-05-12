@@ -47,7 +47,11 @@ const CompanyLogosContainer = styled.div`
   justify-content: center;
   perspective: 1000px;
   box-sizing: border-box;
-  @media screen and (max-width: 900px) {
+  @media screen and (max-width: 500px) {
+    margin-top: 120px;
+    margin-bottom: 100px;
+  }
+  @media screen and (min-width: 500px) and (max-width: 900px) {
     margin-top: 100px;
     margin-bottom: 110px;
   }
@@ -61,6 +65,9 @@ const CompanyLogo = styled.img`
   margin: 20px;
   animation: spin 5s infinite linear;
   box-sizing: border-box;
+  @media screen and (max-width: 500px) {
+    margin: 10px;
+  }
 
   @keyframes spin {
     0% {
