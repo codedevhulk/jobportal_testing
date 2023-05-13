@@ -96,10 +96,7 @@ const AdContent: React.FC = () => {
       alt: "microsoft",
     },
     { src: "https://files.codingninjas.in/adobe-9540.svg", alt: "Adobe" },
-    // { src: "https://files.codingninjas.in/amazon-9538.svg", alt: "Amazon" },
-    // { src: "https://files.codingninjas.in/flipkart-9536.svg", alt: "Flipkart" },
     { src: "https://files.codingninjas.in/samsung-9534.svg", alt: "Samsung" },
-    // { src: "https://files.codingninjas.in/expedia-9533.svg", alt: "Expedia" },
   ];
 
   return (

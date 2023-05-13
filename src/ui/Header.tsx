@@ -68,6 +68,7 @@ const NavigationLink = styled.button<{ active?: boolean }>`
   vertical-align: baseline;
   white-space: nowrap;
   transition: all 300ms ease-in;
+
   &:hover,
   &:focus {
     background-color: #b3d3ea;
@@ -130,7 +131,6 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
         {page === "jobseeker" ? (
           <>
             {console.log("jobseeker header")}
-            <NavigationLink>Search Jobs</NavigationLink>
             <NavigationLink>Applied Jobs</NavigationLink>
             <NavigationLink>Profile</NavigationLink>
             <NavigationLink onClick={handleSignOut}>Sign out</NavigationLink>

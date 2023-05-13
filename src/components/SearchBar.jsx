@@ -1,5 +1,8 @@
-import React from 'react'
 import styled from 'styled-components';
+import { setSearchInputValue } from '../store/slices/searchserviceslice';
+import { useDispatch } from 'react-redux';
+
+
 const SearchBar = styled.input`
   width: 100%;
   max-width: 600px;
@@ -22,8 +25,10 @@ const SearchBar = styled.input`
   }
 `;
 const SearchBarComponent = () => {
+  const dispatch = useDispatch();
+  
   return (
-    <SearchBar placeholder='Search Jobs'/>
+    <SearchBar placeholder='Search Jobs' onChange={(e)=>dispatch(setSearchInputValue(e.target.value))}/>
   )
 }
 

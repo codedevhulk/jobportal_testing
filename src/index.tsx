@@ -25,7 +25,7 @@ const appRouter: any = createBrowserRouter([
     errorElement: <ErrorPage />,
     children: [
       { path: "/", element: <HomePage /> },
-      { path: "/jobdetails/:id", element: <JobDetailsCard /> },
+
       { path: "/aboutus", element: <AboutUs /> },
       {
         path: "/recruiter",
@@ -34,7 +34,19 @@ const appRouter: any = createBrowserRouter([
       {
         path: "/jobseeker",
         element: <JobSeekerDashboardPage />,
+        children: [
+          // {
+          //   path: "jobdetails/:id",
+          //   element: <JobDetailsCard />,
+          // },
+        ],
       },
+
+      {
+        path: "/jobseeker/jobdetails/:id",
+        element: <JobDetailsCard />,
+      },
+
       {
         path: "/recruiter/signin",
         element: <RecruiterSignIn />,

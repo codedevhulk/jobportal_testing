@@ -3,7 +3,7 @@ import Header from "../ui/Header";
 import Footer from "../ui/Footer";
 import AdContent from "../ui/AdContent";
 import JobsContainer from "../components/jobservicecomponents/JobsContainer";
-import SearchBarComponent from "../components/homepagecomponents/SearchBar";
+import SearchBarComponent from "../components/SearchBar";
 
 
 

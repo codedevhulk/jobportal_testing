@@ -81,8 +81,12 @@ const JobseekerSignUp = () => {
   const handleSignUp = async (event) => {
     event.preventDefault();
     const result = await dispatch(jobseekerSignUp(jobseekerSignUpDetails));
-    console.log("results ",result)    
-    setActionResponseMessage(result.payload.message + "  Try Again")
+    // console.log("results ",result)    
+    setActionResponseMessage(result.payload.message)
+   let token = localStorage.getItem("jtoken")
+    if(token){
+      navigate("/jobseeker");
+    }
     
     setTimeout(()=>{
     setActionResponseMessage(null);

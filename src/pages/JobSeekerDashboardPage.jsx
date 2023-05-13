@@ -9,6 +9,8 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Header from '../ui/Header'
+import JobsContainer from "../components/jobservicecomponents/JobsContainer";
+import SearchBarComponent from "../components/SearchBar";
 
 const JobSeekerDashboardPage = () => {
   const navigate = useNavigate();
@@ -21,7 +23,10 @@ const JobSeekerDashboardPage = () => {
       navigate("/jobseeker/signin");
     }
   }, [jtoken]);
-  return <div><Header page="jobseeker"/></div>;
+  return <div><Header page="jobseeker"/>
+  <SearchBarComponent/>
+  <JobsContainer/>
+  </div>;
 };
 
 export default JobSeekerDashboardPage;

@@ -46,10 +46,23 @@ const JobsContainer = () => {
   const dispatch = useDispatch();
     const [currentPage, setCurrentPage] = useState(1);
   const {jobs,loading,error} = useSelector(state=>state.jobserviceApp)
+  const value = useSelector(state=>state.searchserviceApp.value);
   const [rejected,setRejected] = useState(false);
+  const [jobsSearchResult,setJobSearchResult] = useState([]);
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = Array.isArray(jobsSearchResult )?jobsSearchResult.slice(indexOfFirstItem, indexOfLastItem):[];
+  const totalPages = Math.ceil(Array.isArray(jobsSearchResult)?jobsSearchResult?.length / itemsPerPage:[]);
+  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
+
   
 
   const onApply = ()=>{}
+
+  const handlePageClick = (event) => {
+    setCurrentPage(Number(event.target.id));
+  };
+
   const getAllJobsData = async () =>{
     const result =await dispatch(getAllJobs());
     if(result.type === "getAllJobs/rejected"){
@@ -59,21 +72,26 @@ const JobsContainer = () => {
     }
 
   }
-  const handlePageClick = (event) => {
-    setCurrentPage(Number(event.target.id));
-  };
 
   useEffect(()=>{
-      getAllJobsData()
-      
+    getAllJobsData()
   },[])
-  const indexOfLastItem = currentPage * itemsPerPage;
-  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = Array.isArray(jobs)?jobs.slice(indexOfFirstItem, indexOfLastItem):[];
+  
 
-  const totalPages = Math.ceil(Array.isArray(jobs)?jobs?.length / itemsPerPage:[]);
-  const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
-  if(loading) return <p>Loading....</p>
+  
+
+  useEffect(()=>{
+    if(loading===false){
+      let jobsFromFilterResult = Array.isArray(jobs)?jobs.filter(job=>job.jobTitle.toLowerCase().includes(value.toLowerCase())):[];
+      setJobSearchResult(jobsFromFilterResult)
+    }
+
+  },[loading,value])
+  
+
+  
+
+    if(loading) return <p>Loading....</p>
   if(error) return <p>{error}</p>
   if(!loading && !error && !rejected){
     return (<>

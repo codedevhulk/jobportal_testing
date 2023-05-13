@@ -57,9 +57,13 @@ const JobDetailsCard: React.FC = () => {
   const { id: jobid } = useParams();
   const navigate = useNavigate();
   const [jtoken, setJtoken] = useState(localStorage.getItem("jtoken"));
+  const back = () => {
+    navigate(-1);
+  };
   useEffect(() => {
     if (jtoken) {
-      navigate(`/jobdetails/${id}`);
+      navigate("/jobseeker");
+      navigate(`jobdetails/${jobid}`);
     } else {
       navigate("/jobseeker/signin");
     }
@@ -85,30 +89,35 @@ const JobDetailsCard: React.FC = () => {
   } = jobInfo;
 
   return (
-    <JobDetailsStyle>
-      <div className="job-title">{jobTitle}</div>
-      <div className="details-row">
-        <span className="label">Company Name:</span>
-        <span>{companyName}</span>
+    <div>
+      <div>
+        <button onClick={back}>Back</button>
       </div>
-      <div className="details-row">
-        <span className="label">Location:</span>
-        <span>{location}</span>
-      </div>
-      <div className="details-row">
-        <span className="label">Job Type:</span>
-        <span>{jobType}</span>
-      </div>
-      <div className="details-row">
-        <span className="label">Salary:</span>
-        <span>{salary}</span>
-      </div>
+      <JobDetailsStyle>
+        <div className="job-title">{jobTitle}</div>
+        <div className="details-row">
+          <span className="label">Company Name:</span>
+          <span>{companyName}</span>
+        </div>
+        <div className="details-row">
+          <span className="label">Location:</span>
+          <span>{location}</span>
+        </div>
+        <div className="details-row">
+          <span className="label">Job Type:</span>
+          <span>{jobType}</span>
+        </div>
+        <div className="details-row">
+          <span className="label">Salary:</span>
+          <span>{salary}</span>
+        </div>
 
-      <div className="job-description">
-        <h6>Job Description</h6>
-        <p>{jobDescription}</p>
-      </div>
-    </JobDetailsStyle>
+        <div className="job-description">
+          <h6>Job Description</h6>
+          <p>{jobDescription}</p>
+        </div>
+      </JobDetailsStyle>
+    </div>
   );
 };
 
