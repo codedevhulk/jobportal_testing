@@ -66,6 +66,7 @@ const Title = styled.label`
 const RecruiterSignIn= () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [actionResponseMessage,setActionResponseMessage] = useState(null)
   const {error} = useSelector(state=>state.recruiterApp)
   const [showPassword, setShowPassword] = useState(false);
   const [recruiterSignInDetails, setRecruiterSignInDetails] = useState(null);
@@ -80,9 +81,16 @@ const RecruiterSignIn= () => {
     event.preventDefault();
     console.log(recruiterSignInDetails)
     const result  = await dispatch(recruiterSignin(recruiterSignInDetails));
-    if(!result.error){
+    if(localStorage.getItem("jtoken")){
       navigate("/recruiter")
     }
+    else
+    {
+      setActionResponseMessage(result.payload.message + "  Try Again")
+    }    
+    setTimeout(()=>{
+    setActionResponseMessage(null);
+  },3000)    
     
   }
  
@@ -158,6 +166,7 @@ const RecruiterSignIn= () => {
             }}
           />
           <SignInButton type="submit">Sign In</SignInButton>
+          {actionResponseMessage && <p>{actionResponseMessage}</p>}
           <Link
             to="/recruiter/signup"
             style={{

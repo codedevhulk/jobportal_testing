@@ -131,16 +131,42 @@ const Header: React.FC<HeaderProps> = ({ page }) => {
         {page === "jobseeker" ? (
           <>
             {console.log("jobseeker header")}
-            <NavigationLink>Applied Jobs</NavigationLink>
-            <NavigationLink>Profile</NavigationLink>
+            <NavigationLink>
+              <Link
+                to="/jobseeker/appliedlist"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                Applied Jobs
+              </Link>
+            </NavigationLink>
+            <NavigationLink>
+              <Link
+                to="/jobseeker/profile"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                Profile
+              </Link>
+            </NavigationLink>
             <NavigationLink onClick={handleSignOut}>Sign out</NavigationLink>
           </>
         ) : null}
         {page === "employer" ? (
           <>
-            <NavigationLink>Applicants</NavigationLink>
-            <NavigationLink>Post New Job</NavigationLink>
-            <NavigationLink>Recruiter Profile</NavigationLink>
+            <Link to="/recruiter/applicants" style={{ textDecoration: "none" }}>
+              <NavigationLink>Applicants</NavigationLink>
+            </Link>
+            <Link to="/recruiter/newjobpost" style={{ textDecoration: "none" }}>
+              <NavigationLink>Post New Job</NavigationLink>
+            </Link>
+            <Link to="/recruiter/postedjobs" style={{ textDecoration: "none" }}>
+              <NavigationLink>posted jobs</NavigationLink>
+            </Link>
+            <Link
+              to="/recruiter/profile"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <NavigationLink>Profile</NavigationLink>
+            </Link>
             <NavigationLink onClick={handleSignOut}>Sign out</NavigationLink>
           </>
         ) : null}

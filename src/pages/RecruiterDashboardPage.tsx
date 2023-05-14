@@ -7,6 +7,7 @@
 import { useEffect } from "react";
 import Header from "../ui/Header";
 import { useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const RecruiterDashboardPage = () => {
   const navigate = useNavigate();
@@ -18,6 +19,7 @@ const RecruiterDashboardPage = () => {
   return (
     <div>
       <Header page="employer" />
+      <Outlet />
     </div>
   );
 };
