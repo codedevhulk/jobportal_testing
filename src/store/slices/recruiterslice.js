@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { updateRecruiterProfileApi } from "../../service/constants";
 
 export const recruiterSignin = createAsyncThunk(
   "recruiterSignin",
@@ -34,6 +35,28 @@ export const recruiterSignUp = createAsyncThunk(
       const result = await response.json();
       if (result.token)
         localStorage.setItem("rtoken", JSON.stringify(result?.token));
+      return result;
+    } catch (error) {
+      return error;
+    }
+  }
+);
+
+export const updateRecruiterProfile = createAsyncThunk(
+  "updateRecruiterProfile",
+  async (updatedRecruiterProfile) => {
+    try {
+      const response = await fetch(
+        `${updateRecruiterProfileApi}/${updateRecruiterProfile.id}`,
+        {
+          method: "PUT",
+          headers: {
+            "content-type": "application/json",
+          },
+          body: JSON.stringify(updatedRecruiterProfile),
+        }
+      );
+      const result = await response.json();
       return result;
     } catch (error) {
       return error;
@@ -89,19 +112,19 @@ const recruiterSlice = createSlice({
       .addCase(recruiterSignin.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
+      })
+      .addCase(updateRecruiterProfile.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(updateRecruiterProfile.fulfilled, (state, action) => {
+        state.loading = false;
+        state.recruiter = { ...action.payload };
+      })
+      .addCase(updateRecruiterProfile.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload.message;
       });
   },
 });
 
 export default recruiterSlice.reducer;
-
-// interface IinitialState {
-//   jobseeker: {
-//     firstName: string;
-//     lastName: string;
-//     email: string;
-//     mobileNumber: string;
-//     address?: string | undefined;
-//     jobseekerJwt: string;
-//   };
-// }

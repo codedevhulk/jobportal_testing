@@ -50,7 +50,7 @@ export const appRouter = createBrowserRouter([
         children:[
           { path: "/recruiter/", element: <ApplicantsList /> },
           { path: "/recruiter/profile", element: <RecruiterProfileCard /> },
-          { path: "/recruiter/profile/update", element: <RecruiterProfileForm /> },
+          { path: "/recruiter/profile/edit", element: <RecruiterProfileForm /> },
           { path: "/recruiter/applicants", element: <ApplicantsList /> },
           { path: "/recruiter/applicants/:id", element: <ApplicantView /> },
           { path: "/recruiter/postedjobs", element: <PostedJobsList /> },
