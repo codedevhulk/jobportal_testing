@@ -6,7 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import {useDispatch, useSelector} from 'react-redux';
-import {recruiterSignin} from "../../store/slices/recruiterslice"
+import {recruiterSignin} from "../../store/slices/recruiter/recruiterslice"
 
 // interface SignInProps {
 //   onSignIn: (email: string, password: string) => void;

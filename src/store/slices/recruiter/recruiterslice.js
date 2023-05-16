@@ -1,5 +1,9 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { updateRecruiterProfileApi } from "../../service/constants";
+import {
+  updateRecruiterProfileApi,
+  signinApi,
+  signupApi,
+} from "../../../service/constants";
 
 export const recruiterSignin = createAsyncThunk(
   "recruiterSignin",
@@ -33,7 +37,7 @@ export const recruiterSignUp = createAsyncThunk(
         body: JSON.stringify(recruiterSignUpDetails),
       });
       const result = await response.json();
-      if (result.token)
+      if (result.tok)
         localStorage.setItem("rtoken", JSON.stringify(result?.token));
       return result;
     } catch (error) {

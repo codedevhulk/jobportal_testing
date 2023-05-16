@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import recruiterReducer from "./slices/recruiterslice";
+import recruiterReducer from "./slices/recruiter/recruiterslice";
 import jobseekerReducer from "./slices/jobseekerslice";
 import jobserviceReducer from "./slices/jobserviceslice";
 import searchserviceReducer from "./slices/searchserviceslice";

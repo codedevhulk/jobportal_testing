@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { updateRecruiterProfile } from "../../store/slices/recruiterslice";
+import { updateRecruiterProfile } from "../../store/slices/recruiter/recruiterslice";
 import { useSelector, useDispatch } from "react-redux";
 
 const RecruiterProfileFormWrapper = styled.form`
