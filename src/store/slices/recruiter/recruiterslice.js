@@ -3,13 +3,18 @@ import {
   updateRecruiterProfileApi,
   signinApi,
   signupApi,
+  signoutApi,
 } from "../../../service/constants";
+
+export const signout = createAsyncThunk("signout", async () => {
+  await fetch(signoutApi, { method: "POST" });
+});
 
 export const recruiterSignin = createAsyncThunk(
   "recruiterSignin",
   async (recruiterSigninDetails) => {
     try {
-      const response = await fetch("http://localhost:8001/recruiter/signin", {
+      const response = await fetch(signinApi, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -29,15 +34,15 @@ export const recruiterSignUp = createAsyncThunk(
   "recruiterSignUp",
   async (recruiterSignUpDetails) => {
     try {
-      const response = await fetch("http://localhost:8001/recruiter/signup", {
+      const response = await fetch(signupApi, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify(recruiterSignUpDetails),
+        body: JSON.stringify({ ...recruiterSignUpDetails, role: "recruiter" }),
       });
       const result = await response.json();
-      if (result.tok)
+      if (result.token)
         localStorage.setItem("rtoken", JSON.stringify(result?.token));
       return result;
     } catch (error) {
