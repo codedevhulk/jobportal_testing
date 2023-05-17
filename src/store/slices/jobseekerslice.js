@@ -1,11 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { signinApi, signupApi } from "../../service/constants";
 
 //signup action
 export const jobseekerSignUp = createAsyncThunk(
   "jobseekerSignUp",
   async (jobseekerSignUpDetails) => {
+
     try {
-      const response = await fetch("http://localhost:8001/jobseeker/signup", {
+      console.log("from signup component", jobseekerSignUpDetails)
+      const response = await fetch(signupApi, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(jobseekerSignUpDetails),
@@ -25,15 +28,15 @@ export const jobseekerSignIn = createAsyncThunk(
   "jobseekerSignIn",
   async (jobseekerSignInDetails) => {
     try {
-      const response = await fetch("http://localhost:8001/jobseeker/signin", {
+      const response = await fetch(signinApi, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(jobseekerSignInDetails),
       });
       const result = await response.json();
       console.log("from jobseekersignin slice", result);
-      if (result.token)
-        localStorage.setItem("jtoken", JSON.stringify(result.token));
+      if (result.roles[0] === "ROLE_USER")
+        localStorage.setItem("jtoken", "jobseeker");
       return result;
     } catch (error) {
       return error;

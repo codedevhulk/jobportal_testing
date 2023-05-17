@@ -6,7 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useDispatch, useSelector } from "react-redux";
-import {  jobseekerSignIn } from "../../store/slices/jobseekerslice";
+import { jobseekerSignIn } from "../../store/slices/jobseekerslice";
 
 // interface SignInProps {
 //   onSignIn: (email: string, password: string) => void;
@@ -15,7 +15,7 @@ import {  jobseekerSignIn } from "../../store/slices/jobseekerslice";
 const SignInFormContainer = styled.div`
   display: flex;
   height: 100vh;
-  width: 100vw;
+  width: 100vw; 
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
@@ -67,30 +67,29 @@ const JobseekerSignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [actionResponseMessage,setActionResponseMessage] = useState(null)
-  const [jobseekerSignInDetails, setJobseekerSignInDetails] = useState({email:"",password:""});
-  const [jwttoken,setJwtToken] = useState(localStorage.getItem("jtoken"));
+  const [actionResponseMessage, setActionResponseMessage] = useState(null)
+  const [jobseekerSignInDetails, setJobseekerSignInDetails] = useState({ email: "", password: "" });
+  const [jwttoken, setJwtToken] = useState(localStorage.getItem("jtoken"));
   useEffect(() => {
     if (!jwttoken) {
       navigate("/jobseeker/signin");
     }
-  }, [navigate,jwttoken]);
+  }, [navigate, jwttoken]);
 
   const handleSignIn = async (event) => {
     event.preventDefault();
-    console.log(  jobseekerSignInDetails);
-    const result = await dispatch( jobseekerSignIn(jobseekerSignInDetails));
-    
-    if(localStorage.getItem("jtoken")){
+    console.log(jobseekerSignInDetails);
+    const result = await dispatch(jobseekerSignIn(jobseekerSignInDetails));
+
+    if (localStorage.getItem("jtoken")) {
       navigate("/jobseeker")
     }
-    else
-    {
+    else {
       setActionResponseMessage(result.payload.message + "  Try Again")
-    }    
-    setTimeout(()=>{
-    setActionResponseMessage(null);
-  },3000)    
+    }
+    setTimeout(() => {
+      setActionResponseMessage(null);
+    }, 3000)
   };
 
   const getSignInDetails = (e) => {
@@ -132,13 +131,13 @@ const JobseekerSignIn = () => {
           <Title>Jobseeker Signin</Title>
 
           <TextField
-            type="email"
-            label="Email"
-            name="email"
+            type="text"
+            label="Username"
+            name="username"
             size="small"
             variant="outlined"
             fullWidth
-            value={  jobseekerSignInDetails?.email}
+            value={jobseekerSignInDetails?.username}
             onChange={getSignInDetails}
           />
           <TextField
@@ -148,7 +147,7 @@ const JobseekerSignIn = () => {
             variant="outlined"
             fullWidth
             name="password"
-            value={  jobseekerSignInDetails?.password}
+            value={jobseekerSignInDetails?.password}
             onChange={getSignInDetails}
             required
             InputProps={{
@@ -184,4 +183,4 @@ const JobseekerSignIn = () => {
   );
 };
 
-export default  JobseekerSignIn;
+export default JobseekerSignIn;

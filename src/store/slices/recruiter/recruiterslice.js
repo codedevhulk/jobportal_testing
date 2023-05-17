@@ -34,6 +34,8 @@ export const recruiterSignUp = createAsyncThunk(
   "recruiterSignUp",
   async (recruiterSignUpDetails) => {
     try {
+      console.log("from signup component", recruiterSignUpDetails)
+
       const response = await fetch(signupApi, {
         method: "POST",
         headers: {

@@ -71,9 +71,9 @@ const JobseekerSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [jtoken] = useState(localStorage.getItem("jtoken"));
-  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({firstName:"",lastName:"",mobileNumber:"",email: "",address: "",passsword: ""});
+  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({ firstName: "", lastName: "", mobileNumber: "", email: "", address: "", password: "", address: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const [actionResponseMessage,setActionResponseMessage] = useState(null);
+  const [actionResponseMessage, setActionResponseMessage] = useState(null);
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
   };
@@ -83,21 +83,21 @@ const JobseekerSignUp = () => {
     const result = await dispatch(jobseekerSignUp(jobseekerSignUpDetails));
     // console.log("results ",result)    
     setActionResponseMessage(result.payload.message)
-   let token = localStorage.getItem("jtoken")
-    if(token){
+    let token = localStorage.getItem("jtoken")
+    if (token) {
       navigate("/jobseeker");
     }
-    
-    setTimeout(()=>{
-    setActionResponseMessage(null);
-  },3000)
+
+    setTimeout(() => {
+      setActionResponseMessage(null);
+    }, 3000)
 
   };
-  useEffect(()=>{
-    if(jtoken){
+  useEffect(() => {
+    if (jtoken) {
       navigate("/jobseeker")
     }
-  },[navigate,jtoken])
+  }, [navigate, jtoken])
 
   const getSigUpDetails = (e) => {
     setJobseekerSignUpDetails({
@@ -133,10 +133,21 @@ const JobseekerSignUp = () => {
       <SignUpFormContainer>
         <SignUpForm onSubmit={handleSignUp}>
           <Title>JobSeeker SignUp</Title>
-
           <TextField
             type="text"
-             
+
+            label="Username"
+            name="username"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={jobseekerSignUpDetails?.username}
+            onChange={getSigUpDetails}
+            required
+          />
+          <TextField
+            type="text"
+
             label="First Name"
             name="firstName"
             size="small"
@@ -148,7 +159,7 @@ const JobseekerSignUp = () => {
           />
           <TextField
             type="text"
-             
+
             label="Last Name"
             name="lastName"
             size="small"
@@ -160,7 +171,7 @@ const JobseekerSignUp = () => {
           />
           <TextField
             type="email"
-             
+
             label="Email"
             name="email"
             size="small"
@@ -173,7 +184,7 @@ const JobseekerSignUp = () => {
 
           <TextField
             type="text"
-             
+
             label="Mobile Number"
             name="mobileNumber"
             size="small"
@@ -186,7 +197,6 @@ const JobseekerSignUp = () => {
 
           <TextField
             type={showPassword ? "text" : "password"}
-             
             label="Password"
             size="small"
             variant="outlined"
@@ -207,7 +217,7 @@ const JobseekerSignUp = () => {
           />
           <TextField
             type="text"
-             
+
             label="Address"
             name="address"
             size="small"

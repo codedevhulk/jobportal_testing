@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom";
 
 
 import "./index.css";
-import { createBrowserRouter} from 'react-router-dom'
+import { createBrowserRouter } from 'react-router-dom'
 
 import HomePage from "./pages/HomePage";
 import AboutUs from "./pages/AboutUs";
@@ -32,6 +32,7 @@ import EditPostedJob from "./components/recruiterdashboard/EditPostedJob";
 import RejectedCandidatesList from "./components/recruiterdashboard/RejectedCandidatesList";
 import ShortListedCandidatesList from "./components/recruiterdashboard/ShortlistedCandidatesList";
 import ApplicantView from "./components/recruiterdashboard/ApplicantView";
+import JobSeekerSearchJobs from "./components/jobseekerdashboard/JobSeekerSearchJobs";
 
 
 
@@ -47,59 +48,60 @@ export const appRouter = createBrowserRouter([
       {
         path: "/recruiter",
         element: <RecruiterDashboardPage />,
-        children:[
+        children: [
           { path: "/recruiter/", element: <ApplicantsList /> },
           { path: "/recruiter/profile", element: <RecruiterProfileCard /> },
           { path: "/recruiter/profile/edit", element: <RecruiterProfileForm /> },
           { path: "/recruiter/applicants", element: <ApplicantsList /> },
           { path: "/recruiter/applicants/:id", element: <ApplicantView /> },
           { path: "/recruiter/postedjobs", element: <PostedJobsList /> },
-          { path: "/recruiter/postedjobs/edit/:id", element:<EditPostedJob/>},
+          { path: "/recruiter/postedjobs/edit/:id", element: <EditPostedJob /> },
           { path: "/recruiter/rejectedcandidates", element: <RejectedCandidatesList /> },
           { path: "/recruiter/shortlistedcandidates", element: <ShortListedCandidatesList /> },
           { path: "/recruiter/newjobpost", element: <JobPostingForm /> },
 
-          
+
         ]
       },
       {
         path: "/jobseeker",
         element: (
-          <JobSeekerDashboardPage/>           
+          <JobSeekerDashboardPage />
         ),
         children: [
-          { path: "/jobseeker/profile",element: <JobSeekerProfileCard /> },
-          { path: "/jobseeker/profile/update",element:<JobSeekerProfileForm />},
-          { path:"/jobseeker/appliedlist",element:<AppliedJobsList/> }      
+          { path: "/jobseeker", element: <JobSeekerSearchJobs /> },
+          { path: "/jobseeker/profile", element: <JobSeekerProfileCard /> },
+          { path: "/jobseeker/profile/update", element: <JobSeekerProfileForm /> },
+          { path: "/jobseeker/appliedlist", element: <AppliedJobsList /> }
         ]
-          
-          },
-        ],
-      },
 
-      {
-        path: "/jobseeker/jobdetails/:id",
-        element: <JobDetailsCard />,
-      },
-
-      {
-        path: "/recruiter/signin",
-        element: <RecruiterSignIn />,
-      },
-      {
-        path: "/recruiter/signup",
-        element: <RecruiterSignUp />,
-        errorElement: <ErrorPage />,
-      },
-      {
-        path: "/jobseeker/signup",
-        element: <JobSeekerSignUp />,
-      },
-      {
-        path: "/jobseeker/signin",
-        element: <JobSeekerSignIn />,
       },
     ],
+  },
+
+  {
+    path: "/jobseeker/jobdetails/:id",
+    element: <JobDetailsCard />,
+  },
+
+  {
+    path: "/recruiter/signin",
+    element: <RecruiterSignIn />,
+  },
+  {
+    path: "/recruiter/signup",
+    element: <RecruiterSignUp />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/jobseeker/signup",
+    element: <JobSeekerSignUp />,
+  },
+  {
+    path: "/jobseeker/signin",
+    element: <JobSeekerSignIn />,
+  },
+],
 
 );
 

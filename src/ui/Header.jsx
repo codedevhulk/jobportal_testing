@@ -9,7 +9,6 @@ const Header = ({ page }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSignOut = async () => {
-    console.log("hello signout");
     await dispatch(signout());
     const rtoken = localStorage.getItem("rtoken");
     const jtoken = localStorage.getItem("jtoken");
@@ -52,6 +51,14 @@ const Header = ({ page }) => {
         {page === "jobseeker" ? (
           <>
             {console.log("jobseeker header")}
+            <NavigationLink>
+              <Link
+                to="/jobseeker"
+                style={{ color: "inherit", textDecoration: "none" }}
+              >
+                Search Jobs
+              </Link>
+            </NavigationLink>
             <NavigationLink>
               <Link
                 to="/jobseeker/appliedlist"
