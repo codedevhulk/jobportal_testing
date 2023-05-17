@@ -46,6 +46,7 @@ export const jobseekerSignIn = createAsyncThunk(
 
 const initialState = {
   jobseeker: {
+    id: "",
     firstName: "",
     lastName: "",
     email: "",

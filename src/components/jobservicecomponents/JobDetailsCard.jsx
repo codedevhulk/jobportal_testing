@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { applyToJobAction } from "../../store/slices/jobserviceslice";
 
 // interface IJobInfoProps {
 //   jobInfo: {
@@ -52,15 +54,61 @@ const JobDetailsStyle = styled.div`
     }
   }
 `;
+const Button = styled.button`
+  
+`;
 
-const JobDetailsCard: React.FC = () => {
+const JobDetailsCard = () => {
+  const dispatch = useDispatch();
+  const [appliedResponseMessage, setAppliedResponseMessage] = useState(null);
   const { id: jobid } = useParams();
+  console.log(jobid)
+  const { id: jobseekerId } = useSelector(state => state.jobseekerApp.jobseeker)
+  const jobInfo = useSelector(state => state.jobserviceApp.jobs.filter(job => job.id === Number(jobid)))[0] || {
+    id: "",
+    jobTitle: "",
+    jobDescription: "",
+    location: "",
+    jobType: "",
+    experience: "",
+    salary: "",
+    qualifation: "",
+    vacancies: "",
+    recruiterId: "",
+    skillset: "",
+    companyName: ""
+  }
+  console.log(jobInfo)
   const navigate = useNavigate();
   const [jtoken, setJtoken] = useState(localStorage.getItem("jtoken"));
   const back = () => {
     navigate(-1);
   };
+
+  const onApply = async () => {
+    try {
+      const res = await dispatch(applyToJobAction({
+        jobseekerId,
+        jobid
+      }))
+      setAppliedResponseMessage(res.message)
+      setTimeout(() => {
+        setAppliedResponseMessage(null);
+      }, 2000);
+
+    } catch (error) {
+      setAppliedResponseMessage(error.message)
+      setTimeout(() => {
+        setAppliedResponseMessage(null);
+      }, 2000);
+
+    }
+
+  }
+
   useEffect(() => {
+    console.log(jobid)
+    console.log(jobInfo)
     if (jtoken) {
       navigate("/jobseeker");
       navigate(`jobdetails/${jobid}`);
@@ -69,24 +117,22 @@ const JobDetailsCard: React.FC = () => {
     }
   }, []);
 
-  const jobInfo = {
-    id: jobid,
-    jobTitle: "Full Stack",
-    companyName: "Persistent",
-    location: "hyderabad",
-    jobType: "full time",
-    jobDescription: "job description",
-    salary: "$6789",
-  };
+
+
   const {
-    id,
-    jobTitle,
-    companyName,
-    location,
-    jobType,
-    jobDescription,
-    salary,
+    jobTitle = "",
+    jobDescription = "",
+    location = "",
+    jobType = "",
+    experience = "",
+    salary = "",
+    qualifation = "",
+    vacancies = "",
+    recruiterId = "",
+    skillset = "",
+    companyName = ""
   } = jobInfo;
+
 
   return (
     <div>
@@ -116,6 +162,7 @@ const JobDetailsCard: React.FC = () => {
           <h6>Job Description</h6>
           <p>{jobDescription}</p>
         </div>
+        <Button type="button" onClick={onApply}>Apply</Button>
       </JobDetailsStyle>
     </div>
   );

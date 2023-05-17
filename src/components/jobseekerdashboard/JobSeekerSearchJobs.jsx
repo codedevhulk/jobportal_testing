@@ -1,12 +1,20 @@
 import SearchBarComponent from "../SearchBar"
-import JobsContainer from "../jobservicecomponents/JobsContainer"
+import JobsContainer from "../jobservicecomponents/JobsContainer";
+import styled from "styled-components";
+
+const SearchJobsContainer = styled.div`
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+`;
 
 const JobSeekerSearchJobs = () => {
     return (
-        <div>
+        <SearchJobsContainer>
             <SearchBarComponent />
             <JobsContainer />
-        </div>
+        </SearchJobsContainer>
     )
 }
 

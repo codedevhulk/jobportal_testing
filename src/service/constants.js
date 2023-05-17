@@ -13,3 +13,5 @@ export const viewAllApplicantsApi = "";
 export const rejectApplicantApi = "";
 export const approveApplicantApi = "";
 export const updateRecruiterProfileApi = "";
+export const appliedJobsByJobseekerApi = "http://localhost:8020/jobservice/jobseeker/applications/";
+export const applytojobApi = "http://localhost:8020/jobservice/jobseeker/apply/"

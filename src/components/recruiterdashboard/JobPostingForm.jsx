@@ -27,6 +27,19 @@ const PostNewJob = () => {
       setResponseMessage(null);
     }, 2000)
   };
+  //   {
+  //     "jobTitle":"Python full stack developer",-----
+  //      "jobDescription":"Expected to -----have knowledge on both frontend and backend technologies",
+  //       "location":"Hyderabad",------
+  //        "jobType":"Full type",--------
+  //         "experience":"2 years",-------
+  //          "salary":"10LPA",---------
+  //           "qualification":"Btech",---------
+  //            "vacancies":"30",---------
+  //            "recruiterId":"2",
+  //            "skillset":"react",----
+  //            "companyName":"Persistent"---
+  // }
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -73,6 +86,18 @@ const PostNewJob = () => {
         type="text"
         name="vacancies"
         placeholder="Vacancies"
+        onChange={handleInputChange}
+      />
+      <Input
+        type="text"
+        name="companyName"
+        placeholder="companyName"
+        onChange={handleInputChange}
+      />
+      <Input
+        type="text"
+        name="skillset"
+        placeholder="Skillset"
         onChange={handleInputChange}
       />
       <TextArea style={{ gridColumnStart: 1, gridColumnEnd: 3 }}
