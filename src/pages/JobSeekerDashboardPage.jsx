@@ -30,13 +30,15 @@ const JobSeekerDashboardPage = () => {
     setJtoken(jtoken);
     if (!jtoken) {
       navigate("/jobseeker/signin");
+    } else {
+
     }
   }, [jtoken]);
   return <div >
-  <Header page="jobseeker"/>
-  <JobSeekerContainer>
-    <Outlet/>
-  </JobSeekerContainer>
+    <Header page="jobseeker" />
+    <JobSeekerContainer>
+      <Outlet />
+    </JobSeekerContainer>
   </div>;
 };
 

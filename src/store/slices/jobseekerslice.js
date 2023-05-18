@@ -15,8 +15,6 @@ export const jobseekerSignUp = createAsyncThunk(
       });
       const result = await response.json();
       console.log("from jobseekersignup slice", result);
-      if (result.token)
-        localStorage.setItem("jtoken", JSON.stringify(result.token));
       return result;
     } catch (error) {
       return error;
@@ -84,13 +82,9 @@ const jobSeekerSlice = createSlice({
         state.loading = true;
       })
       .addCase(jobseekerSignIn.fulfilled, (state, action) => {
-        if (action.payload.status === 409) {
-          state.error = action.payload.message;
-        } else if (action.payload.status === 200) {
-          state.error = null;
-          state.jobseeker = { ...action.payload.data };
-          console.log("after fullfill", state.jobseeker);
-        }
+        state.error = null;
+        state.jobseeker = { ...action.payload };
+
       })
       .addCase(jobseekerSignIn.rejected, (state, action) => {
         state.error = action.payload.message;

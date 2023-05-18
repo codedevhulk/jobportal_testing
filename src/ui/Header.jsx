@@ -67,14 +67,15 @@ const Header = ({ page }) => {
                 Applied Jobs
               </Link>
             </NavigationLink>
-            <NavigationLink>
-              <Link
-                to="/jobseeker/profile"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
+
+            <Link
+              to="/jobseeker/profile"
+              style={{ color: "inherit", textDecoration: "none" }}
+            > <NavigationLink>
                 Profile
-              </Link>
-            </NavigationLink>
+              </NavigationLink>
+
+            </Link>
             <NavigationLink onClick={handleSignOut}>Sign out</NavigationLink>
           </>
         ) : null}
