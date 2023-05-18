@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { viewAllPostApi } from "../../service/constants"
+import { viewAllPostApi, jobApplicatonsOfJobseekerApi } from "../../service/constants"
 import { applyToJob } from "../../service/jobSeekerService";
+
 
 export const applyToJobAction = createAsyncThunk("applyToJobAction", async (jobApplied) => {
   try {

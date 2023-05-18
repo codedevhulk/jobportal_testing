@@ -3,21 +3,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
 import styled from "styled-components";
-import { signout } from "../store/slices/recruiter/recruiterslice";
+import { signout } from "../service/authService";
 
 const Header = ({ page }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const handleSignOut = async () => {
-    await dispatch(signout());
+    await signout()
     const rtoken = localStorage.getItem("rtoken");
+    // const recruiterId = localStorage.getItem("recruiterId")
     const jtoken = localStorage.getItem("jtoken");
+    const jobseekerId = localStorage.getItem("jobseekerId");
     if (rtoken) {
       localStorage.removeItem("rtoken");
       navigate("/recruiter/signin");
     }
-    if (jtoken) {
+    if (jtoken && jobseekerId) {
       localStorage.removeItem("jtoken");
+      localStorage.removeItem("jobseekerId")
       navigate("/jobseeker/signin");
     }
   };

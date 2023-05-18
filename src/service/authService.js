@@ -1,5 +1,18 @@
-import employeeLoginApi from "./constants";
-import jobSeekerLoginApi from "./constants";
+import { signinApi as employeeLoginApi } from "./constants";
+import { signinApi as jobSeekerLoginApi } from "./constants";
+import { signoutApi } from "./constants";
+
+
+export const signout = async () => {
+  try {
+    await fetch(signoutApi, { method: "POST" });
+    localStorage.removeItem("username")
+
+  } catch (error) {
+    return error;
+  }
+
+}
 
 export const login = async (email, password, role) => {
   try {

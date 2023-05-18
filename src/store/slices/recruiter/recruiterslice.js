@@ -6,9 +6,7 @@ import {
   signoutApi,
 } from "../../../service/constants";
 
-export const signout = createAsyncThunk("signout", async () => {
-  await fetch(signoutApi, { method: "POST" });
-});
+
 
 export const recruiterSignin = createAsyncThunk(
   "recruiterSignin",
