@@ -49,9 +49,11 @@ const initialState = {
     id: "",
     firstName: "",
     lastName: "",
+    username: "",
     email: "",
     mobileNumber: "",
     address: "",
+
   },
   loading: false,
   error: null,
@@ -87,6 +89,7 @@ const jobSeekerSlice = createSlice({
         } else if (action.payload.status === 200) {
           state.error = null;
           state.jobseeker = { ...action.payload.data };
+          console.log("after fullfill", state.jobseeker);
         }
       })
       .addCase(jobseekerSignIn.rejected, (state, action) => {

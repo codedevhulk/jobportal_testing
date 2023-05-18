@@ -71,7 +71,7 @@ const JobseekerSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [jtoken] = useState(localStorage.getItem("jtoken"));
-  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({ firstName: "", lastName: "", mobileNumber: "", email: "", address: "", password: "", address: "" });
+  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({ firstName: "", lastName: "", mobileNumber: "", email: "", password: "", address: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [actionResponseMessage, setActionResponseMessage] = useState(null);
   const togglePasswordVisibility = () => {
@@ -135,7 +135,6 @@ const JobseekerSignUp = () => {
           <Title>JobSeeker SignUp</Title>
           <TextField
             type="text"
-
             label="Username"
             name="username"
             size="small"
@@ -143,35 +142,10 @@ const JobseekerSignUp = () => {
             fullWidth
             value={jobseekerSignUpDetails?.username}
             onChange={getSigUpDetails}
-            required
-          />
-          <TextField
-            type="text"
+            required />
 
-            label="First Name"
-            name="firstName"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobseekerSignUpDetails?.firstName}
-            onChange={getSigUpDetails}
-            required
-          />
-          <TextField
-            type="text"
-
-            label="Last Name"
-            name="lastName"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobseekerSignUpDetails?.lastName}
-            onChange={getSigUpDetails}
-            required
-          />
           <TextField
             type="email"
-
             label="Email"
             name="email"
             size="small"
@@ -179,21 +153,7 @@ const JobseekerSignUp = () => {
             fullWidth
             value={jobseekerSignUpDetails?.email}
             onChange={getSigUpDetails}
-            required
-          />
-
-          <TextField
-            type="text"
-
-            label="Mobile Number"
-            name="mobileNumber"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobseekerSignUpDetails?.mobileNumber}
-            onChange={getSigUpDetails}
-            required
-          />
+            required />
 
           <TextField
             type={showPassword ? "text" : "password"}
@@ -215,17 +175,8 @@ const JobseekerSignUp = () => {
               ),
             }}
           />
-          <TextField
-            type="text"
 
-            label="Address"
-            name="address"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={jobseekerSignUpDetails?.address}
-            onChange={getSigUpDetails}
-          />
+
 
           <SignUpButton type="submit">Sign Up</SignUpButton>
           {actionResponseMessage && <div>{actionResponseMessage}</div>}
@@ -237,6 +188,7 @@ const JobseekerSignUp = () => {
           </span>
         </SignUpForm>
       </SignUpFormContainer>
+
     </>
   );
 };
