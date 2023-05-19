@@ -2,6 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { signinApi, signupApi } from "../../service/constants";
 import { getJobseekerProfileData, updateJobseekerProfile } from "../../service/jobSeekerService";
 import { jobApplicatonsOfJobseekerApi } from "../../service/constants"
+import JobDetailsCard from "../../components/jobservicecomponents/JobDetailsCard";
 
 //signup action
 export const jobseekerSignUp = createAsyncThunk(
@@ -51,7 +52,11 @@ export const jobseekerSignIn = createAsyncThunk(
 
 export const updateJobseekerProfileAction = createAsyncThunk("updateJobseekerProfileAction", async (jobseekerDetails) => {
   try {
-    const response = await updateJobseekerProfile(jobseekerDetails)
+    let username = localStorage.getItem("username")
+    const jobseekerDetail = { ...jobseekerDetails, username }
+    console.log("from component", jobseekerDetail)
+    const response = await updateJobseekerProfile(jobseekerDetail);
+    console.log("response update", response)
     return response;
   } catch (error) {
     return error;

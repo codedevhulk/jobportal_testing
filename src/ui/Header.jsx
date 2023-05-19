@@ -5,36 +5,6 @@ import MenuIcon from '@mui/icons-material/Menu';
 import styled from "styled-components";
 import { signout } from "../service/authService";
 
-const MenuList = styled.ul`
-   display:flex;
-   flex-direction:column;
-   list-style-type:none;
-    z-index:2;
-`;
-
-const MenuItem = styled.li`
-
-`;
-const Button = styled.button`
-box-sizing:border-box;
-
-`;
-
-const SmallMenuContainer = styled.div`
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    margin-top:75px;
-    box-sizing:border-box;
-    z-index:2;
-    
-   @media screen and (min-width:701px){
-    display:none;
- }
-
-`;
-
 
 const Header = ({ page }) => {
   const dispatch = useDispatch();
@@ -61,35 +31,6 @@ const Header = ({ page }) => {
           JOBPORTAL
         </Link>
       </Logo>
-      <SmallMenuContainer>
-        <Button><MenuIcon />
-          <MenuList active={page === "landing"}>
-            <MenuItem><Link
-              to="/aboutus"
-              style={{ color: "inherit", textDecoration: "none" }}
-            >
-              About Us
-            </Link></MenuItem>
-
-            <MenuItem><Link
-              to="/recruiter/signin"
-              style={{ color: "inherit", textDecoration: "none" }}
-            >
-              <NavigationLink>
-                Recruiter Signin
-              </NavigationLink>
-            </Link></MenuItem>
-            <MenuItem> <Link
-              to="/jobseeker/signin"
-              style={{ color: "inherit", textDecoration: "none" }}
-            >
-              <NavigationLink>
-                Jobseeker Signin
-              </NavigationLink>
-            </Link></MenuItem>
-          </MenuList>
-        </Button>
-      </SmallMenuContainer>
 
       <Navigation>
         <NavigationLink active={page === "landing"}>
