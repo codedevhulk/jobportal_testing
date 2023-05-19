@@ -1,9 +1,40 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-
+import MenuIcon from '@mui/icons-material/Menu';
 import styled from "styled-components";
 import { signout } from "../service/authService";
+
+const MenuList = styled.ul`
+   display:flex;
+   flex-direction:column;
+   list-style-type:none;
+    z-index:2;
+`;
+
+const MenuItem = styled.li`
+
+`;
+const Button = styled.button`
+box-sizing:border-box;
+
+`;
+
+const SmallMenuContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    margin-top:75px;
+    box-sizing:border-box;
+    z-index:2;
+    
+   @media screen and (min-width:701px){
+    display:none;
+ }
+
+`;
+
 
 const Header = ({ page }) => {
   const dispatch = useDispatch();
@@ -11,7 +42,6 @@ const Header = ({ page }) => {
   const handleSignOut = async () => {
     await signout()
     const rtoken = localStorage.getItem("rtoken");
-    // const recruiterId = localStorage.getItem("recruiterId")
     const jtoken = localStorage.getItem("jtoken");
     const jobseekerId = localStorage.getItem("jobseekerId");
     if (rtoken) {
@@ -31,6 +61,35 @@ const Header = ({ page }) => {
           JOBPORTAL
         </Link>
       </Logo>
+      <SmallMenuContainer>
+        <Button><MenuIcon />
+          <MenuList active={page === "landing"}>
+            <MenuItem><Link
+              to="/aboutus"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              About Us
+            </Link></MenuItem>
+
+            <MenuItem><Link
+              to="/recruiter/signin"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <NavigationLink>
+                Recruiter Signin
+              </NavigationLink>
+            </Link></MenuItem>
+            <MenuItem> <Link
+              to="/jobseeker/signin"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <NavigationLink>
+                Jobseeker Signin
+              </NavigationLink>
+            </Link></MenuItem>
+          </MenuList>
+        </Button>
+      </SmallMenuContainer>
 
       <Navigation>
         <NavigationLink active={page === "landing"}>
@@ -54,23 +113,23 @@ const Header = ({ page }) => {
         {page === "jobseeker" ? (
           <>
             {console.log("jobseeker header")}
-            <NavigationLink>
-              <Link
-                to="/jobseeker"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                Search Jobs
-              </Link>
-            </NavigationLink>
-            <NavigationLink>
-              <Link
-                to="/jobseeker/appliedlist"
-                style={{ color: "inherit", textDecoration: "none" }}
-              >
-                Applied Jobs
-              </Link>
-            </NavigationLink>
 
+            <Link
+              to="/jobseeker"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <NavigationLink>
+                Search Jobs
+              </NavigationLink>
+            </Link>
+            <Link
+              to="/jobseeker/appliedlist"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              <NavigationLink>
+                Applied Jobs
+              </NavigationLink>
+            </Link>
             <Link
               to="/jobseeker/profile"
               style={{ color: "inherit", textDecoration: "none" }}
@@ -103,7 +162,7 @@ const Header = ({ page }) => {
           </>
         ) : null}
       </Navigation>
-    </HeaderContainer>
+    </HeaderContainer >
   );
 };
 
@@ -171,6 +230,7 @@ const NavigationLink = styled.button`
     color: #2c5777;
   }
 `;
+
 
 const HeaderContainer = styled.div`
   display: flex;
