@@ -54,17 +54,19 @@ const JobDetailsStyle = styled.div`
     }
   }
 `;
-const Button = styled.button`
-  
-`;
+const Button = styled.button``;
 
 const JobDetailsCard = () => {
   const dispatch = useDispatch();
   const [appliedResponseMessage, setAppliedResponseMessage] = useState(null);
   const { id: jobid } = useParams();
-  console.log(jobid)
-  const { id: jobseekerId } = useSelector(state => state.jobseekerApp.jobseeker)
-  const jobInfo = useSelector(state => state.jobserviceApp.jobs.filter(job => job.id === Number(jobid)))[0] || {
+  console.log(jobid);
+  const { id: jobseekerId } = useSelector(
+    (state) => state.jobseekerApp.jobseeker
+  );
+  const jobInfo = useSelector((state) =>
+    state.jobserviceApp.jobs.filter((job) => job.id === Number(jobid))
+  )[0] || {
     id: "",
     jobTitle: "",
     jobDescription: "",
@@ -72,13 +74,13 @@ const JobDetailsCard = () => {
     jobType: "",
     experience: "",
     salary: "",
-    qualifation: "",
+    qualification: "",
     vacancies: "",
     recruiterId: "",
-    skillset: "",
-    companyName: ""
-  }
-  console.log(jobInfo)
+    skillSet: "",
+    companyName: "",
+  };
+  console.log(jobInfo);
   const navigate = useNavigate();
   const [jtoken, setJtoken] = useState(localStorage.getItem("jtoken"));
   const back = () => {
@@ -87,28 +89,27 @@ const JobDetailsCard = () => {
 
   const onApply = async () => {
     try {
-      const res = await dispatch(applyToJobAction({
-        jobseekerId,
-        jobid
-      }))
-      setAppliedResponseMessage(res.message)
+      const res = await dispatch(
+        applyToJobAction({
+          jobseekerId,
+          jobid,
+        })
+      );
+      setAppliedResponseMessage(res.message);
       setTimeout(() => {
         setAppliedResponseMessage(null);
       }, 2000);
-
     } catch (error) {
-      setAppliedResponseMessage(error.message)
+      setAppliedResponseMessage(error.message);
       setTimeout(() => {
         setAppliedResponseMessage(null);
       }, 2000);
-
     }
-
-  }
+  };
 
   useEffect(() => {
-    console.log(jobid)
-    console.log(jobInfo)
+    console.log(jobid);
+    console.log(jobInfo);
     if (jtoken) {
       navigate("/jobseeker");
       navigate(`jobdetails/${jobid}`);
@@ -116,8 +117,6 @@ const JobDetailsCard = () => {
       navigate("/jobseeker/signin");
     }
   }, []);
-
-
 
   const {
     jobTitle = "",
@@ -130,9 +129,8 @@ const JobDetailsCard = () => {
     vacancies = "",
     recruiterId = "",
     skillset = "",
-    companyName = ""
+    companyName = "",
   } = jobInfo;
-
 
   return (
     <div>
@@ -162,7 +160,9 @@ const JobDetailsCard = () => {
           <h6>Job Description</h6>
           <p>{jobDescription}</p>
         </div>
-        <Button type="button" onClick={onApply}>Apply</Button>
+        <Button type="button" onClick={onApply}>
+          Apply
+        </Button>
       </JobDetailsStyle>
     </div>
   );

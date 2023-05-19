@@ -21,7 +21,9 @@ const ProfileContainer = styled.div`
 
 */
 const JobSeekerProfileCard = () => {
-  const { username, email } = useSelector(state => state.jobseekerApp.jobseeker)
+  const { username, email } = useSelector(
+    (state) => state.jobseekerApp.jobseeker
+  );
 
   return (
     <div>
