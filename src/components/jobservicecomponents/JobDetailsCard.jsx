@@ -68,7 +68,7 @@ const JobDetailsCard = () => {
     state.jobserviceApp.jobs.filter((job) => job.id === Number(jobid))
   )[0] || {
     id: "",
-    jobTitle: "",
+    jobTitle: " ",
     jobDescription: "",
     location: "",
     jobType: "",
