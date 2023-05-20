@@ -130,25 +130,32 @@ const Header = ({ page }) => {
             {!activeSmallMenu ? <MenuIcon /> : <CloseIcon />}
             <div className="menu-items">
               <div>
-                <MenuItem
-                  active={activeSmallSubMenu === true}
-                  onClick={() => setActiveSmallSubMenu(!activeSmallSubMenu)}
-                >
-                  <span className="menu-item">About Us</span>
-                </MenuItem>
+                <Link to="/aboutus">
+                  <MenuItem
+                    active={activeSmallSubMenu === true}
+                    onClick={() => setActiveSmallSubMenu(!activeSmallSubMenu)}
+                  >
+                    <span className="menu-item">About Us</span>
+                  </MenuItem>
+                </Link>
                 <hr />
-                <MenuItem>
-                  <span className="menu-item">Search Jobs</span>
-                </MenuItem>
+                <Link to="/jobseeker">
+                  <MenuItem>
+                    <span className="menu-item">Search Jobs</span>
+                  </MenuItem>
+                </Link>
                 <hr />
-
-                <MenuItem>
-                  <span className="menu-item">Applied jobs</span>
-                </MenuItem>
-                <MenuItem>
-                  <span className="menu-item">profile</span>
-                </MenuItem>
-                <MenuItem>
+                <Link to="/jobseeker/appliedlist">
+                  <MenuItem>
+                    <span className="menu-item">Applied jobs</span>
+                  </MenuItem>
+                </Link>
+                <Link to="/jobseeker/profile">
+                  <MenuItem>
+                    <span className="menu-item">profile</span>
+                  </MenuItem>
+                </Link>
+                <MenuItem onClick={handleSignOut}>
                   <span className="menu-item">signout</span>
                 </MenuItem>
               </div>
@@ -165,28 +172,38 @@ const Header = ({ page }) => {
             {!activeSmallMenu ? <MenuIcon /> : <CloseIcon />}
             <div className="menu-items">
               <div>
-                <MenuItem
-                  active={activeSmallSubMenu === true}
-                  onClick={() => setActiveSmallSubMenu(!activeSmallSubMenu)}
-                >
-                  <span className="menu-item">About Us</span>
-                </MenuItem>
+                <Link to="/aboutus">
+                  <MenuItem
+                    active={activeSmallSubMenu === true}
+                    onClick={() => setActiveSmallSubMenu(!activeSmallSubMenu)}
+                  >
+                    <span className="menu-item">About Us</span>
+                  </MenuItem>
+                </Link>
                 <hr />
-                <MenuItem>
-                  <span className="menu-item">Applicants</span>
-                </MenuItem>
+                <Link to="/recruiter/applicants">
+                  <MenuItem>
+                    <span className="menu-item">Applicants</span>
+                  </MenuItem>
+                </Link>
                 <hr />
+                <Link to="/recruiter/newjobpost">
+                  <MenuItem>
+                    <span className="menu-item">Post New Job</span>
+                  </MenuItem>
+                </Link>
+                <Link to="/recruiter/postedjobs">
+                  <MenuItem>
+                    <span className="menu-item">Posted Jobs</span>
+                  </MenuItem>
+                </Link>
+                <Link to="/recruiter/profile">
+                  <MenuItem>
+                    <span className="menu-item">Profile</span>
+                  </MenuItem>
+                </Link>
 
-                <MenuItem>
-                  <span className="menu-item">Post New Job</span>
-                </MenuItem>
-                <MenuItem>
-                  <span className="menu-item">Posted Jobs</span>
-                </MenuItem>
-                <MenuItem>
-                  <span className="menu-item">Profile</span>
-                </MenuItem>
-                <MenuItem>
+                <MenuItem onClick={handleSignOut}>
                   <span className="menu-item">Signout</span>
                 </MenuItem>
               </div>
