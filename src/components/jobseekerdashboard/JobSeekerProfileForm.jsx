@@ -1,11 +1,10 @@
 import { useState, useEffect } from 'react'
-import JobDetailsCard from '../jobservicecomponents/JobDetailsCard';
+import axios from "axios";
 
 const Datacheck = () => {
     const [jobseekerDetail, setjobseekerDetails] = useState({
         email: "abhishek@gmail.com",
-        username: "guestlord",
-        password: "Rajesh@789",
+        username: "josh",
         firstName: "abhishek",
         lastName: "Kumar",
         mobileNumber: "8099099004",
@@ -13,21 +12,39 @@ const Datacheck = () => {
         skillSet: "Java, Springboot, React",
         experience: "1 Year",
         summary: "Hardworking",
-        address: "Gachibowli, Hydokook"
+        address: "Gachibowli, Hydokbdciediniiniaaaaa"
     });
 
-    const updateProfile = async (x) => {
-        try {
-            console.log("update profile component", JSON.stringify(x));
-            const response = await fetch("http://localhost:7672/jobseeker/updateprofile", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(x) })
-            const res = response.json();
-            console.log("update profile from response", res)
-        } catch (error) { console.log("updateprofile error", error) }
+    const updateProfile = (x) => {
+
+        console.log("update profile component", JSON.stringify(x));
+        axios.post("http://localhost:7672/jobseeker/updateprofile",
+            {
+                email: "abhishek@gmail.com",
+                username: "josh",
+                firstName: "abhishek",
+                lastName: "Kumar",
+                mobileNumber: "8099099004",
+                qualification: "Btech",
+                skillSet: "Java, Springboot, React",
+                experience: "1 Year",
+                summary: "Hardworking",
+                address: "Gachibowli, Hydokbdciediniinizz"
+            }).then((res) => { console.log(res) }).catch((error) => { console.log("Error", error) });
+
+
+
     }
 
     const getProfile = async () => {
-        const response = await fetch("http://localhost:7672/jobseeker/lordguest");
-        const data = response.json();
+        const response = await fetch("http://localhost:7672/jobseeker/josh", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
+        const data = await response.data;
+        setjobseekerDetails(data)
         console.log("getProfile from data", data)
         return data;
     }
@@ -37,8 +54,8 @@ const Datacheck = () => {
     useEffect(() => {
         setTimeout(() => {
             updateProfile(jobseekerDetail)
-            const jobseeker = getProfile();
-            setjobseekerDetails(jobseeker)
+            getProfile();
+
         }, 5000);
     }, [])
     return (
@@ -51,3 +68,4 @@ const Datacheck = () => {
 }
 
 export default Datacheck
+

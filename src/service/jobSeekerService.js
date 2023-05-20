@@ -14,15 +14,19 @@ export const applyToJob = async (jobApplied) => {
 export const updateJobseekerProfile = async (jobseekerDetails) => {
     try {
         const response = await fetch(updateJobseekerProfileApi, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(jobseekerDetails) })
-        return response;
+        const data = response.json();
+        return data;
     } catch (error) { return error }
 }
 
 
-export const getJobseekerProfileData = async (username) => {
+export const getJobseekerProfileData = async (y) => {
     try {
-        const response = await fetch(`${getJobseekerProfileApi}${username}`)
-        return response;
+        const url = `${getJobseekerProfileApi}${y}`
+        console.log("actual", url)
+        const response = await fetch(url)
+        const data = response.json();
+        return data;
     } catch (error) { return error }
 }
 
