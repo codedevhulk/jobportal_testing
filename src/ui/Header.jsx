@@ -2,14 +2,14 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 import styled from "styled-components";
 import { signout } from "../service/authService";
 
 const SmallMenuContainer = styled.nav`
   display: block;
   padding: 10px;
-  background: ${(props) => (props.active ? "#ee9c4d" : "inherit")};
-  padding: ${(props) => (props.active ? "10px" : "0")};
+  background: ${(props) => (props.active ? "#98c1d9" : "inherit")};
   padding-left: ${(props) => (props.active ? "144px" : "0")};
   @media screen and (min-width: 700px) {
     display: none;
@@ -19,35 +19,45 @@ const SmallMenuContainer = styled.nav`
     display: ${(props) => (props.active ? "block" : "none")};
     position: ${(props) => (props.active ? "absolute" : "static")};
     right: ${(props) => (props.active ? "20px" : "0")};
-    background: ${(props) => (props.active ? "#ee9c4d" : "inherit")};
+    background: ${(props) => (props.active ? "#98c1d9" : "inherit")};
     padding: ${(props) => (props.active ? "20px" : "0")};
   }
   .menu-item {
     display: block;
     padding: 10px;
-  }
-  &:hover {
     background: #ee6c4d;
-    padding: 10px;
-    padding-left: 144px;
+    cursor: pointer;
+    background-color: #ee6c4d;
+    border-radius: 7px;
+    border: 1px solid #7aa7c7;
+    box-shadow: rgba(255, 255, 255, 0.7) 0 1px 0 0 inset;
+    box-sizing: border-box;
+    color: #e0fbfc;
+    cursor: pointer;
+    display: inline-block;
+    font-family: -apple-system, system-ui, "Segoe UI", "Liberation Sans",
+      sans-serif;
+    font-size: 13px;
+    font-weight: 400;
+    line-height: 1.15385;
+    margin: 0;
+    outline: none;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    vertical-align: baseline;
+    white-space: nowrap;
+    transition: all 300ms ease-in;
+    width: 100%;
   }
-  &:hover .menu-items {
-    display: block;
-    position: absolute;
-    right: 20px;
-    background: #ee6c4d;
-    padding: 20px;
-  }
-  &:hover .menu-items .menu-item {
-    display: block;
-    padding: 10px;
-  }
-  &:hover .menu-items .menu-item:hover {
-    background: #7aa7c7;
+  .menu-item:hover {
+    background-color: #b3d3ea;
+    color: #2c5777;
+    touch-action: manipulation;
   }
 `;
 const MenuItem = styled.span`
-  background: ${(props) => (props.active ? "#7aa7c7" : "inherit")};
+  background: ${(props) => (props.active ? "#e0fbfc" : "inherit")};
 `;
 
 const Header = ({ page }) => {
@@ -82,7 +92,42 @@ const Header = ({ page }) => {
             active={activeSmallMenu === true}
             onClick={() => setActiveSmallMenu(!activeSmallMenu)}
           >
-            <MenuIcon />
+            {!activeSmallMenu ? <MenuIcon /> : <CloseIcon />}
+            <div className="menu-items">
+              <div>
+                <Link to="/aboutus">
+                  <MenuItem
+                    active={activeSmallSubMenu === true}
+                    onClick={() => setActiveSmallSubMenu(!activeSmallSubMenu)}
+                  >
+                    <span className="menu-item">About Us</span>
+                  </MenuItem>
+                </Link>
+
+                <hr />
+                <Link to="/recruiter/signin">
+                  <MenuItem>
+                    <span className="menu-item">Recruiter Signin</span>
+                  </MenuItem>
+                </Link>
+                <hr />
+                <Link to="/jobseeker/signin">
+                  <MenuItem>
+                    <span className="menu-item">Jobseeker Signin</span>
+                  </MenuItem>
+                </Link>
+              </div>
+            </div>
+          </SmallMenuContainer>
+        </>
+      ) : null}
+      {page === "jobseeker" ? (
+        <>
+          <SmallMenuContainer
+            active={activeSmallMenu === true}
+            onClick={() => setActiveSmallMenu(!activeSmallMenu)}
+          >
+            {!activeSmallMenu ? <MenuIcon /> : <CloseIcon />}
             <div className="menu-items">
               <div>
                 <MenuItem
@@ -93,12 +138,56 @@ const Header = ({ page }) => {
                 </MenuItem>
                 <hr />
                 <MenuItem>
-                  <span className="menu-item">Recruiter Signin</span>
+                  <span className="menu-item">Search Jobs</span>
                 </MenuItem>
                 <hr />
 
                 <MenuItem>
-                  <span className="menu-item">Jobseeker Signin</span>
+                  <span className="menu-item">Applied jobs</span>
+                </MenuItem>
+                <MenuItem>
+                  <span className="menu-item">profile</span>
+                </MenuItem>
+                <MenuItem>
+                  <span className="menu-item">signout</span>
+                </MenuItem>
+              </div>
+            </div>
+          </SmallMenuContainer>
+        </>
+      ) : null}
+      {page === "employer" ? (
+        <>
+          <SmallMenuContainer
+            active={activeSmallMenu === true}
+            onClick={() => setActiveSmallMenu(!activeSmallMenu)}
+          >
+            {!activeSmallMenu ? <MenuIcon /> : <CloseIcon />}
+            <div className="menu-items">
+              <div>
+                <MenuItem
+                  active={activeSmallSubMenu === true}
+                  onClick={() => setActiveSmallSubMenu(!activeSmallSubMenu)}
+                >
+                  <span className="menu-item">About Us</span>
+                </MenuItem>
+                <hr />
+                <MenuItem>
+                  <span className="menu-item">Applicants</span>
+                </MenuItem>
+                <hr />
+
+                <MenuItem>
+                  <span className="menu-item">Post New Job</span>
+                </MenuItem>
+                <MenuItem>
+                  <span className="menu-item">Posted Jobs</span>
+                </MenuItem>
+                <MenuItem>
+                  <span className="menu-item">Profile</span>
+                </MenuItem>
+                <MenuItem>
+                  <span className="menu-item">Signout</span>
                 </MenuItem>
               </div>
             </div>
