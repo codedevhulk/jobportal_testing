@@ -1,6 +1,7 @@
-import { useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
-// import Header from "../../ui/Header";
+import { getJobseekerProfileAction, updateJobseekerProfileAction } from "../../store/slices/jobseekerslice"
 import styled from "styled-components";
 
 const ProfileContainer = styled.div`
@@ -21,23 +22,31 @@ const ProfileContainer = styled.div`
 
 */
 const JobSeekerProfileCard = () => {
-  const { username, email } = useSelector(
-    (state) => state.jobseekerApp.jobseeker
+  const dispatch = useDispatch();
+  const { jobseeker } = useSelector(
+    (state) => state.jobseekerApp
   );
+
+  const getProfile = async () => {
+    await dispatch(getJobseekerProfileAction())
+
+
+
+  }
+
+  useEffect(() => {
+    getProfile();
+  }, [])
 
   return (
     <div>
       <ProfileContainer>
         <div>
           <div>
-            <div>
-              <p>username : {username}</p>
-              <p>email : {email}</p>
-            </div>
-            <div></div>
-            <div></div>
-            <div></div>
-            <div></div>
+            <ul>
+              {jobseeker && console.log(jobseeker)}
+              {jobseeker && Array.isArray(Object.values(jobseeker)) ? Object.values(jobseeker).map(seeker => <li>{seeker}</li>) : null}
+            </ul>
           </div>
         </div>
         <Link to="/jobseeker/profile/update">edit</Link>

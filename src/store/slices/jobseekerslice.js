@@ -55,11 +55,9 @@ export const updateJobseekerProfileAction = createAsyncThunk(
   "updateJobseekerProfileAction",
   async (jobseekerDetails) => {
     try {
-      let username = localStorage.getItem("username");
-      const jobseekerDetail = { ...jobseekerDetails, username };
-      console.log("from component", jobseekerDetail);
+      let userName = localStorage.getItem("username");
+      const jobseekerDetail = { ...jobseekerDetails, userName };
       const response = await updateJobseekerProfile(jobseekerDetail);
-      console.log("response update", response);
       return response;
     } catch (error) {
       return error;
@@ -81,7 +79,19 @@ export const getJobseekerProfileAction = createAsyncThunk(
 export const jobApplicatonsOfJobseekerAction = createAsyncThunk(
   "jobApplicationsOfJobseeker",
   async () => {
-    const response = await fetch(jobApplicatonsOfJobseekerApi);
+    try {
+      const id = localStorage.getItem("jobseekerId")
+      const url = `${jobApplicatonsOfJobseekerApi}${id}`;
+      console.log(url)
+      const response = await fetch(url);
+      const data = response.json();
+      console.log(data)
+      return data;
+
+    } catch (error) {
+      return error;
+    }
+
   }
 );
 
@@ -164,7 +174,21 @@ const jobSeekerSlice = createSlice({
       .addCase(getJobseekerProfileAction.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
-      });
+      })
+      .addCase(jobApplicatonsOfJobseekerAction.pending, (state) => {
+        state.loading = false;
+      })
+      .addCase(jobApplicatonsOfJobseekerAction.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log("state.application", state.applications);
+        state.applications = action.payload;
+
+        console.log("action.payload", action.payload)
+      })
+      .addCase(jobApplicatonsOfJobseekerAction.rejected, (state, action) => {
+        state.loading = false;
+        console.log(action.payload)
+      })
   },
 });
 

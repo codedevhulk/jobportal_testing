@@ -5,8 +5,9 @@ import { applyToJob } from "../../service/jobSeekerService";
 
 export const applyToJobAction = createAsyncThunk("applyToJobAction", async (jobApplied) => {
   try {
+    console.log("from jobdetail component", jobApplied);
     const response = await applyToJob(jobApplied);
-    return response.json();
+    return response
   } catch (error) {
     return error;
   }
@@ -29,7 +30,6 @@ export const getAllJobs = createAsyncThunk("getAllJobs", async () => {
 
 const initialState = {
   jobs: [],
-  applications: [],
   loading: false,
   error: null,
 };

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { applyToJobAction } from "../../store/slices/jobserviceslice";
-
+import { getJobseekerProfileAction } from "../../store/slices/jobseekerslice";
 // interface IJobInfoProps {
 //   jobInfo: {
 //     id: string;
@@ -61,9 +61,7 @@ const JobDetailsCard = () => {
   const [appliedResponseMessage, setAppliedResponseMessage] = useState(null);
   const { id: jobid } = useParams();
   console.log(jobid);
-  const { id: jobseekerId } = useSelector(
-    (state) => state.jobseekerApp.jobseeker
-  );
+
   const jobInfo = useSelector((state) =>
     state.jobserviceApp.jobs.filter((job) => job.id === Number(jobid))
   )[0] || {
@@ -89,21 +87,27 @@ const JobDetailsCard = () => {
 
   const onApply = async () => {
     try {
-      const res = await dispatch(
-        applyToJobAction({
-          jobseekerId,
-          jobid,
-        })
-      );
-      setAppliedResponseMessage(res.message);
+      const jobseekerId = localStorage.getItem("jobseekerId");
+      // const userdetailsRes = await dispatch(getJobseekerProfileAction());
+      // console.log("userdetailsRes", userdetailsRes)
+      // if (userdetailsRes?.firstName === "" && userdetailsRes?.qualification === "") {
+      //   setAppliedResponseMessage("Update your profile first");
+      //   setTimeout(() => {
+      //     setAppliedResponseMessage(null)
+      //   }, 3000)
+      //   return;
+      // }
+      const response = await dispatch(applyToJobAction({ jobSeekerId: jobseekerId, jobId: jobid }));
+      // console.log("applytoaction", response)
+      setAppliedResponseMessage(response.payload.error)
       setTimeout(() => {
         setAppliedResponseMessage(null);
-      }, 2000);
+      }, 3000);
     } catch (error) {
-      setAppliedResponseMessage(error.message);
+      setAppliedResponseMessage("some error");
       setTimeout(() => {
         setAppliedResponseMessage(null);
-      }, 2000);
+      }, 3000);
     }
   };
 
@@ -116,6 +120,7 @@ const JobDetailsCard = () => {
     } else {
       navigate("/jobseeker/signin");
     }
+
   }, []);
 
   const {
@@ -163,6 +168,7 @@ const JobDetailsCard = () => {
         <Button type="button" onClick={onApply}>
           Apply
         </Button>
+        {appliedResponseMessage && <p>{appliedResponseMessage}</p>}
       </JobDetailsStyle>
     </div>
   );

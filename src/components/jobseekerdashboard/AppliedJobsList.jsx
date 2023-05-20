@@ -20,9 +20,7 @@ const AppliedJobsList = () => {
   const dispatch = useDispatch();
   const { applications } = useSelector(state => state.jobseekerApp)
   const dispatchfc = async () => {
-    const jobseekerId = localStorage.getItem("jobseekerId")
-    await dispatch(jobApplicatonsOfJobseekerAction(jobseekerId))
-    console.log(applications)
+    await dispatch(jobApplicatonsOfJobseekerAction())
   }
   const onApply = () => ""
   useEffect(() => {

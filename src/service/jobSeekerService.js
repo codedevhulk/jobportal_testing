@@ -5,7 +5,9 @@ import { getJobseekerProfileApi } from "./constants";
 export const applyToJob = async (jobApplied) => {
     try {
         const response = await fetch(applytojobApi, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(jobApplied) })
-
+        const data = response.json();
+        console.log("response from jobapplied", data)
+        return data;
     } catch (error) {
         return error
     }
@@ -13,8 +15,11 @@ export const applyToJob = async (jobApplied) => {
 
 export const updateJobseekerProfile = async (jobseekerDetails) => {
     try {
-        const response = await fetch(updateJobseekerProfileApi, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(jobseekerDetails) })
+        console.log("data from component", jobseekerDetails)
+        const response = await fetch(updateJobseekerProfileApi, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(jobseekerDetails) })
         const data = response.json();
+        console.log("data from response", data);
+        localStorage.setItem("jobseekerId", data.id)
         return data;
     } catch (error) { return error }
 }
