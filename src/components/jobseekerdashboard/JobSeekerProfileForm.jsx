@@ -20,10 +20,10 @@ const Datacheck = () => {
         console.log("update profile component", JSON.stringify(x));
         axios.post("http://localhost:7672/jobseeker/updateprofile",
             {
-                email: "abhishek@gmail.com",
-                username: "josh",
-                firstName: "abhishek",
-                lastName: "Kumar",
+                email: "ravindra@gmail.com",
+                userName: "ravindra",
+                firstName: "ravindra",
+                lastName: "Samboo",
                 mobileNumber: "8099099004",
                 qualification: "Btech",
                 skillSet: "Java, Springboot, React",
