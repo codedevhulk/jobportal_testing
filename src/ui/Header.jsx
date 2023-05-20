@@ -1,16 +1,61 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import MenuIcon from '@mui/icons-material/Menu';
+import MenuIcon from "@mui/icons-material/Menu";
 import styled from "styled-components";
 import { signout } from "../service/authService";
 
+const SmallMenuContainer = styled.nav`
+  display: block;
+  padding: 10px;
+  background: ${(props) => (props.active ? "#ee9c4d" : "inherit")};
+  padding: ${(props) => (props.active ? "10px" : "0")};
+  padding-left: ${(props) => (props.active ? "144px" : "0")};
+  @media screen and (min-width: 700px) {
+    display: none;
+  }
+  .menu-items {
+    display: none;
+    display: ${(props) => (props.active ? "block" : "none")};
+    position: ${(props) => (props.active ? "absolute" : "static")};
+    right: ${(props) => (props.active ? "20px" : "0")};
+    background: ${(props) => (props.active ? "#ee9c4d" : "inherit")};
+    padding: ${(props) => (props.active ? "20px" : "0")};
+  }
+  .menu-item {
+    display: block;
+    padding: 10px;
+  }
+  &:hover {
+    background: #ee6c4d;
+    padding: 10px;
+    padding-left: 144px;
+  }
+  &:hover .menu-items {
+    display: block;
+    position: absolute;
+    right: 20px;
+    background: #ee6c4d;
+    padding: 20px;
+  }
+  &:hover .menu-items .menu-item {
+    display: block;
+    padding: 10px;
+  }
+  &:hover .menu-items .menu-item:hover {
+    background: #7aa7c7;
+  }
+`;
+const MenuItem = styled.span`
+  background: ${(props) => (props.active ? "#7aa7c7" : "inherit")};
+`;
 
 const Header = ({ page }) => {
-  const dispatch = useDispatch();
+  const [activeSmallMenu, setActiveSmallMenu] = useState(false);
+  const [activeSmallSubMenu, setActiveSmallSubMenu] = useState(false);
   const navigate = useNavigate();
   const handleSignOut = async () => {
-    await signout()
+    await signout();
     const rtoken = localStorage.getItem("rtoken");
     const jtoken = localStorage.getItem("jtoken");
     const jobseekerId = localStorage.getItem("jobseekerId");
@@ -20,7 +65,7 @@ const Header = ({ page }) => {
     }
     if (jtoken && jobseekerId) {
       localStorage.removeItem("jtoken");
-      localStorage.removeItem("jobseekerId")
+      localStorage.removeItem("jobseekerId");
       navigate("/jobseeker/signin");
     }
   };
@@ -31,7 +76,35 @@ const Header = ({ page }) => {
           JOBPORTAL
         </Link>
       </Logo>
+      {page === "landing" ? (
+        <>
+          <SmallMenuContainer
+            active={activeSmallMenu === true}
+            onClick={() => setActiveSmallMenu(!activeSmallMenu)}
+          >
+            <MenuIcon />
+            <div className="menu-items">
+              <div>
+                <MenuItem
+                  active={activeSmallSubMenu === true}
+                  onClick={() => setActiveSmallSubMenu(!activeSmallSubMenu)}
+                >
+                  <span className="menu-item">About Us</span>
+                </MenuItem>
+                <hr />
+                <MenuItem>
+                  <span className="menu-item">Recruiter Signin</span>
+                </MenuItem>
+                <hr />
 
+                <MenuItem>
+                  <span className="menu-item">Jobseeker Signin</span>
+                </MenuItem>
+              </div>
+            </div>
+          </SmallMenuContainer>
+        </>
+      ) : null}
       <Navigation>
         <NavigationLink active={page === "landing"}>
           <Link
@@ -53,31 +126,23 @@ const Header = ({ page }) => {
         ) : null}
         {page === "jobseeker" ? (
           <>
-            {console.log("jobseeker header")}
-
             <Link
               to="/jobseeker"
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              <NavigationLink>
-                Search Jobs
-              </NavigationLink>
+              <NavigationLink>Search Jobs</NavigationLink>
             </Link>
             <Link
               to="/jobseeker/appliedlist"
               style={{ color: "inherit", textDecoration: "none" }}
             >
-              <NavigationLink>
-                Applied Jobs
-              </NavigationLink>
+              <NavigationLink>Applied Jobs</NavigationLink>
             </Link>
             <Link
               to="/jobseeker/profile"
               style={{ color: "inherit", textDecoration: "none" }}
-            > <NavigationLink>
-                Profile
-              </NavigationLink>
-
+            >
+              <NavigationLink>Profile</NavigationLink>
             </Link>
             <NavigationLink onClick={handleSignOut}>Sign out</NavigationLink>
           </>
@@ -103,7 +168,7 @@ const Header = ({ page }) => {
           </>
         ) : null}
       </Navigation>
-    </HeaderContainer >
+    </HeaderContainer>
   );
 };
 
@@ -172,7 +237,6 @@ const NavigationLink = styled.button`
   }
 `;
 
-
 const HeaderContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -182,7 +246,6 @@ const HeaderContainer = styled.div`
   border-bottom: 1px solid 98c1d8;
   height: 60px;
   padding: 20px;
-  overflow: hidden;
   position: relative;
   box-sizing: border-box;
   box-shadow: rgba(238, 108, 77, 0.25) 0px 50px 100px -20px,

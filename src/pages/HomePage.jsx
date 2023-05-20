@@ -5,22 +5,16 @@ import AdContent from "../ui/AdContent";
 import JobsContainer from "../components/jobservicecomponents/JobsContainer";
 import SearchBarComponent from "../components/SearchBar";
 
-
-
 const HomePageContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content:center;
+  justify-content: center;
   background-color: #e0fbfc;
-  margin:auto;
+  margin: auto;
 `;
 
-
-
-
 const HomePage = ({ landing = false }) => {
-
   return (
     <HomePageContainer>
       <Header page="landing" />
