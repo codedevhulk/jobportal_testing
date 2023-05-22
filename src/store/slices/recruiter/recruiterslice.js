@@ -3,7 +3,7 @@ import {
   updateRecruiterProfileApi,
   signinApi,
   signupApi,
-  signoutApi,
+  recruiterSignupApi,
 } from "../../../service/constants";
 
 
@@ -32,16 +32,18 @@ export const recruiterSignUp = createAsyncThunk(
   "recruiterSignUp",
   async (recruiterSignUpDetails) => {
     try {
-      console.log("from signup component", recruiterSignUpDetails)
+      console.log("from recruiter signup component", recruiterSignUpDetails)
 
-      const response = await fetch(signupApi, {
+      const response = await fetch(recruiterSignupApi, {
         method: "POST",
         headers: {
           "content-type": "application/json",
         },
-        body: JSON.stringify({ ...recruiterSignUpDetails, role: "recruiter" }),
+        body: JSON.stringify({ ...recruiterSignUpDetails }),
       });
       const result = await response.json();
+      console.log("recruiter signup response :", result)
+
       if (result.token)
         localStorage.setItem("rtoken", JSON.stringify(result?.token));
       return result;
@@ -84,6 +86,7 @@ const initialState = {
   },
   loading: false,
   error: null,
+  message: null,
 };
 
 const recruiterSlice = createSlice({
@@ -97,6 +100,7 @@ const recruiterSlice = createSlice({
       })
       .addCase(recruiterSignUp.fulfilled, (state, action) => {
         state.loading = false;
+        state.message = action.payload.message;
         console.log(action.payload);
       })
       .addCase(recruiterSignUp.rejected, (state, action) => {

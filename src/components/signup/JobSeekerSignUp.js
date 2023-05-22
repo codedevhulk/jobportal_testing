@@ -71,7 +71,7 @@ const JobseekerSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [jtoken] = useState(localStorage.getItem("jtoken"));
-  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({ firstName: "", lastName: "", mobileNumber: "", email: "", password: "", address: "" });
+  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({ userName: "", email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
   const [actionResponseMessage, setActionResponseMessage] = useState(null);
   const togglePasswordVisibility = () => {

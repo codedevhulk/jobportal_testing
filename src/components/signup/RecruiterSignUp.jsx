@@ -67,11 +67,11 @@ const Title = styled.label`
 const RecruiterSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {error} =  useSelector(state=>state.recruiterApp)
+  const { message } = useSelector(state => state.recruiterApp)
   const [actionResponseMessage, setActionResponseMessage] = useState(null);
   const [recruiterSignUpDetails, setRecruiterSignUpDetails] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [rtoken,setRtoken] = useState();
+  const [rtoken, setRtoken] = useState();
 
 
   const togglePasswordVisibility = () => {
@@ -84,25 +84,22 @@ const RecruiterSignUp = () => {
       [e.target.name]: e.target.value,
     });
   };
-  useEffect(()=>{
-    if(rtoken){
+  useEffect(() => {
+    if (rtoken) {
       navigate("/recruiter")
     }
-  },[rtoken])
+  }, [rtoken])
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const result = await dispatch(recruiterSignUp(recruiterSignUpDetails));
-    if(!result.error ){
-      const token = localStorage.getItem("rtoken");
-      if(token){
-        setRtoken(token)
-      }
+    const res = await dispatch(recruiterSignUp(recruiterSignUpDetails));
+    setActionResponseMessage(res.payload.message);
+    setTimeout(() => { setActionResponseMessage(null) }, 3000)
 
-    }
-    
-   
-  };
+  }
+
+
+
   return (
     <>
       <div>
@@ -129,35 +126,20 @@ const RecruiterSignUp = () => {
       </div>
       <SignUpFormContainer>
         <SignUpForm onSubmit={handleSignUp}>
-          <Title>Recruiter Signup</Title>
+          <Title>Recruiter SignUp</Title>
+          <TextField
+            type="text"
+            label="Username"
+            name="username"
+            size="small"
+            variant="outlined"
+            fullWidth
+            value={recruiterSignUpDetails?.username}
+            onChange={getSigUpDetails}
+            required />
 
           <TextField
-            type="text"
-             
-            label="First Name"
-            name="firstName"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={recruiterSignUpDetails?.firstName}
-            onChange={getSigUpDetails}
-            required
-          />
-          <TextField
-            type="text"
-             
-            label="Last Name"
-            name="lastName"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={recruiterSignUpDetails?.lastName}
-            onChange={getSigUpDetails}
-            required
-          />
-          <TextField
             type="email"
-             
             label="Email"
             name="email"
             size="small"
@@ -165,25 +147,10 @@ const RecruiterSignUp = () => {
             fullWidth
             value={recruiterSignUpDetails?.email}
             onChange={getSigUpDetails}
-            required
-          />
-
-          <TextField
-            type="text"
-             
-            label="Mobile Number"
-            name="mobileNumber"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={recruiterSignUpDetails?.mobileNumber}
-            onChange={getSigUpDetails}
-            required
-          />
+            required />
 
           <TextField
             type={showPassword ? "text" : "password"}
-             
             label="Password"
             size="small"
             variant="outlined"
@@ -202,20 +169,11 @@ const RecruiterSignUp = () => {
               ),
             }}
           />
-          <TextField
-            type="text"
-             
-            label="Address"
-            name="address"
-            size="small"
-            variant="outlined"
-            fullWidth
-            value={recruiterSignUpDetails?.address}
-            onChange={getSigUpDetails}
-          />
+
+
 
           <SignUpButton type="submit">Sign Up</SignUpButton>
-          {actionResponseMessage && <div>{actionResponseMessage}</div>}
+          {actionResponseMessage && <p>{actionResponseMessage}</p>}
           <span
             style={{ color: "#98c1d9", cursor: "pointer" }}
             onClick={() => navigate(-1)}
@@ -223,10 +181,13 @@ const RecruiterSignUp = () => {
             back
           </span>
         </SignUpForm>
+
       </SignUpFormContainer>
     </>
   );
 };
 
 export default RecruiterSignUp;
+
+
 

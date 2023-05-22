@@ -1,6 +1,8 @@
 // "https://64571a7e5f9a4f236151cbaf.mockapi.io/api/jobs";
 export const viewAllPostApi = "http://localhost:8020/jobservice/alljobs";
 export const signupApi = "http://localhost:7171/api/auth/signup";
+
+export const recruiterSignupApi = "http://localhost:7171/api/auth/recruiter/signup";
 export const signinApi = "http://localhost:7171/api/auth/signin";
 export const signoutApi = "http://localhost:7171/api/auth/signout";
 export const newjobpostApi =

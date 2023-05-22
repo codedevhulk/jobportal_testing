@@ -15,11 +15,10 @@ export const applyToJob = async (jobApplied) => {
 
 export const updateJobseekerProfile = async (jobseekerDetails) => {
     try {
-        console.log("data from component", jobseekerDetails)
+
         const response = await fetch(updateJobseekerProfileApi, { method: "PUT", headers: { "content-type": "application/json" }, body: JSON.stringify(jobseekerDetails) })
         const data = response.json();
         console.log("data from response", data);
-        localStorage.setItem("jobseekerId", data.id)
         return data;
     } catch (error) { return error }
 }

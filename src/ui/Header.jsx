@@ -150,11 +150,13 @@ const Header = ({ page }) => {
                     <span className="menu-item">Applied jobs</span>
                   </MenuItem>
                 </Link>
+                <hr />
                 <Link to="/jobseeker/profile">
                   <MenuItem>
                     <span className="menu-item">profile</span>
                   </MenuItem>
                 </Link>
+                <hr />
                 <MenuItem onClick={handleSignOut}>
                   <span className="menu-item">signout</span>
                 </MenuItem>
@@ -192,17 +194,19 @@ const Header = ({ page }) => {
                     <span className="menu-item">Post New Job</span>
                   </MenuItem>
                 </Link>
+                <hr />
                 <Link to="/recruiter/postedjobs">
                   <MenuItem>
                     <span className="menu-item">Posted Jobs</span>
                   </MenuItem>
                 </Link>
+                <hr />
                 <Link to="/recruiter/profile">
                   <MenuItem>
                     <span className="menu-item">Profile</span>
                   </MenuItem>
                 </Link>
-
+                <hr />
                 <MenuItem onClick={handleSignOut}>
                   <span className="menu-item">Signout</span>
                 </MenuItem>

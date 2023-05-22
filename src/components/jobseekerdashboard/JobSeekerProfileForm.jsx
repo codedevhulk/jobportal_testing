@@ -1,7 +1,8 @@
 import styled from "styled-components";
-import { TextField } from "@mui/material";
+import { TextField, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"
 import { updateJobseekerProfileAction } from "../../store/slices/jobseekerslice";
 import { getJobseekerProfileAction } from "../../store/slices/jobseekerslice";
 
@@ -37,67 +38,58 @@ const SubmitButton = styled.button`
   color: white;
   width: 30%;
   margin: auto;
-  background: black;
+  background: #3d5a80;
   height: 40px;
+  border-radius:10px;
 `;
 
 const JobSeekerProfileForm = () => {
-  const {
-    firstName,
-    lastName,
-    userName = localStorage.getItem("username"),
-    mobileNumber,
-    email,
-    qualification,
-    skillSet,
-    experience,
-    summary,
-    address,
-  } = useSelector((state) => state.jobseekerApp.jobseeker);
+  const navigate = useNavigate();
+  let response;
   const [profileData, setProfileData] = useState({});
+  const [shrinkValue, setShrinkValue] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
-
   const dispatch = useDispatch();
 
   const getProfileData = (e) => {
+    if (e.target.value === "") {
+      setShrinkValue(false)
+    } else {
+      setShrinkValue(true);
+    }
+
     setProfileData({ ...profileData, [e.target.name]: e.target.value });
   };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await dispatch(updateJobseekerProfileAction(profileData));
-      console.log("response profile edit form after dispatch", response)
-      setResponseMessage("Updated Successfully")
+      response = await dispatch(updateJobseekerProfileAction(profileData));
+      if (response.payload === true)
+        setResponseMessage("Updated Successfully")
       setTimeout(() => {
         setResponseMessage(null);
       }, 5000)
     } catch (error) {
-      setResponseMessage(error.toString)
+      setResponseMessage(error.message)
+      setTimeout(() => {
+        setResponseMessage(null);
+      }, 5000)
     }
   };
   const getProfileDataFromRequest = async () => {
 
-    await dispatch(getJobseekerProfileAction());
+    const res = await dispatch(getJobseekerProfileAction());
 
+    console.log("res from  get profile dispatch in edit component", res)
 
     setProfileData({
-      firstName,
-      lastName,
-      mobileNumber,
-      userName,
-      email,
-      qualification,
-      skillSet,
-      experience,
-      summary,
-      address,
+      ...res.payload
     })
   };
 
   useEffect(() => {
     getProfileDataFromRequest();
-  }, []);
+  }, [response]);
 
   return (
     <JobSeekerProfileContainer>
@@ -109,9 +101,11 @@ const JobSeekerProfileForm = () => {
             placeholder="Username"
             size="small"
             variant="outlined"
+            label="Username"
             name="userName"
             value={profileData?.userName}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
             disabled
           />
         </JobSeekerFormFieldContainer>
@@ -125,6 +119,7 @@ const JobSeekerProfileForm = () => {
             name="firstName"
             value={profileData?.firstName}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
@@ -138,6 +133,7 @@ const JobSeekerProfileForm = () => {
             name="lastName"
             value={profileData?.lastName}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
@@ -165,6 +161,7 @@ const JobSeekerProfileForm = () => {
             label="Email"
             value={profileData?.email}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
@@ -178,6 +175,7 @@ const JobSeekerProfileForm = () => {
             name="qualification"
             value={profileData?.qualification}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
@@ -191,6 +189,7 @@ const JobSeekerProfileForm = () => {
             name="skillSet"
             value={profileData?.skillSet}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
@@ -204,6 +203,7 @@ const JobSeekerProfileForm = () => {
             name="experience"
             value={profileData?.experience}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
@@ -217,6 +217,7 @@ const JobSeekerProfileForm = () => {
             name="summary"
             value={profileData?.summary}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
@@ -230,11 +231,13 @@ const JobSeekerProfileForm = () => {
             name="address"
             value={profileData?.address}
             onChange={getProfileData}
+            InputLabelProps={{ shrink: true }}
           />
         </JobSeekerFormFieldContainer>
 
         <SubmitButton>Update Profile</SubmitButton>
         {responseMessage && <p>{responseMessage}</p>}
+        <Button onClick={() => navigate(-1)}>back</Button>
       </JobSeekerProfileFormContainer>
     </JobSeekerProfileContainer>
   );

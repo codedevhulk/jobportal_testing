@@ -58,6 +58,7 @@ export const updateJobseekerProfileAction = createAsyncThunk(
       let userName = localStorage.getItem("username");
       const jobseekerDetail = { ...jobseekerDetails, userName };
       const response = await updateJobseekerProfile(jobseekerDetail);
+      console.log("inside update jobseeker after response", response)
       return response;
     } catch (error) {
       return error;
@@ -70,6 +71,7 @@ export const getJobseekerProfileAction = createAsyncThunk(
     try {
       const username = localStorage.getItem("username");
       const response = await getJobseekerProfileData(username);
+      console.log("jobseeker profile response", response)
       return response;
     } catch (error) {
       return error;
@@ -97,10 +99,10 @@ export const jobApplicatonsOfJobseekerAction = createAsyncThunk(
 
 const initialState = {
   jobseeker: {
-    id: null,
+    jobSeekerId: null,
     firstName: "",
     lastName: "",
-    username: "",
+    userName: "",
     mobileNumber: "",
     email: "",
     password: "",
@@ -165,7 +167,8 @@ const jobSeekerSlice = createSlice({
       })
       .addCase(getJobseekerProfileAction.fulfilled, (state, action) => {
         state.loading = false;
-        state.jobseeker = { ...state.jobseeker, ...action.payload };
+        console.log("action get jobseeker profile fulfilled", action.payload)
+        state.jobseeker = { ...action.payload };
         console.log(
           "fulfiled getJobseeker profile from jobseeker slice",
           action.payload
