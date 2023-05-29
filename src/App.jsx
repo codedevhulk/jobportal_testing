@@ -26,7 +26,7 @@ import AppliedJobsList from "./components/jobseekerdashboard/AppliedJobsList";
 import RecruiterDashboardPage from "./pages/RecruiterDashboardPage";
 import RecruiterProfileCard from "./components/recruiterdashboard/RecruiterProfileCard";
 import RecruiterProfileForm from "./components/recruiterdashboard/RecruiterProfileForm";
-import JobPostingForm from "./components/recruiterdashboard/JobPostingForm";
+import NewJobPostingForm from "./components/recruiterdashboard/NewJobPostingForm";
 import ApplicantsList from "./components/recruiterdashboard/ApplicantsList";
 import PostedJobsList from "./components/recruiterdashboard/PostedJobsList";
 import EditPostedJob from "./components/recruiterdashboard/EditPostedJob";
@@ -59,7 +59,7 @@ export const appRouter = createBrowserRouter([
           { path: "/recruiter/postedjobs/edit/:id", element: <EditPostedJob /> },
           { path: "/recruiter/rejectedcandidates", element: <RejectedCandidatesList /> },
           { path: "/recruiter/shortlistedcandidates", element: <ShortListedCandidatesList /> },
-          { path: "/recruiter/newjobpost", element: <JobPostingForm /> },
+          { path: "/recruiter/newjobpost", element: <NewJobPostingForm /> },
 
 
         ]

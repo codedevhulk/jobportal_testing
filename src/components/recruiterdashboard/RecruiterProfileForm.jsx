@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { updateRecruiterProfile } from "../../store/slices/recruiter/recruiterslice";
+import { getRecruiterProfileAction, updateRecruiterProfile } from "../../store/slices/recruiter/recruiterslice";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { Button } from "@mui/material"
 
 const RecruiterProfileFormWrapper = styled.form`
   display:grid;
@@ -23,6 +25,14 @@ const FormInput = styled.input`
   border: none;
   box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
 `;
+const FormTextArea = styled.textarea`
+  padding: 0.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  border: none;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
+  overflow:scroll;
+`;
 
 const FormButton = styled.button`
 grid-column: 1 / span 2;
@@ -41,81 +51,116 @@ grid-column: 1 / span 2;
 `;
 
 const RecruiterProfileForm = () => {
-  const recruiter = useSelector((state) => state.recruiterApp.recruiter);
+
+  const navigate = useNavigate();
+  let response;
+  const [profileData, setProfileData] = useState({});
+  const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
 
-  const [updatedRecruiter, setUpdatedRecruiter] = useState({
-    id: recruiter.id,
-    firstName: recruiter.firstName,
-    lastName: recruiter.lastName,
-    email: recruiter.email,
-    mobileNumber: recruiter.mobileNumber,
-    address: recruiter.address,
-  });
-
-  const handleSubmit = (e) => {
+  const getProfileData = (e) => {
+    setProfileData({ ...profileData, [e.target.name]: e.target.value });
+  };
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(updateRecruiterProfile(updatedRecruiter));
+    try {
+      response = await dispatch(updateRecruiterProfile(profileData));
+      if (response.payload === true)
+        setResponseMessage("Updated Successfully")
+      setTimeout(() => {
+        setResponseMessage(null);
+      }, 5000)
+    } catch (error) {
+      setResponseMessage(error.message)
+      setTimeout(() => {
+        setResponseMessage(null);
+      }, 5000)
+    }
+  };
+  const getProfileDataFromRequest = async () => {
+
+    const res = await dispatch(getRecruiterProfileAction());
+
+    console.log("res from  get profile dispatch in edit component", res)
+
+    setProfileData({
+      ...res.payload
+    })
   };
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUpdatedRecruiter({ ...updatedRecruiter, [name]: value });
-  };
+  useEffect(() => {
+    getProfileDataFromRequest();
+  }, [response]);
 
   return (
-  <>    
-  <h3 style={{fontFamily:"sans-serif",fontWeight:"600", fontSize:"2rem",textAlign:"center"}}>Edit Profile</h3>
-    <RecruiterProfileFormWrapper onSubmit={handleSubmit}>
-      
-      <FormLabel htmlFor="firstName">First Name</FormLabel>
-      <FormInput
-        type="text"
-        name="firstName"
-        value={updatedRecruiter.firstName}
-        placeholder="First Name"
-        onChange={handleChange}
-        required
-      />
-      <FormLabel htmlFor="lastName">Last Name</FormLabel>
-      <FormInput
-        type="text"
-        name="lastName"
-        value={updatedRecruiter.lastName}
-        placeholder="Last Name"
-        onChange={handleChange}
-        required
-      />
-                  <FormLabel htmlFor="email">Email</FormLabel>
+    <>
+      <h3 style={{ fontFamily: "sans-serif", fontWeight: "600", fontSize: "2rem", textAlign: "center" }}>Edit Profile</h3>
+      <RecruiterProfileFormWrapper onSubmit={handleSubmit}>
 
-      <FormInput
-        type="email"
-        name="email"
-        value={updatedRecruiter.email}
-        placeholder="Email"
-        onChange={handleChange}
-        required
-      />
-            <FormLabel htmlFor="mobileNumber">Mobile Number</FormLabel>
 
-      <FormInput
-        type="tel"
-        name="mobileNumber"
-        value={updatedRecruiter.mobileNumber}
-        placeholder="Mobile Number"
-        onChange={handleChange}
-        required
-      />
-      <FormLabel htmlFor="address">Address</FormLabel>
-      <FormInput
-        name="address"
-        value={updatedRecruiter.address}
-        placeholder="Address"
-        onChange={handleChange}
-        required
-      />
-      <FormButton type="submit">Update Profile</FormButton>
-    </RecruiterProfileFormWrapper>
+        <FormLabel htmlFor="userName">Username</FormLabel>
+
+        <FormInput
+          type="text"
+          name="userName"
+          value={profileData?.firstName}
+          placeholder="Username"
+          onChange={getProfileData}
+          disabled
+
+        />
+        <FormLabel htmlFor="firstName">First Name</FormLabel>
+        <FormInput
+          type="text"
+          name="firstName"
+          value={profileData?.firstName}
+          placeholder="First Name"
+          onChange={getProfileData}
+
+        />
+        <FormLabel htmlFor="lastName">Last Name</FormLabel>
+        <FormInput
+          type="text"
+          name="lastName"
+          value={profileData?.lastName}
+          placeholder="Last Name"
+          onChange={getProfileData}
+
+        />
+        <FormLabel htmlFor="email">Email</FormLabel>
+
+        <FormInput
+          type="email"
+          name="email"
+          value={profileData?.email}
+          placeholder="Email"
+          onChange={getProfileData}
+
+        />
+        <FormLabel htmlFor="mobileNumber">Mobile Number</FormLabel>
+
+        <FormInput
+          type="tel"
+          name="mobileNumber"
+          value={profileData?.mobileNumber}
+          placeholder="Mobile Number"
+          onChange={getProfileData}
+
+        />
+        <FormLabel htmlFor="address">Address</FormLabel>
+        <FormTextArea type="textarea"
+          name="address"
+          value={profileData?.address}
+          placeholder="Address"
+          onChange={getProfileData}
+
+        />
+        <FormButton type="submit">Update Profile</FormButton>
+        <Button onClick={() => navigate(-1)}>back</Button>
+        {responseMessage && <p>{responseMessage}</p>}
+
+
+      </RecruiterProfileFormWrapper>
     </>
 
   );

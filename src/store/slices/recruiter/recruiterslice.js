@@ -4,7 +4,9 @@ import {
   signinApi,
   signupApi,
   recruiterSignupApi,
+  recruiterSigninApi,
 } from "../../../service/constants";
+import { getRecruiterProfileData } from "../../../service/recruiterService";
 
 
 
@@ -12,7 +14,7 @@ export const recruiterSignin = createAsyncThunk(
   "recruiterSignin",
   async (recruiterSigninDetails) => {
     try {
-      const response = await fetch(signinApi, {
+      const response = await fetch(recruiterSigninApi, {
         method: "POST",
         headers: {
           "content-type": "application/json",
@@ -60,7 +62,7 @@ export const updateRecruiterProfile = createAsyncThunk(
   async (updatedRecruiterProfile) => {
     try {
       const response = await fetch(
-        `${updateRecruiterProfileApi}/${updateRecruiterProfile.id}`,
+        updateRecruiterProfileApi,
         {
           method: "PUT",
           headers: {
@@ -77,9 +79,26 @@ export const updateRecruiterProfile = createAsyncThunk(
   }
 );
 
+export const getRecruiterProfileAction = createAsyncThunk(
+  "getRecruiterProfileAction",
+  async () => {
+    try {
+      const username = localStorage.getItem("username");
+      const response = await getRecruiterProfileData(username);
+      console.log("recruiter profile response", response)
+      return response;
+    } catch (error) {
+      return error;
+    }
+  }
+
+
+)
+
 const initialState = {
   recruiter: {
     id: "",
+    userName: "",
     firstName: "",
     lastName: "",
     email: "",
@@ -133,12 +152,25 @@ const recruiterSlice = createSlice({
       })
       .addCase(updateRecruiterProfile.fulfilled, (state, action) => {
         state.loading = false;
-        state.recruiter = { ...action.payload };
+        state.message = action.payload;
+        console.log(action.payload);
       })
       .addCase(updateRecruiterProfile.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload.message;
       });
+    builder.addCase(getRecruiterProfileAction.pending, (state) => {
+      state.loading = true;
+    })
+      .addCase(getRecruiterProfileAction.fulfilled, (state, action) => {
+        state.loading = false;
+        state.recruiter = action.payload;
+        console.log("fulfiled getRecruiterProfile", action)
+      })
+      .addCase(getRecruiterProfileAction.rejected, (state, action) => {
+        state.loading = false;
+        console.log("Rejected getRecruiterProfile", action)
+      })
   },
 });
 

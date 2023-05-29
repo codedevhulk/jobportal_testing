@@ -68,14 +68,16 @@ const Header = ({ page }) => {
     await signout();
     const rtoken = localStorage.getItem("rtoken");
     const jtoken = localStorage.getItem("jtoken");
-    const jobseekerId = localStorage.getItem("jobseekerId");
     if (rtoken) {
       localStorage.removeItem("rtoken");
+      localStorage.removeItem("recruiterId");
+      localStorage.removeItem("username");
       navigate("/recruiter/signin");
     }
-    if (jtoken && jobseekerId) {
+    if (jtoken) {
       localStorage.removeItem("jtoken");
       localStorage.removeItem("jobseekerId");
+      localStorage.removeItem("username");
       navigate("/jobseeker/signin");
     }
   };

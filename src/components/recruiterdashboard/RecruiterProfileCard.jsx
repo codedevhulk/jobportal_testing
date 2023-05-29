@@ -1,84 +1,183 @@
-import {Link} from "react-router-dom";
-import {useSelector } from "react-redux";
+import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
+import { Card, Button } from "@mui/material";
+import { getRecruiterProfileAction, updateRecruiterProfile } from "../../store/slices/recruiter/recruiterslice"
 import styled from "styled-components";
-import {recruiter_one} from "../../sampledata"
 
-const ProfileWrapper = styled.div`
+const ProfileContainer = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  touch-action: manipulation;
   align-items: center;
-  margin-top: 50px;
-`;
+  color: black;
+  transition:all 300ms;
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+  &:hover{
+    transform:scale(1.03)
+  }
+  @media screen and (max-width:700px){
+    &:hover{
+      transform:scale(1.03) translateY(20px)
+    }
 
-const ProfileCard = styled.div`
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-grid-gap: 1rem;
-  
-  align-items: center;
-  padding: 20px;
-  border: 1px solid gray;
-  border-radius: 5px;
-  box-shadow: 2px 2px 5px gray;
-  width: 500px;
-`;
-
-const Label = styled.span`
-  font-weight: bold;
-  margin-right: 10px;
-`;
-
-const Value = styled.span`
-  margin-left: 10px;
-`;
-
-const EditButton = styled.button`
-  margin-top: 20px;
-  padding: 10px;
-  background-color: blue;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  &:hover {
-    background-color: darkblue;
   }
 `;
+
+
+
+const ProfileItemsContainer = styled.div`
+    display:grid;
+    grid-template-columns:40% 60%;
+    width:80vw;
+    box-sizing:border-box;
+    margin-top:50px;
+    border-radius:20px;
+    padding:30px;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(200, 0, 0, 0.3) 0px 30px 60px -30px, rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;    @media screen and (max-width:700px){
+      grid-template-rows:20% 80%;
+      grid-template-columns:none;
+      width:90vw;
+      box-sizing:border-box;
+      grid-row-gap:10%;
+    }
+
+
+`;
+
+
+const ProfileEditContainer = styled.div`
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows:1fr 1fr;
+    grid-row-gap:35%;
+    box-sizing:border-box;
+    @media screen and (max-width:700px){
+      grid-row-gap:15%;
+      
+    }
+
+   
+
+
+`;
+const ProfilePhoto = styled.div`
+  background-color:pink;
+  vertical-align: middle;
+  width: 200px;
+  height:200px;
+  border-radius: 50%;
+  background-image : url(${props => props.imgUrl});
+  background-size:cover;
+  margin:auto;
+  box-sizing:border-box;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  position:relative;
+  top:20px;
+  @media screen and (max-width:700px){
+    width:120px;
+    height:120px;
+
+  }
+
+
+`;
+
+const FieldItemsContainer = styled.div`
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+`;
+const FieldItems = styled.ul`
+
+
+background-color:#98c1d9;
+padding:10%;
+box-sizing:border-box;
+width:85%;
+border-radius:25px;
+box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+text-align:center;
+
+`;
+
+const FieldItem = styled.li`
+display:grid;
+grid-template-columns:40% 60%;
+grid-template-rows:1fr;
+grid-column-gap:5%;
+box-sizing:border-box;
+margin:auto;
+
+
+`;
+
+
+const FieldStyle = {
+    boxSizing: "border-box",
+    margin: "1px",
+    padding: "2px",
+    background: "inherit",
+    width: "100%",
+    textAlign: "left",
+    boxShadow: "none",
+    fontWeight: "600",
+    fontFamily: "sans-serif"
+
+
+}
+
 
 const RecruiterProfileCard = () => {
-  // const { recruiter, loading, error } = useSelector((state) => state.recruiterApp);
- const  recruiter = recruiter_one;
- const loading = false;
- const error = null;
+    const dispatch = useDispatch();
+    const { recruiter } = useSelector(
+        (state) => state.recruiterApp
 
-  
-  if (loading) {
-    return <div>Loading...</div>;
-  }
+    );
 
-  if (error) {
-    return <div>{error}</div>;
-  }
+    const getProfile = async () => {
+        await dispatch(getRecruiterProfileAction());
+    }
 
-  return (
-    <ProfileWrapper>
-      <ProfileCard>
-        <Label>ID:</Label>
-        <Value>{recruiter.id}</Value>
-        <Label>First Name:</Label>
-        <Value>{recruiter.firstName}</Value>
-        <Label>Last Name:</Label>
-        <Value>{recruiter.lastName}</Value>
-        <Label>Email:</Label>
-        <Value>{recruiter.email}</Value>
-        <Label>Mobile Number:</Label>
-        <Value>{recruiter.mobileNumber}</Value>
-        <Label>Address:</Label>
-        <Value>{recruiter.address}</Value>
-      </ProfileCard>
-      <Link to="/recruiter/profile/edit"><EditButton>Edit</EditButton></Link>
-    </ProfileWrapper>
-  );
+    useEffect(() => {
+        getProfile();
+    }, [])
+
+    return (
+
+        <ProfileContainer>
+
+            <ProfileItemsContainer>
+                <ProfileEditContainer>
+                    <ProfilePhoto imgUrl={"url"} />
+                    <Button sx={{ marginLeft: 0, paddingLeft: 0, "&:hover": { background: "none", color: "red" } }}> <Link to="/recruiter/profile/edit" style={{ color: "inherit", textDecoration: "none" }}>Edit Profile</Link></Button>
+                </ProfileEditContainer>
+                <FieldItemsContainer>
+                    {recruiter && <FieldItems style={{ listStyleType: "none", height: "360px" }}>
+
+                        {
+                            Object.entries(recruiter).map(entry => {
+                                const label = entry[0]
+                                const value = entry[1]
+                                return label !== "recruiterId" && label !== "password" ? <FieldItem><Card style={{ ...FieldStyle, textTransform: "uppercase", lineSpacing: "1px" }} >{label}</Card>  <Card style={{ ...FieldStyle, background: "rgba(255,255,255,0.6)", textTransform: "capitalize", overflow: "scroll", minHeight: "30px" }}>{value}</Card> </FieldItem> : null;
+                            })}
+
+                    </FieldItems>
+
+                    }
+                </FieldItemsContainer>
+
+
+
+            </ProfileItemsContainer>
+
+
+        </ProfileContainer >
+
+    );
 };
 
 export default RecruiterProfileCard;

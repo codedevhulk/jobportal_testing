@@ -4,6 +4,7 @@ import {
   viewAllApplicantsApi,
   approveApplicantApi,
   rejectApplicantApi,
+  getRecruiterProfileApi,
 } from "./constants";
 
 export const newJobPost = async (newJobData) => {
@@ -66,3 +67,14 @@ export const rejectApplicant = async (applicant_id) => {
     return error;
   }
 };
+
+export const getRecruiterProfileData = async () => {
+  try {
+    const username = localStorage.getItem("username")
+    const url = `${getRecruiterProfileApi}${username}`
+    console.log("actual", url)
+    const response = await fetch(url)
+    const data = response.json();
+    return data;
+  } catch (error) { return error }
+}

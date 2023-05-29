@@ -100,12 +100,14 @@ const PostNewJob = () => {
         placeholder="Skillset"
         onChange={handleInputChange}
       />
+
       <TextArea style={{ gridColumnStart: 1, gridColumnEnd: 3 }}
         type="text"
         name="jobDescription"
         placeholder="Job Description"
         onChange={handleInputChange}
-      />
+      ></TextArea>
+
 
 
       <Button type="submit" disabled={loading}>
@@ -120,9 +122,13 @@ export default PostNewJob;
 
 
 const Form = styled.form`
-  display: grid;
-  grid-template-columns:repeat(2,1fr);
-  flex-direction: column;
+  display: flex;
+  flex-direction:column;
+  @media screen and (min-width:700px){
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+  
+  }
   
 `;
 
@@ -140,7 +146,9 @@ const TextArea = styled.textarea`
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  grid-scale:span 2;
+  min-height:200px;
+  max-height:500px;
+  overflow:auto;
 `;
 
 const Button = styled.button`
@@ -153,8 +161,7 @@ const Button = styled.button`
   border-radius: 5px;
   cursor: pointer;
   width:100px;
-  
-    grid-column-start: 2;
-    grid-column-end: 3;
+  grid-column-start: 2;
+  grid-column-end: 3;
   
 `;
