@@ -20,8 +20,11 @@ export const recruiterSignin = createAsyncThunk(
         body: JSON.stringify(recruiterSigninDetails),
       });
       const result = await response.json();
-      if (result.token)
-        localStorage.setItem("rtoken", JSON.stringify(result?.token));
+      console.log("signin recruiter response", result)
+      if (result.roles[0] === "ROLE_USER")
+        localStorage.setItem("rtoken", JSON.stringify("recruiter"));
+      localStorage.setItem("recruiterId", result.id);
+      localStorage.setItem("username", result.username);
       return result;
     } catch (error) {
       return error;
@@ -44,8 +47,7 @@ export const recruiterSignUp = createAsyncThunk(
       const result = await response.json();
       console.log("recruiter signup response :", result)
 
-      if (result.token)
-        localStorage.setItem("rtoken", JSON.stringify(result?.token));
+
       return result;
     } catch (error) {
       return error;
