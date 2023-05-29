@@ -9,6 +9,7 @@ interface JobCardProps {
     : string;
     salary: number;
     location: string;
+    applicationStatus: string;
 
   };
 }
@@ -46,6 +47,10 @@ const JobDescription = styled.p`
   margin: 0;
   font-size: 14px;
 `;
+const Status = styled.p`
+margin: 0;
+font-size: 14px;
+`;
 
 const Salary = styled.p`
   margin: 0;
@@ -72,7 +77,7 @@ const DetailsButton = styled.button`
 const AppliedJobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
   const navigate = useNavigate();
   const { id, jobTitle, jobDescription
-    , salary, location } = props.job;
+    , salary, location, applicationStatus } = props.job;
   const showDetails = () => {
     navigate(`/jobseeker/appliedlist/${id}`);
   }
@@ -82,6 +87,7 @@ const AppliedJobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
       <JobDescription>{jobDescription}</JobDescription>
       <Salary>{salary ? `${salary}$/hr` : null}</Salary>
       <Location>{location}</Location>
+      <Status>Your Application Status  is {applicationStatus}</Status>
 
       <DetailsButton onClick={showDetails}>Show Details</DetailsButton>
 
