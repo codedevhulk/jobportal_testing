@@ -12,6 +12,7 @@ import RecruiterSignIn from "./components/signin/RecruiterSignIn";
 import JobSeekerSignIn from "./components/signin/JobSeekerSignIn";
 import RecruiterSignUp from "./components/signup/RecruiterSignUp";
 import JobSeekerSignUp from "./components/signup/JobSeekerSignUp";
+import AppliedJobDetails from "./components/jobseekerdashboard/AppliedJobDetails";
 
 //jobseeker
 import JobSeekerDashboardPage from "./pages/JobSeekerDashboardPage";
@@ -72,7 +73,8 @@ export const appRouter = createBrowserRouter([
           { path: "/jobseeker", element: <JobSeekerSearchJobs /> },
           { path: "/jobseeker/profile", element: <JobSeekerProfileCard /> },
           { path: "/jobseeker/profile/update", element: <JobSeekerProfileForm /> },
-          { path: "/jobseeker/appliedlist", element: <AppliedJobsList /> }
+          { path: "/jobseeker/appliedlist", element: <AppliedJobsList /> },
+          { path: "/jobseeker/appliedlist/:id", element: <AppliedJobDetails /> }
         ]
 
       },

@@ -1,4 +1,4 @@
-import { applytojobApi } from "./constants";
+import { applytojobApi, jobApplicatonsOfJobseekerApi } from "./constants";
 import { updateJobseekerProfileApi } from "./constants"
 import { getJobseekerProfileApi } from "./constants";
 
@@ -34,3 +34,17 @@ export const getJobseekerProfileData = async (y) => {
     } catch (error) { return error }
 }
 
+
+export const jobApplicatonsOfJobseeker = async () => {
+
+    const id = localStorage.getItem("jobseekerId")
+    const url = `${jobApplicatonsOfJobseekerApi}${id}`;
+    console.log(url)
+    const response = await fetch(url);
+    const data = await response.json();
+    console.log(`jobapplication of jobseeker with id : ${id} is `)
+    console.log(data)
+
+    return data;
+
+}

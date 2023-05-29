@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import JobCard from "../jobservicecomponents/JobCard"
+import AppliedJobCard from "../jobseekerdashboard/AppliedJobCard"
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { jobApplicatonsOfJobseekerAction } from "../../store/slices/jobseekerslice";
+import { jobApplicatonsOfJobseekerApi } from "../../service/constants";
+import { jobApplicatonsOfJobseeker } from "../../service/jobSeekerService"
 
 const AppliedJobsListContainer = styled.div`
     display:flex;
@@ -17,20 +18,23 @@ const Title = styled.p`
     text-align:center;
 `;
 const AppliedJobsList = () => {
-  const dispatch = useDispatch();
-  const { applications } = useSelector(state => state.jobseekerApp)
-  const dispatchfc = async () => {
-    await dispatch(jobApplicatonsOfJobseekerAction())
+
+  const [applications, setApplications] = useState(null);
+
+  const jobApplications = async () => {
+    const res = await jobApplicatonsOfJobseeker();
+    setApplications(res)
+
   }
-  const onApply = () => ""
+
   useEffect(() => {
-    dispatchfc();
+    jobApplications()
 
   }, [])
   return (<>
     <Title> Applied Jobs List</Title>
     <AppliedJobsListContainer>
-      {applications.map(application => <JobCard key={application.id} job={{ ...application, onApply }} />)}
+      {applications && applications?.map(application => <AppliedJobCard key={application.id} job={application} />)}
     </AppliedJobsListContainer>
   </>)
 

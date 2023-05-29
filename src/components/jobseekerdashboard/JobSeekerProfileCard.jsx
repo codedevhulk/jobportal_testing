@@ -156,7 +156,7 @@ const JobSeekerProfileCard = () => {
           <Button sx={{ marginLeft: 0, paddingLeft: 0, "&:hover": { background: "none", color: "red" } }}> <Link to="/jobseeker/profile/update" style={{ color: "inherit", textDecoration: "none" }}>Edit Profile</Link></Button>
         </ProfileEditContainer>
         <FieldItemsContainer>
-          {jobseeker && <FieldItems style={{ listStyleType: "none" }}>
+          {jobseeker && <FieldItems style={{ listStyleType: "none", height: "360px" }}>
 
             {
               Object.entries(jobseeker).map(entry => {
