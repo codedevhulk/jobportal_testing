@@ -1,8 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { displayAllApplicantsAction } from "../../store/slices/recruiter/applicantsSlice";
-import {generateApplicants} from "../../sampledata";
+import { generateApplicants } from "../../sampledata";
+import { Link } from "react-router-dom";
+import { rejectApplicant, approveApplicant } from "../../service/recruiterService";
 
 const Container = styled.div`
   max-width: 800px;
@@ -38,6 +40,9 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  margin-right:10px;
+  margin-bottom:10px;
+  width:100%;
   &:hover {
     background-color: ${(props) => (props.isApprove ? "#3e8e41" : "#f44336")};
   }
@@ -48,9 +53,19 @@ const ViewAllApplicantComponent = ({ recruiter_id }) => {
   // const { applicants, loading, error } = useSelector(
   //   (state) => state.displayAllApplicantsSlice
   // );
+  const [responseMessage, setResponseMessage] = useState(null);
   const applicants = generateApplicants(10);
-  const loading=false;
-  const error=null
+  const loading = false;
+  const error = null
+
+  const rejectFn = async (id) => {
+    const res = await rejectApplicant(id);
+    setResponseMessage(res);
+  }
+  const approveFn = async (id) => {
+    const res = await approveApplicant(id);
+    setResponseMessage(res);
+  }
 
   useEffect(() => {
     dispatch(displayAllApplicantsAction(recruiter_id));
@@ -83,13 +98,13 @@ const ViewAllApplicantComponent = ({ recruiter_id }) => {
               <TableCell>{applicant.email}</TableCell>
               <TableCell>{applicant.phone}</TableCell>
               <TableCell>
-                <a href={applicant.resume}>Download Resume</a>
+                <Link to={`/recruiter/applicants/${applicant.id}`} target="_blank" style={{ textDecoration: "none", color: "green" }}>Show Details</Link>
               </TableCell>
               <TableCell>
                 <Button
                   isApprove={true}
                   onClick={() => {
-                    // Dispatch approveApplicantAction with applicant.id
+                    rejectFn(applicant.id)
                   }}
                 >
                   Approve
@@ -97,7 +112,8 @@ const ViewAllApplicantComponent = ({ recruiter_id }) => {
                 <Button
                   isApprove={false}
                   onClick={() => {
-                    // Dispatch rejectApplicantAction with applicant.id
+                    approveFn(applicant.id)
+
                   }}
                 >
                   Reject

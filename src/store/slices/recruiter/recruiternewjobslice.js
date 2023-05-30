@@ -5,7 +5,9 @@ export const postNewJobAction = createAsyncThunk(
   "postNewJob",
   async (jobData) => {
     try {
-      const result = await newJobPost(jobData);
+      const recruiterId = localStorage.getItem("recruiterId")
+      const newJobDataM = { ...jobData, recruiterId }
+      const result = await newJobPost(newJobDataM);
       return result;
     } catch (error) {
       return error;

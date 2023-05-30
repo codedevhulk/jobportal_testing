@@ -6,15 +6,23 @@ import { setCommentRange } from "typescript";
 
 
 const PostNewJob = () => {
-  const [jobData, setJobData] = useState({});
+  const [jobData, setJobData] = useState({
+    jobTitle: "",
+    jobDescription: "",
+    location: "",
+    jobType: "",
+    experience: "",
+    salary: "",
+    qualification: "",
+    vacancies: "",
+    companyName: ""
+  });
   const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
-  const loading = useSelector((state) => state.newJobPostApp.loading);
-  const error = useSelector((state) => state.newJobPostApp.error);
+  const { loading, error } = useSelector((state) => state.newJobPostApp);
 
   const handleInputChange = (event) => {
     setJobData({ ...jobData, [event.target.name]: event.target.value });
-
   };
 
   const handleSubmit = async (event) => {

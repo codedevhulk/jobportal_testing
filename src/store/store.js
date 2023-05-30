@@ -6,6 +6,9 @@ import searchserviceReducer from "./slices/searchserviceslice";
 import newJobPostReducer from "./slices/recruiter/recruiternewjobslice";
 import viewAllPostedJobsReducer from "./slices/recruiter/recruiterViewAllPostedJobsSlice";
 
+
+
+
 export const store = configureStore({
   reducer: {
     recruiterApp: recruiterReducer,
@@ -15,4 +18,5 @@ export const store = configureStore({
     newJobPostApp: newJobPostReducer,
     viewAllPostedJobsApp: viewAllPostedJobsReducer,
   },
+
 });

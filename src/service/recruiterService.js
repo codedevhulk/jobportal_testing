@@ -5,17 +5,19 @@ import {
   approveApplicantApi,
   rejectApplicantApi,
   getRecruiterProfileApi,
+
 } from "./constants";
 
 export const newJobPost = async (newJobData) => {
   try {
     console.log("data client", newJobData)
+
     const response = await fetch(newjobpostApi, {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(newJobData),
     });
-    const result = response.json();
+    const result = await response.json();
     console.log("data server", result)
 
     return result;
@@ -47,10 +49,11 @@ export const applicantList = async (recruiter_id) => {
 export const approveApplicant = async (applicant_id) => {
   try {
     const response = await fetch(approveApplicantApi, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify({ applicant_id }),
     });
-    return response.json();
+    const data = response.json();
+    return data
   } catch (error) {
     return error;
   }
@@ -59,10 +62,11 @@ export const approveApplicant = async (applicant_id) => {
 export const rejectApplicant = async (applicant_id) => {
   try {
     const response = await fetch(rejectApplicantApi, {
-      method: "POST",
+      method: "PUT",
       body: JSON.stringify({ applicant_id }),
     });
-    return response.json();
+    const data = response.json();
+    return data
   } catch (error) {
     return error;
   }
@@ -78,3 +82,5 @@ export const getRecruiterProfileData = async () => {
     return data;
   } catch (error) { return error }
 }
+
+

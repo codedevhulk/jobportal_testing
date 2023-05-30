@@ -86,7 +86,7 @@ const RecruiterSignIn = () => {
       navigate("/recruiter")
     }
     else {
-      setActionResponseMessage(result.payload.message + "  Try Again")
+      setActionResponseMessage("Incorrect Username or Password!")
     }
     setTimeout(() => {
       setActionResponseMessage(null);
