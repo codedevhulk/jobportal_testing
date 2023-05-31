@@ -7,6 +7,8 @@ display:flex;
 flex-direction:column;
 justify-content:center;
 align-items:center;
+width:100%;
+flex-wrap:wrap;
 `;
 
 const JobSeekerSearchJobs = () => {

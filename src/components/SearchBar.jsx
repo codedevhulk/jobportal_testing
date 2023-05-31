@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 
 
 const SearchBar = styled.input`
-  width: 100%;
+  width: 90%;
   max-width: 600px;
   padding: 10px;
   margin: 20px 0;
@@ -26,9 +26,9 @@ const SearchBar = styled.input`
 `;
 const SearchBarComponent = () => {
   const dispatch = useDispatch();
-  
+
   return (
-    <SearchBar placeholder='Search Jobs' onChange={(e)=>dispatch(setSearchInputValue(e.target.value))}/>
+    <SearchBar placeholder='Search Jobs' onChange={(e) => dispatch(setSearchInputValue(e.target.value))} />
   )
 }
 

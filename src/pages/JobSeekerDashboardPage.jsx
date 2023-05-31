@@ -18,6 +18,8 @@ const JobSeekerContainer = styled.div`
         justify-content:center;
         flex-direction:column;
         align-items:center;
+        width:100%;
+        flex-wrap:wrap;
 `;
 
 const JobSeekerDashboardPage = () => {

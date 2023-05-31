@@ -137,16 +137,21 @@ const JobDetailsCard = () => {
       const jobseekerId = localStorage.getItem("jobseekerId");
 
       const response = await dispatch(applyToJobAction({ jobSeekerId: jobseekerId, jobId: jobid }));
+      console.log("response after apply: ", response);
+      if (!response.payload.error) {
+        setAppliedResponseMessage("Job Applied Successfully")
+      } else {
+        setAppliedResponseMessage(response.payload.error)
+      }
 
-      setAppliedResponseMessage(response.payload.error)
       setTimeout(() => {
         setAppliedResponseMessage(null);
-      }, 3000);
+      }, 30000);
     } catch (error) {
       setAppliedResponseMessage("some error");
       setTimeout(() => {
         setAppliedResponseMessage(null);
-      }, 3000);
+      }, 30000);
     }
   };
 
@@ -201,7 +206,7 @@ const JobDetailsCard = () => {
 
       <div className="details-row enlarge" style={{ ...FieldStyle }}>
         <Label className="label">Job Description:</Label>
-        <span style={{ marginLeft: "40px", overflow: "auto" }}>{jobDescription}</span>
+        <span style={{ marginLeft: "40px", overflow: "auto" }} className="enlarge">{jobDescription}</span>
       </div>
 
 
@@ -211,8 +216,7 @@ const JobDetailsCard = () => {
         </Button>
         <Button onClick={back} style={{ background: "#ee6c4d", marginLeft: "10px" }}>Back</Button>
       </div>
-
-      {appliedResponseMessage && <p>{appliedResponseMessage}</p>}
+      {appliedResponseMessage && <p style={{ color: "black" }}>{appliedResponseMessage}</p>}
     </JobDetailsStyle>
 
   );

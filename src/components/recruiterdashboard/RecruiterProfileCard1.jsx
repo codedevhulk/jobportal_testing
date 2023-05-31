@@ -45,7 +45,6 @@ const EditButton = styled.button`
 `;
 
 const RecruiterProfileCard = () => {
-  // const { recruiter, loading, error } = useSelector((state) => state.recruiterApp);
   const recruiter = recruiter_one;
   const loading = false;
   const error = null;

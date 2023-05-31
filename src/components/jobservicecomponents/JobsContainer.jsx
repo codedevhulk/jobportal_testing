@@ -11,6 +11,9 @@ const JobCardContainer = styled.div`
   width: 90%;
   max-width: 1200px;
   padding: 20px;
+  box-sizing:border-box;
+  flex-wrap
+  
 `;
 const PageLinksContainer = styled.ul`
   display: flex;
