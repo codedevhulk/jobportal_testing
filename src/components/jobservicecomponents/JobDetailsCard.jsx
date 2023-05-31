@@ -2,21 +2,10 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { Card } from "@mui/material"
 import { applyToJobAction } from "../../store/slices/jobserviceslice";
 import { getJobseekerProfileAction } from "../../store/slices/jobseekerslice";
-// interface IJobInfoProps {
-//   jobInfo: {
-//     id: string;
-//     jobTitle: string;
-//     companyName: string;
-//     location: string;
-//     jobType: string;
-//     jobCategory: string;
-//     jobDescription: string;
-//     salary: string;
-//     applicationLink: string;
-//   };
-// }
+
 
 const JobDetailsStyle = styled.div`
   display: flex;
@@ -25,6 +14,7 @@ const JobDetailsStyle = styled.div`
   padding: 1rem;
   box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.2);
   margin: 10px;
+  margin-top:100px;
   max-width: 60vw;
   box-sizing: border-box;
   .job-title {
@@ -37,24 +27,81 @@ const JobDetailsStyle = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.5rem;
-    border: 1px solid red;
+    padding-bottom: 168px;
+    border-bottom:2px solid rgba(10,10,10,0.1);
     padding: 10px;
     .label {
       font-weight: bold;
       margin-right: 0.5rem;
     }
+    
+  }
+  .enlarge{
+    height:100px;
+    
+  }
+  .enlarge span{
+    line-break:auto;
   }
 
-  .job-description {
-    margin-top: 1rem;
-
-    p {
-      margin: 0;
-    }
+ 
   }
 `;
-const Button = styled.button``;
+
+
+const JobTitlee = styled.h3`
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+`;
+
+
+
+const Label = styled.span`
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  textAlign:start;
+`;
+
+
+
+const Button = styled.button`
+  display: block;
+  width: 200px;
+  height: 40px;
+  margin-top: 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #00a0ff;
+  color: #fff;
+`;
+
+const BackButton = styled.button`
+position:absolute; 
+top-left-corner; 
+margin-left:20px;
+width:80px; 
+height:40px; 
+border:none; 
+border-radius:5px; 
+background-color:#ee6c4d; 
+color:#333
+`;
+const FieldStyle = {
+  boxSizing: "border-box",
+  margin: "1px",
+  padding: "2px",
+  background: "inherit",
+
+  textAlign: "left",
+  boxShadow: "none",
+  fontWeight: "600",
+  fontFamily: "sans-serif"
+
+
+}
+
 
 const JobDetailsCard = () => {
   const dispatch = useDispatch();
@@ -88,17 +135,9 @@ const JobDetailsCard = () => {
   const onApply = async () => {
     try {
       const jobseekerId = localStorage.getItem("jobseekerId");
-      // const userdetailsRes = await dispatch(getJobseekerProfileAction());
-      // console.log("userdetailsRes", userdetailsRes)
-      // if (userdetailsRes?.firstName === "" && userdetailsRes?.qualification === "") {
-      //   setAppliedResponseMessage("Update your profile first");
-      //   setTimeout(() => {
-      //     setAppliedResponseMessage(null)
-      //   }, 3000)
-      //   return;
-      // }
+
       const response = await dispatch(applyToJobAction({ jobSeekerId: jobseekerId, jobId: jobid }));
-      // console.log("applytoaction", response)
+
       setAppliedResponseMessage(response.payload.error)
       setTimeout(() => {
         setAppliedResponseMessage(null);
@@ -138,40 +177,46 @@ const JobDetailsCard = () => {
   } = jobInfo;
 
   return (
-    <div>
-      <div>
-        <button onClick={back}>Back</button>
-      </div>
-      <JobDetailsStyle>
-        <div className="job-title">{jobTitle}</div>
-        <div className="details-row">
-          <span className="label">Company Name:</span>
-          <span>{companyName}</span>
-        </div>
-        <div className="details-row">
-          <span className="label">Location:</span>
-          <span>{location}</span>
-        </div>
-        <div className="details-row">
-          <span className="label">Job Type:</span>
-          <span>{jobType}</span>
-        </div>
-        <div className="details-row">
-          <span className="label">Salary:</span>
-          <span>{salary}</span>
-        </div>
 
-        <div className="job-description">
-          <h6>Job Description</h6>
-          <p>{jobDescription}</p>
-        </div>
+
+    <JobDetailsStyle>
+      <JobTitlee>{jobTitle}</JobTitlee>
+
+      <div className="details-row" style={{ ...FieldStyle }}>
+        <Label className="label">Company Name:</Label>
+        <span style={{ marginLeft: "40px" }}>{companyName}</span>
+      </div>
+      <div className="details-row" style={{ ...FieldStyle }}>
+        <Label className="label">Location:</Label>
+        <span style={{ marginLeft: "40px" }}>{location}</span>
+      </div>
+      <div className="details-row" style={{ ...FieldStyle }}>
+        <Label className="label">Job Type:</Label>
+        <span style={{ marginLeft: "40px" }}>{jobType}</span>
+      </div>
+      <div className="details-row" style={{ ...FieldStyle }}>
+        <Label className="label">Salary:</Label>
+        <span style={{ marginLeft: "40px" }}>{salary}</span>
+      </div>
+
+      <div className="details-row enlarge" style={{ ...FieldStyle }}>
+        <Label className="label">Job Description:</Label>
+        <span style={{ marginLeft: "40px", overflow: "auto" }}>{jobDescription}</span>
+      </div>
+
+
+      <div style={{ display: "flex", justifyContent: "space-around" }}>
         <Button type="button" onClick={onApply}>
           Apply
         </Button>
-        {appliedResponseMessage && <p>{appliedResponseMessage}</p>}
-      </JobDetailsStyle>
-    </div>
+        <Button onClick={back} style={{ background: "#ee6c4d", marginLeft: "10px" }}>Back</Button>
+      </div>
+
+      {appliedResponseMessage && <p>{appliedResponseMessage}</p>}
+    </JobDetailsStyle>
+
   );
 };
 
 export default JobDetailsCard;
+

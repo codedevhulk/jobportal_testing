@@ -74,7 +74,11 @@ export const appRouter = createBrowserRouter([
           { path: "/jobseeker/profile", element: <JobSeekerProfileCard /> },
           { path: "/jobseeker/profile/update", element: <JobSeekerProfileForm /> },
           { path: "/jobseeker/appliedlist", element: <AppliedJobsList /> },
-          { path: "/jobseeker/appliedlist/:id", element: <AppliedJobDetails /> }
+          { path: "/jobseeker/appliedlist/:id", element: <AppliedJobDetails /> },
+          {
+            path: "/jobseeker/jobdetails/:id",
+            element: <JobDetailsCard />,
+          }
         ]
 
       },

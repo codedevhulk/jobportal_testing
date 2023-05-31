@@ -60,7 +60,7 @@ const JobsContainer = () => {
   );
   const pageNumbers = Array.from({ length: totalPages }, (_, i) => i + 1);
 
-  const onApply = () => {};
+  const onApply = () => { };
 
   const handlePageClick = (event) => {
     setCurrentPage(Number(event.target.id));
@@ -83,8 +83,8 @@ const JobsContainer = () => {
     if (loading === false) {
       let jobsFromFilterResult = Array.isArray(jobs)
         ? jobs.filter((job) =>
-            job.jobTitle.toLowerCase().includes(value.toLowerCase())
-          )
+          job.jobTitle?.toLowerCase().includes(value.toLowerCase())
+        )
         : [];
       setJobSearchResult(jobsFromFilterResult);
     }
