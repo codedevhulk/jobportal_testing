@@ -84,7 +84,7 @@ const AppliedJobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
   return (
     <Card>
       <Title>{jobTitle}</Title>
-      <JobDescription>{jobDescription}</JobDescription>
+      <JobDescription style={{ overflow: "scroll" }}>{jobDescription}</JobDescription>
       <Salary>{salary ? `${salary}$/hr` : null}</Salary>
       <Location>{location}</Location>
       <Status>Your Application Status  is {applicationStatus}</Status>

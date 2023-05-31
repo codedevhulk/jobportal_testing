@@ -6,11 +6,15 @@ import { jobApplicatonsOfJobseekerApi } from "../../service/constants";
 import { jobApplicatonsOfJobseeker } from "../../service/jobSeekerService"
 
 const AppliedJobsListContainer = styled.div`
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
     align-items:center;
+    grid-gap:20px 20px;
     margin:auto;
+    width:100%;
+    padding:2%;
+    box-sizing:border-box;
+
 `;
 const Title = styled.p`
     font-weight:600;
