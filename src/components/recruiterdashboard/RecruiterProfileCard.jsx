@@ -117,67 +117,67 @@ margin:auto;
 
 
 const FieldStyle = {
-    boxSizing: "border-box",
-    margin: "1px",
-    padding: "2px",
-    background: "inherit",
-    width: "100%",
-    textAlign: "left",
-    boxShadow: "none",
-    fontWeight: "600",
-    fontFamily: "sans-serif"
+  boxSizing: "border-box",
+  margin: "1px",
+  padding: "2px",
+  background: "inherit",
+  width: "100%",
+  textAlign: "left",
+  boxShadow: "none",
+  fontWeight: "600",
+  fontFamily: "sans-serif"
 
 
 }
 
 
 const RecruiterProfileCard = () => {
-    const dispatch = useDispatch();
-    const { recruiter } = useSelector(
-        (state) => state.recruiterApp
+  const dispatch = useDispatch();
+  const { recruiter } = useSelector(
+    (state) => state.recruiterApp
 
-    );
+  );
 
-    const getProfile = async () => {
-        await dispatch(getRecruiterProfileAction());
-    }
+  const getProfile = async () => {
+    await dispatch(getRecruiterProfileAction());
+  }
 
-    useEffect(() => {
-        getProfile();
-    }, [])
+  useEffect(() => {
+    getProfile();
+  }, [])
 
-    return (
+  return (
 
-        <ProfileContainer>
+    <ProfileContainer>
 
-            <ProfileItemsContainer>
-                <ProfileEditContainer>
-                    <ProfilePhoto imgUrl={"url"} />
-                    <Button sx={{ marginLeft: 0, paddingLeft: 0, "&:hover": { background: "none", color: "red" } }}> <Link to="/recruiter/profile/edit" style={{ color: "inherit", textDecoration: "none" }}>Edit Profile</Link></Button>
-                </ProfileEditContainer>
-                <FieldItemsContainer>
-                    {recruiter && <FieldItems style={{ listStyleType: "none", height: "360px" }}>
+      <ProfileItemsContainer>
+        <ProfileEditContainer>
+          <ProfilePhoto imgUrl={"url"} />
+          <Button sx={{ marginLeft: 0, paddingLeft: 0, "&:hover": { background: "none", color: "red" } }}> <Link to="/recruiter/profile/edit" style={{ color: "inherit", textDecoration: "none" }}>Edit Profile</Link></Button>
+        </ProfileEditContainer>
+        <FieldItemsContainer>
+          {recruiter && <FieldItems style={{ listStyleType: "none", height: "360px" }}>
 
-                        {
-                            Object.entries(recruiter).map(entry => {
-                                const label = entry[0]
-                                const value = entry[1]
-                                return label !== "recruiterId" && label !== "password" ? <FieldItem><Card style={{ ...FieldStyle, textTransform: "uppercase", lineSpacing: "1px" }} >{label}</Card>  <Card style={{ ...FieldStyle, background: "rgba(255,255,255,0.6)", textTransform: "capitalize", overflow: "scroll", minHeight: "30px" }}>{value}</Card> </FieldItem> : null;
-                            })}
+            {
+              Object.entries(recruiter).map(entry => {
+                const label = entry[0]
+                const value = entry[1]
+                return label !== "recruiterId" && label !== "password" ? <FieldItem><Card style={{ ...FieldStyle, textTransform: "uppercase", lineSpacing: "1px" }} >{label}</Card>  <Card style={{ ...FieldStyle, background: "rgba(255,255,255,0.6)", textTransform: "capitalize", overflow: "scroll", minHeight: "30px" }}>{value}</Card> </FieldItem> : null;
+              })}
 
-                    </FieldItems>
+          </FieldItems>
 
-                    }
-                </FieldItemsContainer>
-
-
-
-            </ProfileItemsContainer>
+          }
+        </FieldItemsContainer>
 
 
-        </ProfileContainer >
 
-    );
+      </ProfileItemsContainer>
+
+
+    </ProfileContainer >
+
+  );
 };
 
 export default RecruiterProfileCard;

@@ -23,7 +23,7 @@ export const recruiterSignin = createAsyncThunk(
       });
       const result = await response.json();
       console.log("signin recruiter response", result)
-      if (result.roles[0] === "ROLE_USER")
+      if (result.roles[0] === "ROLE_RECRUITER")
         localStorage.setItem("rtoken", JSON.stringify("recruiter"));
       localStorage.setItem("recruiterId", result.id);
       localStorage.setItem("username", result.username);

@@ -68,7 +68,8 @@ const ViewAllApplicantComponent = ({ recruiter_id }) => {
   }
 
   useEffect(() => {
-    dispatch(displayAllApplicantsAction(recruiter_id));
+    const applicants = dispatch(displayAllApplicantsAction(recruiter_id));
+    console.log("applicants", applicants)
   }, [dispatch, recruiter_id]);
 
   if (loading) {

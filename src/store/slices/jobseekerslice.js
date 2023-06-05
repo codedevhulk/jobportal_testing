@@ -39,7 +39,7 @@ export const jobseekerSignIn = createAsyncThunk(
       const result = await response.json();
 
       console.log("from jobseekersignin slice", result);
-      if (result.roles[0] === "ROLE_USER")
+      if (result.roles[0] === "ROLE_JOBSEEKER")
         localStorage.setItem("jtoken", "jobseeker");
       localStorage.setItem("username", result.username);
       localStorage.setItem("jobseekerId", result.id);
