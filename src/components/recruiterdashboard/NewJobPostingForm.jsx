@@ -53,7 +53,7 @@ const PostNewJob = () => {
     <Form onSubmit={handleSubmit}>
       <Input
         type="text"
-        name="JobTitle"
+        name="jobTitle"
         placeholder="Job Title"
         onChange={handleInputChange}
       />
