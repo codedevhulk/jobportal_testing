@@ -11,7 +11,7 @@ const AppliedJobsListContainer = styled.div`
     align-items:center;
     grid-gap:20px 20px;
     margin:auto;
-    width:100%;
+    width:80%;
     padding:2%;
     box-sizing:border-box;
 

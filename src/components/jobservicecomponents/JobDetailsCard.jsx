@@ -151,7 +151,7 @@ const JobDetailsCard = () => {
       setAppliedResponseMessage("some error");
       setTimeout(() => {
         setAppliedResponseMessage(null);
-      }, 30000);
+      }, 3000);
     }
   };
 
@@ -216,7 +216,7 @@ const JobDetailsCard = () => {
         </Button>
         <Button onClick={back} style={{ background: "#ee6c4d", marginLeft: "10px" }}>Back</Button>
       </div>
-      {appliedResponseMessage && <p style={{ color: "black" }}>{appliedResponseMessage}</p>}
+      {appliedResponseMessage && <p style={{ color: "black", margin: "auto", fontWeight: "bold" }}>{appliedResponseMessage}</p>}
     </JobDetailsStyle>
 
   );

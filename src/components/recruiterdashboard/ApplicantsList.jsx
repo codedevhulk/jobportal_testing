@@ -48,15 +48,18 @@ const Button = styled.button`
   }
 `;
 
-const ViewAllApplicantComponent = ({ recruiter_id }) => {
+const ViewAllApplicantComponent = () => {
   const dispatch = useDispatch();
+  const recruiter_id = localStorage.getItem("recruiterId")
   // const { applicants, loading, error } = useSelector(
   //   (state) => state.displayAllApplicantsSlice
   // );
+  const [loading, setLoading] = useState(false);
+  const [allapplicants, setAllApplicants] = useState([]);
+  const [error, setError] = useState(null)
   const [responseMessage, setResponseMessage] = useState(null);
-  const applicants = generateApplicants(10);
-  const loading = false;
-  const error = null
+  // const applicants = generateApplicants(10);
+
 
   const rejectFn = async (id) => {
     const res = await rejectApplicant(id);
@@ -66,11 +69,23 @@ const ViewAllApplicantComponent = ({ recruiter_id }) => {
     const res = await approveApplicant(id);
     setResponseMessage(res);
   }
+  const getAllApplicants = async () => {
+    setLoading(true);
+    const applicants = await dispatch(displayAllApplicantsAction(recruiter_id));
+    setLoading(false);
+    console.log(applicants.payload)
+    if (applicants.payload.length > 0) {
+      setLoading(false)
+      setError(null);
+      setAllApplicants(applicants.payload)
+      console.log("all applicants")
+    } else
+      setError(applicants)
+  }
 
   useEffect(() => {
-    const applicants = dispatch(displayAllApplicantsAction(recruiter_id));
-    console.log("applicants", applicants)
-  }, [dispatch, recruiter_id]);
+    getAllApplicants()
+  }, [dispatch, error, allapplicants.length]);
 
   if (loading) {
     return <div>Loading...</div>;
@@ -79,7 +94,9 @@ const ViewAllApplicantComponent = ({ recruiter_id }) => {
   if (error) {
     return <div>Error: {error.message}</div>;
   }
-
+  if (loading) {
+    return <p style={{ margin: "auto", fontweight: "bold" }}>Loading...</p>
+  }
   return (
     <Container>
       <Table>
@@ -93,7 +110,8 @@ const ViewAllApplicantComponent = ({ recruiter_id }) => {
           </tr>
         </thead>
         <tbody>
-          {applicants.map((applicant) => (
+
+          {!loading && !error && allapplicants.map((applicant) => (
             <TableRow key={applicant.id}>
               <TableCell>{applicant.name}</TableCell>
               <TableCell>{applicant.email}</TableCell>

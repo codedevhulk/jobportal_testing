@@ -39,7 +39,7 @@ export const viewAllJobPost = async (recruiter_id) => {
 export const applicantList = async (recruiter_id) => {
   try {
     const response = await fetch(`${viewAllApplicantsApi}/${recruiter_id}`);
-    const applicantsList = response.json();
+    const applicantsList = await response.json();
     return applicantsList;
   } catch (error) {
     return error;
@@ -48,7 +48,8 @@ export const applicantList = async (recruiter_id) => {
 
 export const approveApplicant = async (applicant_id) => {
   try {
-    const response = await fetch(approveApplicantApi, {
+    const url = approveApplicantApi + applicant_id;
+    const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify({ applicant_id }),
     });
@@ -61,7 +62,8 @@ export const approveApplicant = async (applicant_id) => {
 
 export const rejectApplicant = async (applicant_id) => {
   try {
-    const response = await fetch(rejectApplicantApi, {
+    const url = rejectApplicantApi + applicant_id;
+    const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify({ applicant_id }),
     });

@@ -11,7 +11,7 @@ export const displayAllApplicantsAction = createAsyncThunk(
   async (recruiter_id) => {
     try {
       const response = await applicantList(recruiter_id);
-      return response.json();
+      return response;
     } catch (error) {
       return error;
     }
@@ -55,6 +55,7 @@ const displayAllApplicantsSlice = createSlice({
         state.error = null;
       })
       .addCase(displayAllApplicantsAction.fulfilled, (state, action) => {
+        console.log("all applicants ", action.payload)
         state.applicants = action.payload;
         state.loading = false;
         state.error = null;

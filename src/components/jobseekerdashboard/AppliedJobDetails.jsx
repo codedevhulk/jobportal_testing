@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { jobApplicatonsOfJobseeker } from "../../service/jobSeekerService"
-import { useParams } from "react-router-dom";
-import { Card } from "@mui/material"
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Card } from "@mui/material"
 
 const AppliedJobDetailsCardContainer = styled.div`
     display:flex;
@@ -31,6 +31,7 @@ const Field = styled.div`
 
 const AppliedJobDetails = () => {
     const [applicationDetails, setApplicationDetails] = useState(null);
+    const navigate = useNavigate();
     const { id } = useParams();
     const jobApplicationByApplicationId = async () => {
         const jobApplications = await jobApplicatonsOfJobseeker();
@@ -49,10 +50,12 @@ const AppliedJobDetails = () => {
                     {console.log(applicationDetails)}
 
                     {applicationDetails && Object.entries(applicationDetails).map(item => {
-                        return <div>{item[1] != null && !item[0].toLowerCase().includes("id") ? <Field><Card sx={{ padding: "5px", width: "50%", letterSpacing: "1px", textTransform: "uppercase" }}>{item[0]}</Card> <Card sx={{ padding: "5px", margin: "auto", textAlign: "start", width: "50%", overflow: "scroll" }} > {item[1]}</Card> </Field> : ""}</div>
+                        return <div>{item[1] != null && !item[0].toLowerCase().includes("id") ? <Field><p style={{ padding: "5px", width: "50%", letterSpacing: "1px", textTransform: "uppercase" }}>{item[0]}</p> <Card sx={{ padding: "5px", margin: "auto", textAlign: "start", width: "50%", overflow: "scroll" }} > {item[1]}</Card> </Field> : ""}</div>
                     })}
                 </ul>
+                <Button onClick={() => navigate(-1)}>BACK</Button>
             </AppliedJobDetailsCard>
+
         </AppliedJobDetailsCardContainer >
     )
 }

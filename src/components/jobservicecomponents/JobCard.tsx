@@ -74,7 +74,7 @@ const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
     <Card>
       <Title>{jobTitle}</Title>
       <Company>{company}</Company>
-      <Salary>{salary}$ /m</Salary>
+      <Salary>{salary}</Salary>
       <Location>{location}</Location>
       <Link to={`/jobseeker/jobdetails/${id}`}>
         <DetailsButton onClick={onApply}>Show Details</DetailsButton>
