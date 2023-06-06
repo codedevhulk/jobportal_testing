@@ -1,22 +1,15 @@
-import React, { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { postNewJobAction } from "../../store/slices/recruiter/recruiternewjobslice";
-import { setCommentRange } from "typescript";
+import { getAJobById } from "../../service/recruiterService";
+import { useParams } from "react-router-dom";
 
 
-const PostNewJob = () => {
-  const [jobData, setJobData] = useState({
-    jobTitle: "",
-    jobDescription: "",
-    location: "",
-    jobType: "",
-    experience: "",
-    salary: "",
-    qualification: "",
-    vacancies: "",
-    companyName: ""
-  });
+const EditPostedJob = () => {
+  const { id } = useParams();
+  const [jobData, setJobData] = useState({});
   const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.newJobPostApp);
@@ -35,19 +28,17 @@ const PostNewJob = () => {
       setResponseMessage(null);
     }, 2000)
   };
-  //   {
-  //     "jobTitle":"Python full stack developer",-----
-  //      "jobDescription":"Expected to -----have knowledge on both frontend and backend technologies",
-  //       "location":"Hyderabad",------
-  //        "jobType":"Full type",--------
-  //         "experience":"2 years",-------
-  //          "salary":"10LPA",---------
-  //           "qualification":"Btech",---------
-  //            "vacancies":"30",---------
-  //            "recruiterId":"2",
-  //            "skillset":"react",----
-  //            "companyName":"Persistent"---
-  // }
+
+  const getJob = async () => {
+    const res = await getAJobById(id)
+    console.log("job", res)
+    setJobData(res)
+  }
+
+  useEffect(() => {
+    getJob()
+
+  }, [])
 
   return (
     <Form onSubmit={handleSubmit}>
@@ -55,31 +46,39 @@ const PostNewJob = () => {
         type="text"
         name="jobTitle"
         placeholder="Job Title"
+        value={jobData.jobTitle}
         onChange={handleInputChange}
       />
 
       <Input
         type="text"
         name="location"
+        value={jobData.jobTitle}
         placeholder="Job Location"
         onChange={handleInputChange}
       />
+
       <Input
         type="text"
         name="jobType"
         placeholder="Job Type"
+        value={jobData.jobType}
         onChange={handleInputChange}
       />
       <Input
         type="text"
         name="experience"
         placeholder="Experience"
+        value={jobData.experience}
+
         onChange={handleInputChange}
       />
       <Input
         type="text"
         name="salary"
         placeholder="Salary"
+        value={jobData.salary}
+
         onChange={handleInputChange}
       />
 
@@ -87,6 +86,8 @@ const PostNewJob = () => {
         type="text"
         name="qualification"
         placeholder="Qualification"
+        value={jobData.qualification}
+
         onChange={handleInputChange}
       />
 
@@ -94,18 +95,24 @@ const PostNewJob = () => {
         type="text"
         name="vacancies"
         placeholder="Vacancies"
+        value={jobData.vacancies}
+
         onChange={handleInputChange}
       />
       <Input
         type="text"
         name="companyName"
         placeholder="companyName"
+        value={jobData.companyName}
+
         onChange={handleInputChange}
       />
       <Input
         type="text"
         name="skillset"
         placeholder="Skillset"
+        value={jobData.skillset}
+
         onChange={handleInputChange}
       />
 
@@ -113,20 +120,22 @@ const PostNewJob = () => {
         type="text"
         name="jobDescription"
         placeholder="Job Description"
+        value={jobData.jobDescription}
+
         onChange={handleInputChange}
       ></TextArea>
 
 
 
       <Button type="submit" disabled={loading}>
-        POST JOB
+        UPDATE JOB
       </Button>
       {responseMessage && <div>{responseMessage}</div>}
     </Form>
   );
 };
 
-export default PostNewJob;
+export default EditPostedJob;
 
 
 const Form = styled.form`
@@ -174,3 +183,5 @@ const Button = styled.button`
   width:120px;
   
 `;
+
+

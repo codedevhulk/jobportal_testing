@@ -38,7 +38,7 @@ const jobserviceslice = createSlice({
   name: "jobserviceslice",
   initialState,
   reducers: {
-    getJobById: (state, action) => {
+    getJobByIdFromStore: (state, action) => {
       return state.jobs.filter(job => job.id === action.payload.id);
     }
   },
@@ -58,5 +58,5 @@ const jobserviceslice = createSlice({
   },
 });
 
-export const { getJobById } = jobserviceslice.actions;
+export const { getJobByIdFromStore } = jobserviceslice.actions;
 export default jobserviceslice.reducer;

@@ -45,3 +45,6 @@ export const getJobseekerProfileApi = "http://localhost:8062/jobseeker/"
 export const jobApplicatonsOfJobseekerApi = appliedJobsByJobseekerApi;
 export const approveApplicantApi = "http://localhost:8020/jobservice/recruiter/application/accept/";
 export const rejectApplicantApi = "http://localhost:8020/jobservice/recruiter/application/reject/"
+export const getAJobByIdApi = "http://localhost:8020/jobservice/job/"
+//need api getApplicantById, but using viewAllApplicantsApi and filtering it
+

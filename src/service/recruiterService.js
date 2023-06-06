@@ -5,8 +5,10 @@ import {
   approveApplicantApi,
   rejectApplicantApi,
   getRecruiterProfileApi,
+  getAJobByIdApi,
 
 } from "./constants";
+import { useParams } from "react-router-dom";
 
 export const newJobPost = async (newJobData) => {
   try {
@@ -41,6 +43,19 @@ export const applicantList = async (recruiter_id) => {
     const response = await fetch(`${viewAllApplicantsApi}/${recruiter_id}`);
     const applicantsList = await response.json();
     return applicantsList;
+  } catch (error) {
+    return error;
+  }
+};
+export const getApplicantById = async () => {
+  try {
+    const id = Number(window.location.pathname.split('/')[window.location.pathname.split('/').length - 1]);
+    console.log("id:", id)
+    const recruiter_id = localStorage.getItem("recruiterId")
+    const response = await fetch(`${viewAllApplicantsApi}/${recruiter_id}`);
+    const applicantsList = await response.json();
+    const res = applicantsList.filter(applicant => applicant.id === id)[0]
+    return res;
   } catch (error) {
     return error;
   }
@@ -83,6 +98,16 @@ export const getRecruiterProfileData = async () => {
     const data = response.json();
     return data;
   } catch (error) { return error }
+}
+
+export const getAJobById = async (jobId) => {
+  try {
+    const res = await fetch(getAJobByIdApi + jobId)
+    const data = await res.json()
+    return data
+  } catch (err) {
+    return err;
+  }
 }
 
 

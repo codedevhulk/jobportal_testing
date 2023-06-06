@@ -15,6 +15,10 @@ export const postNewJobAction = createAsyncThunk(
   }
 );
 
+export const updateJobAction = createAsyncThunk("updateJobAction", async () => {
+
+})
+
 const postNewJobSlice = createSlice({
   name: "postNewJobSlice",
   initialState: {

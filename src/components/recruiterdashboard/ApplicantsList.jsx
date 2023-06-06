@@ -8,7 +8,7 @@ import { rejectApplicant, approveApplicant } from "../../service/recruiterServic
 
 const Container = styled.div`
   max-width: 800px;
-  margin: 0 auto;
+  margin: 30px auto;
 `;
 
 const Table = styled.table`
@@ -51,14 +51,11 @@ const Button = styled.button`
 const ViewAllApplicantComponent = () => {
   const dispatch = useDispatch();
   const recruiter_id = localStorage.getItem("recruiterId")
-  // const { applicants, loading, error } = useSelector(
-  //   (state) => state.displayAllApplicantsSlice
-  // );
+
   const [loading, setLoading] = useState(false);
   const [allapplicants, setAllApplicants] = useState([]);
   const [error, setError] = useState(null)
   const [responseMessage, setResponseMessage] = useState(null);
-  // const applicants = generateApplicants(10);
 
 
   const rejectFn = async (id) => {
@@ -111,7 +108,7 @@ const ViewAllApplicantComponent = () => {
     return <p style={{ margin: "auto", fontweight: "bold" }}>Loading...</p>
   }
   return (
-    <Container>
+    <Container >
       <Table>
         <thead>
           <tr>

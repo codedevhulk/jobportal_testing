@@ -62,6 +62,7 @@ export const appRouter = createBrowserRouter([
           { path: "/recruiter/newjobpost", element: <NewJobPostingForm /> },
 
 
+
         ]
       },
       {
