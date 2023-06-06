@@ -64,10 +64,23 @@ const ViewAllApplicantComponent = () => {
   const rejectFn = async (id) => {
     const res = await rejectApplicant(id);
     setResponseMessage(res);
+    console.log("reject : ", res)
+    if (res) {
+      setTimeout(() => {
+        setResponseMessage(null)
+      }, 5000)
+    }
+
   }
   const approveFn = async (id) => {
     const res = await approveApplicant(id);
     setResponseMessage(res);
+    console.log("approve : ", res)
+    if (res) {
+      setTimeout(() => {
+        setResponseMessage(null)
+      }, 5000)
+    }
   }
   const getAllApplicants = async () => {
     setLoading(true);
@@ -112,34 +125,39 @@ const ViewAllApplicantComponent = () => {
         <tbody>
 
           {!loading && !error && allapplicants.map((applicant) => (
-            <TableRow key={applicant.id}>
-              <TableCell>{applicant.name}</TableCell>
-              <TableCell>{applicant.email}</TableCell>
-              <TableCell>{applicant.phone}</TableCell>
-              <TableCell>
-                <Link to={`/recruiter/applicants/${applicant.id}`} target="_blank" style={{ textDecoration: "none", color: "green" }}>Show Details</Link>
-              </TableCell>
-              <TableCell>
-                <Button
-                  isApprove={true}
-                  onClick={() => {
-                    rejectFn(applicant.id)
-                  }}
-                >
-                  Approve
-                </Button>
-                <Button
-                  isApprove={false}
-                  onClick={() => {
-                    approveFn(applicant.id)
+            <>
+              <TableRow key={applicant.id}>
+                <TableCell>{applicant.name}</TableCell>
+                <TableCell>{applicant.email}</TableCell>
+                <TableCell>{applicant.phone}</TableCell>
+                <TableCell>
+                  <Link to={`/recruiter/applicants/${applicant.id}`} target="_blank" style={{ textDecoration: "none", color: "green" }}>Show Details</Link>
+                </TableCell>
+                <TableCell>
+                  <Button
+                    isApprove={true}
+                    onClick={() => {
+                      rejectFn(applicant.id)
+                    }}
+                  >
+                    Approve
+                  </Button>
+                  <Button
+                    isApprove={false}
+                    onClick={() => {
+                      approveFn(applicant.id)
 
-                  }}
-                >
-                  Reject
-                </Button>
-              </TableCell>
-            </TableRow>
+                    }}
+                  >
+                    Reject
+                  </Button>
+                </TableCell>
+              </TableRow>
+              {responseMessage && <p style={{ margin: "auto", fontweight: "bold" }}>{responseMessage}</p>}
+            </>
+
           ))}
+
         </tbody>
       </Table>
     </Container>

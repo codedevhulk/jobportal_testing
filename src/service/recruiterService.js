@@ -28,8 +28,8 @@ export const newJobPost = async (newJobData) => {
 
 export const viewAllJobPost = async (recruiter_id) => {
   try {
-    const response = await fetch(`${viewAllPostApi}/${recruiter_id}`);
-    const postedjobs = response.json();
+    const response = await fetch(viewAllPostApi);
+    const postedjobs = await response.json();
     return postedjobs;
   } catch (error) {
     return error;

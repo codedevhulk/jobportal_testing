@@ -3,10 +3,13 @@ import { viewAllJobPost } from "../../../service/recruiterService";
 
 export const viewAllJobPostAction = createAsyncThunk(
   "viewAllJobPostAction",
-  async (recruiter_id) => {
+  async () => {
     try {
-      const result = await viewAllJobPost(recruiter_id);
-      return result;
+      const recruiter_id = localStorage.getItem("recruiterId")
+      const result = await viewAllJobPost();
+      const res = result.filter(job => job.recruiterId === Number(recruiter_id))
+
+      return res;
     } catch (error) {
       return error;
     }
