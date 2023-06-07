@@ -6,13 +6,12 @@ import {
   rejectApplicantApi,
   getRecruiterProfileApi,
   getAJobByIdApi,
-
 } from "./constants";
 import { useParams } from "react-router-dom";
 
 export const newJobPost = async (newJobData) => {
   try {
-    console.log("data client", newJobData)
+    console.log("data client", newJobData);
 
     const response = await fetch(newjobpostApi, {
       method: "POST",
@@ -20,7 +19,7 @@ export const newJobPost = async (newJobData) => {
       body: JSON.stringify(newJobData),
     });
     const result = await response.json();
-    console.log("data server", result)
+    console.log("data server", result);
 
     return result;
   } catch (error) {
@@ -49,12 +48,16 @@ export const applicantList = async (recruiter_id) => {
 };
 export const getApplicantById = async () => {
   try {
-    const id = Number(window.location.pathname.split('/')[window.location.pathname.split('/').length - 1]);
-    console.log("id:", id)
-    const recruiter_id = localStorage.getItem("recruiterId")
+    const id = Number(
+      window.location.pathname.split("/")[
+        window.location.pathname.split("/").length - 1
+      ]
+    );
+    console.log("id:", id);
+    const recruiter_id = localStorage.getItem("recruiterId");
     const response = await fetch(`${viewAllApplicantsApi}/${recruiter_id}`);
     const applicantsList = await response.json();
-    const res = applicantsList.filter(applicant => applicant.id === id)[0]
+    const res = applicantsList.filter((applicant) => applicant.id === id)[0];
     return res;
   } catch (error) {
     return error;
@@ -69,7 +72,7 @@ export const approveApplicant = async (applicant_id) => {
       body: JSON.stringify({ applicant_id }),
     });
     const data = response.json();
-    return data
+    return data;
   } catch (error) {
     return error;
   }
@@ -82,8 +85,9 @@ export const rejectApplicant = async (applicant_id) => {
       method: "PUT",
       body: JSON.stringify({ applicant_id }),
     });
-    const data = response.json();
-    return data
+    const data = await response.json();
+    console.log(data);
+    return data;
   } catch (error) {
     return error;
   }
@@ -91,23 +95,23 @@ export const rejectApplicant = async (applicant_id) => {
 
 export const getRecruiterProfileData = async () => {
   try {
-    const username = localStorage.getItem("username")
-    const url = `${getRecruiterProfileApi}${username}`
-    console.log("actual", url)
-    const response = await fetch(url)
+    const username = localStorage.getItem("username");
+    const url = `${getRecruiterProfileApi}${username}`;
+    console.log("actual", url);
+    const response = await fetch(url);
     const data = response.json();
     return data;
-  } catch (error) { return error }
-}
+  } catch (error) {
+    return error;
+  }
+};
 
 export const getAJobById = async (jobId) => {
   try {
-    const res = await fetch(getAJobByIdApi + jobId)
-    const data = await res.json()
-    return data
+    const res = await fetch(getAJobByIdApi + jobId);
+    const data = await res.json();
+    return data;
   } catch (err) {
     return err;
   }
-}
-
-
+};

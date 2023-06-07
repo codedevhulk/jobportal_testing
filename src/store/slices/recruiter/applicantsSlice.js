@@ -55,15 +55,21 @@ const displayAllApplicantsSlice = createSlice({
         state.error = null;
       })
       .addCase(displayAllApplicantsAction.fulfilled, (state, action) => {
-        console.log("all applicants ", action.payload)
-        state.applicants = action.payload;
+        console.log("all applicants ", action.payload);
         state.loading = false;
-        state.error = null;
+        if (!action.payload.errorMessage) {
+          state.applicants = action.payload;
+          state.error = null;
+        }
+        if (action.payload.errorMessage) {
+          console.log("payload error", action.payload.errorMessage);
+          state.error = action.payload.errorMessage;
+          state.applicants = [];
+        }
       })
       .addCase(displayAllApplicantsAction.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message;
-        toast.error(`Error: ${action.error.message}`);
+        state.error = "Some Problem Occured From Server Side";
       })
       .addCase(approveApplicantAction.pending, (state) => {
         state.loading = true;

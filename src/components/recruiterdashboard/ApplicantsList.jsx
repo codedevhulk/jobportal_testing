@@ -2,9 +2,14 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { displayAllApplicantsAction } from "../../store/slices/recruiter/applicantsSlice";
-import { generateApplicants } from "../../sampledata";
+// import { generateApplicants } from "../../sampledata";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 import { Link } from "react-router-dom";
-import { rejectApplicant, approveApplicant } from "../../service/recruiterService";
+import {
+  rejectApplicant,
+  approveApplicant,
+} from "../../service/recruiterService";
 
 const Container = styled.div`
   max-width: 800px;
@@ -40,124 +45,136 @@ const Button = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  margin-right:10px;
-  margin-bottom:10px;
-  width:100%;
+  margin-right: 10px;
+  margin-bottom: 10px;
+  width: 100%;
   &:hover {
     background-color: ${(props) => (props.isApprove ? "#3e8e41" : "#f44336")};
   }
 `;
+export const rejectFn = async (id) => {
+  const res = await rejectApplicant(id);
+  return res;
+};
+export const approveFn = async (id) => {
+  const res = await approveApplicant(id);
+  return res;
+};
 
 const ViewAllApplicantComponent = () => {
   const dispatch = useDispatch();
-  const recruiter_id = localStorage.getItem("recruiterId")
-
-  const [loading, setLoading] = useState(false);
-  const [allapplicants, setAllApplicants] = useState([]);
-  const [error, setError] = useState(null)
+  const recruiter_id = localStorage.getItem("recruiterId");
+  const {
+    applicants: allapplicants,
+    loading,
+    error,
+  } = useSelector((state) => state.applicantsApp);
+  // const [loading, setLoading] = useState(false);
+  // const [allapplicants, setAllApplicants] = useState([]);
+  // const [error, setError] = useState(null);
   const [responseMessage, setResponseMessage] = useState(null);
 
-
-  const rejectFn = async (id) => {
-    const res = await rejectApplicant(id);
-    setResponseMessage(res);
-    console.log("reject : ", res)
-    if (res) {
-      setTimeout(() => {
-        setResponseMessage(null)
-      }, 5000)
-    }
-
-  }
-  const approveFn = async (id) => {
-    const res = await approveApplicant(id);
-    setResponseMessage(res);
-    console.log("approve : ", res)
-    if (res) {
-      setTimeout(() => {
-        setResponseMessage(null)
-      }, 5000)
-    }
-  }
   const getAllApplicants = async () => {
-    setLoading(true);
-    const applicants = await dispatch(displayAllApplicantsAction(recruiter_id));
-    setLoading(false);
-    console.log(applicants.payload)
-    if (applicants.payload.length > 0) {
-      setLoading(false)
-      setError(null);
-      setAllApplicants(applicants.payload)
-      console.log("all applicants")
-    } else
-      setError(applicants)
-  }
+    await dispatch(displayAllApplicantsAction(recruiter_id));
+  };
+
+  const rejectsApplicant = async (id) => {
+    const res = await rejectFn(id);
+    console.log("rejected application res ", res);
+  };
+  const acceptApplicant = async (id) => {
+    const res = await approveFn(id);
+    console.log("approved application res ", res);
+  };
 
   useEffect(() => {
-    getAllApplicants()
-  }, [dispatch, error, allapplicants.length]);
+    getAllApplicants();
+  }, []);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <Box sx={{ width: "100%" }}>
+        <LinearProgress />
+      </Box>
+    );
   }
 
   if (error) {
-    return <div>Error: {error.message}</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          fontWeight: "bold",
+          fontSize: "36px",
+        }}
+      >
+        <p>{error}</p>
+      </div>
+    );
   }
-  if (loading) {
-    return <p style={{ margin: "auto", fontweight: "bold" }}>Loading...</p>
-  }
+
   return (
-    <Container >
-      <Table>
-        <thead>
-          <tr>
-            <TableHeader>Name</TableHeader>
-            <TableHeader>Email</TableHeader>
-            <TableHeader>Phone</TableHeader>
-            <TableHeader>Resume</TableHeader>
-            <TableHeader>Action</TableHeader>
-          </tr>
-        </thead>
-        <tbody>
+    <>
+      {responseMessage && (
+        <p style={{ margin: "auto", fontweight: "bold" }}>{responseMessage}</p>
+      )}
 
-          {!loading && !error && allapplicants.map((applicant) => (
-            <>
-              <TableRow key={applicant.id}>
-                <TableCell>{applicant.name}</TableCell>
-                <TableCell>{applicant.email}</TableCell>
-                <TableCell>{applicant.phone}</TableCell>
-                <TableCell>
-                  <Link to={`/recruiter/applicants/${applicant.id}`} target="_blank" style={{ textDecoration: "none", color: "green" }}>Show Details</Link>
-                </TableCell>
-                <TableCell>
-                  <Button
-                    isApprove={true}
-                    onClick={() => {
-                      rejectFn(applicant.id)
-                    }}
-                  >
-                    Approve
-                  </Button>
-                  <Button
-                    isApprove={false}
-                    onClick={() => {
-                      approveFn(applicant.id)
-
-                    }}
-                  >
-                    Reject
-                  </Button>
-                </TableCell>
-              </TableRow>
-              {responseMessage && <p style={{ margin: "auto", fontweight: "bold" }}>{responseMessage}</p>}
-            </>
-
-          ))}
-
-        </tbody>
-      </Table>
-    </Container>
+      <Container>
+        {!loading && !error && Array.isArray(allapplicants) && (
+          <Table>
+            <thead>
+              <tr>
+                <TableHeader>Name</TableHeader>
+                <TableHeader>Email</TableHeader>
+                <TableHeader>Phone</TableHeader>
+                <TableHeader>Resume</TableHeader>
+                <TableHeader>Action</TableHeader>
+              </tr>
+            </thead>
+            <tbody>
+              {allapplicants.map((applicant) => (
+                <TableRow key={applicant.id}>
+                  <TableCell>
+                    {applicant.firstName} {applicant.lastName}
+                  </TableCell>
+                  <TableCell>{applicant.email}</TableCell>
+                  <TableCell>{applicant.phone}</TableCell>
+                  <TableCell>
+                    <Link
+                      to={`/recruiter/applicants/${applicant.id}`}
+                      target="_blank"
+                      style={{ textDecoration: "none", color: "green" }}
+                    >
+                      Show Details
+                    </Link>
+                  </TableCell>
+                  <TableCell>
+                    <Button
+                      isApprove={true}
+                      onClick={() => {
+                        acceptApplicant(applicant.id);
+                      }}
+                    >
+                      Approve
+                    </Button>
+                    <Button
+                      isApprove={false}
+                      onClick={() => {
+                        rejectsApplicant(applicant.id);
+                      }}
+                    >
+                      Reject
+                    </Button>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </tbody>
+          </Table>
+        )}
+      </Container>
+    </>
   );
 };
 
