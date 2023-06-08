@@ -1,9 +1,8 @@
 import "./App.css";
 import { Outlet } from "react-router-dom";
 
-
 import "./index.css";
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter } from "react-router-dom";
 
 import HomePage from "./pages/HomePage";
 import AboutUs from "./pages/AboutUs";
@@ -21,7 +20,6 @@ import JobSeekerProfileForm from "./components/jobseekerdashboard/JobSeekerProfi
 import JobDetailsCard from "./components/jobservicecomponents/JobDetailsCard";
 import AppliedJobsList from "./components/jobseekerdashboard/AppliedJobsList";
 
-
 //recruiter
 import RecruiterDashboardPage from "./pages/RecruiterDashboardPage";
 import RecruiterProfileCard from "./components/recruiterdashboard/RecruiterProfileCard";
@@ -34,8 +32,6 @@ import RejectedCandidatesList from "./components/recruiterdashboard/RejectedCand
 import ShortListedCandidatesList from "./components/recruiterdashboard/ShortlistedCandidatesList";
 import ApplicantView from "./components/recruiterdashboard/ApplicantView";
 import JobSeekerSearchJobs from "./components/jobseekerdashboard/JobSeekerSearchJobs";
-
-
 
 export const appRouter = createBrowserRouter([
   {
@@ -50,38 +46,50 @@ export const appRouter = createBrowserRouter([
         path: "/recruiter",
         element: <RecruiterDashboardPage />,
         children: [
-          { path: "/recruiter/", element: <ApplicantsList /> },
+          { path: "/recruiter/", element: <RecruiterProfileCard /> },
           { path: "/recruiter/profile", element: <RecruiterProfileCard /> },
-          { path: "/recruiter/profile/edit", element: <RecruiterProfileForm /> },
+          {
+            path: "/recruiter/profile/edit",
+            element: <RecruiterProfileForm />,
+          },
           { path: "/recruiter/applicants", element: <ApplicantsList /> },
           { path: "/recruiter/applicants/:id", element: <ApplicantView /> },
           { path: "/recruiter/postedjobs", element: <PostedJobsList /> },
-          { path: "/recruiter/postedjobs/edit/:id", element: <EditPostedJob /> },
-          { path: "/recruiter/rejectedcandidates", element: <RejectedCandidatesList /> },
-          { path: "/recruiter/shortlistedcandidates", element: <ShortListedCandidatesList /> },
+          {
+            path: "/recruiter/postedjobs/edit/:id",
+            element: <EditPostedJob />,
+          },
+          {
+            path: "/recruiter/rejectedcandidates",
+            element: <RejectedCandidatesList />,
+          },
+          {
+            path: "/recruiter/shortlistedcandidates",
+            element: <ShortListedCandidatesList />,
+          },
           { path: "/recruiter/newjobpost", element: <NewJobPostingForm /> },
-
-
-
-        ]
+        ],
       },
       {
         path: "/jobseeker",
-        element: (
-          <JobSeekerDashboardPage />
-        ),
+        element: <JobSeekerDashboardPage />,
         children: [
           { path: "/jobseeker", element: <JobSeekerSearchJobs /> },
           { path: "/jobseeker/profile", element: <JobSeekerProfileCard /> },
-          { path: "/jobseeker/profile/update", element: <JobSeekerProfileForm /> },
+          {
+            path: "/jobseeker/profile/update",
+            element: <JobSeekerProfileForm />,
+          },
           { path: "/jobseeker/appliedlist", element: <AppliedJobsList /> },
-          { path: "/jobseeker/appliedlist/:id", element: <AppliedJobDetails /> },
+          {
+            path: "/jobseeker/appliedlist/:id",
+            element: <AppliedJobDetails />,
+          },
           {
             path: "/jobseeker/jobdetails/:id",
             element: <JobDetailsCard />,
-          }
-        ]
-
+          },
+        ],
       },
     ],
   },
@@ -108,9 +116,7 @@ export const appRouter = createBrowserRouter([
     path: "/jobseeker/signin",
     element: <JobSeekerSignIn />,
   },
-],
-
-);
+]);
 
 function App() {
   return (
