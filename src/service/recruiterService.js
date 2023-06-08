@@ -6,6 +6,7 @@ import {
   rejectApplicantApi,
   getRecruiterProfileApi,
   getAJobByIdApi,
+  deleteJobByIdApi,
 } from "./constants";
 import { useParams } from "react-router-dom";
 
@@ -114,4 +115,11 @@ export const getAJobById = async (jobId) => {
   } catch (err) {
     return err;
   }
+};
+
+export const deleteJobById = async (id) => {
+  const res = await fetch(deleteJobByIdApi + id, { method: "DELETE" });
+  const result = await res;
+  console.log(result);
+  return result;
 };
