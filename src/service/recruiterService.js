@@ -100,7 +100,7 @@ export const getRecruiterProfileData = async () => {
     const url = `${getRecruiterProfileApi}${username}`;
     console.log("actual", url);
     const response = await fetch(url);
-    const data = response.json();
+    const data = await response.json();
     return data;
   } catch (error) {
     return error;

@@ -8,8 +8,6 @@ import {
 } from "../../../service/constants";
 import { getRecruiterProfileData } from "../../../service/recruiterService";
 
-
-
 export const recruiterSignin = createAsyncThunk(
   "recruiterSignin",
   async (recruiterSigninDetails) => {
@@ -22,7 +20,7 @@ export const recruiterSignin = createAsyncThunk(
         body: JSON.stringify(recruiterSigninDetails),
       });
       const result = await response.json();
-      console.log("signin recruiter response", result)
+      console.log("signin recruiter response", result);
       if (result.roles[0] === "ROLE_RECRUITER")
         localStorage.setItem("rtoken", JSON.stringify("recruiter"));
       localStorage.setItem("recruiterId", result.id);
@@ -37,7 +35,7 @@ export const recruiterSignUp = createAsyncThunk(
   "recruiterSignUp",
   async (recruiterSignUpDetails) => {
     try {
-      console.log("from recruiter signup component", recruiterSignUpDetails)
+      console.log("from recruiter signup component", recruiterSignUpDetails);
 
       const response = await fetch(recruiterSignupApi, {
         method: "POST",
@@ -47,8 +45,7 @@ export const recruiterSignUp = createAsyncThunk(
         body: JSON.stringify({ ...recruiterSignUpDetails }),
       });
       const result = await response.json();
-      console.log("recruiter signup response :", result)
-
+      console.log("recruiter signup response :", result);
 
       return result;
     } catch (error) {
@@ -61,16 +58,13 @@ export const updateRecruiterProfile = createAsyncThunk(
   "updateRecruiterProfile",
   async (updatedRecruiterProfile) => {
     try {
-      const response = await fetch(
-        updateRecruiterProfileApi,
-        {
-          method: "PUT",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify(updatedRecruiterProfile),
-        }
-      );
+      const response = await fetch(updateRecruiterProfileApi, {
+        method: "PUT",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify(updatedRecruiterProfile),
+      });
       const result = await response.json();
       return result;
     } catch (error) {
@@ -85,15 +79,13 @@ export const getRecruiterProfileAction = createAsyncThunk(
     try {
       const username = localStorage.getItem("username");
       const response = await getRecruiterProfileData(username);
-      console.log("recruiter profile response", response)
+      console.log("recruiter profile response ", response);
       return response;
     } catch (error) {
       return error;
     }
   }
-
-
-)
+);
 
 const initialState = {
   recruiter: {
@@ -159,18 +151,19 @@ const recruiterSlice = createSlice({
         state.loading = false;
         state.error = action.payload.message;
       });
-    builder.addCase(getRecruiterProfileAction.pending, (state) => {
-      state.loading = true;
-    })
+    builder
+      .addCase(getRecruiterProfileAction.pending, (state) => {
+        state.loading = true;
+      })
       .addCase(getRecruiterProfileAction.fulfilled, (state, action) => {
         state.loading = false;
         state.recruiter = action.payload;
-        console.log("fulfiled getRecruiterProfile", action)
+        console.log("fulfiled getRecruiterProfile", action);
       })
       .addCase(getRecruiterProfileAction.rejected, (state, action) => {
         state.loading = false;
-        console.log("Rejected getRecruiterProfile", action)
-      })
+        console.log("Rejected getRecruiterProfile", action);
+      });
   },
 });
 
