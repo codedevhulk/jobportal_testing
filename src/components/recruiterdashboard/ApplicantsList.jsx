@@ -80,11 +80,19 @@ const ViewAllApplicantComponent = () => {
 
   const rejectsApplicant = async (id) => {
     const res = await rejectFn(id);
+    setResponseMessage(res.message);
     console.log("rejected application res ", res);
+    setTimeout(() => {
+      setResponseMessage(null);
+    }, 5000);
   };
   const acceptApplicant = async (id) => {
     const res = await approveFn(id);
+    setResponseMessage(res.message);
     console.log("approved application res ", res);
+    setTimeout(() => {
+      setResponseMessage(null);
+    }, 5000);
   };
 
   useEffect(() => {
