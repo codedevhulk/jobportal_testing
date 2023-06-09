@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { Card } from "@mui/material"
+import { Card } from "@mui/material";
 import { applyToJobAction } from "../../store/slices/jobserviceslice";
 import { getJobseekerProfileAction } from "../../store/slices/jobseekerslice";
-
 
 const JobDetailsStyle = styled.div`
   display: flex;
@@ -48,23 +47,18 @@ const JobDetailsStyle = styled.div`
   }
 `;
 
-
 const JobTitlee = styled.h3`
   font-size: 24px;
   font-weight: bold;
   color: #333;
 `;
 
-
-
 const Label = styled.span`
   font-size: 16px;
   font-weight: bold;
   color: #333;
-  textAlign:start;
+  textalign: start;
 `;
-
-
 
 const Button = styled.button`
   display: block;
@@ -75,6 +69,7 @@ const Button = styled.button`
   border-radius: 5px;
   background-color: #00a0ff;
   color: #fff;
+  cursor: pointer;
 `;
 
 const BackButton = styled.button`
@@ -97,11 +92,8 @@ const FieldStyle = {
   textAlign: "left",
   boxShadow: "none",
   fontWeight: "600",
-  fontFamily: "sans-serif"
-
-
-}
-
+  fontFamily: "sans-serif",
+};
 
 const JobDetailsCard = () => {
   const dispatch = useDispatch();
@@ -136,12 +128,14 @@ const JobDetailsCard = () => {
     try {
       const jobseekerId = localStorage.getItem("jobseekerId");
 
-      const response = await dispatch(applyToJobAction({ jobSeekerId: jobseekerId, jobId: jobid }));
+      const response = await dispatch(
+        applyToJobAction({ jobSeekerId: jobseekerId, jobId: jobid })
+      );
       console.log("response after apply: ", response);
       if (!response.payload.error) {
-        setAppliedResponseMessage("Job Applied Successfully")
+        setAppliedResponseMessage("Job Applied Successfully");
       } else {
-        setAppliedResponseMessage(response.payload.error)
+        setAppliedResponseMessage(response.payload.error);
       }
 
       setTimeout(() => {
@@ -164,7 +158,6 @@ const JobDetailsCard = () => {
     } else {
       navigate("/jobseeker/signin");
     }
-
   }, []);
 
   const {
@@ -182,8 +175,6 @@ const JobDetailsCard = () => {
   } = jobInfo;
 
   return (
-
-
     <JobDetailsStyle>
       <JobTitlee>{jobTitle}</JobTitlee>
 
@@ -206,21 +197,32 @@ const JobDetailsCard = () => {
 
       <div className="details-row enlarge" style={{ ...FieldStyle }}>
         <Label className="label">Job Description:</Label>
-        <span style={{ marginLeft: "40px", overflow: "auto" }} className="enlarge">{jobDescription}</span>
+        <span
+          style={{ marginLeft: "40px", overflow: "auto" }}
+          className="enlarge"
+        >
+          {jobDescription}
+        </span>
       </div>
-
 
       <div style={{ display: "flex", justifyContent: "space-around" }}>
         <Button type="button" onClick={onApply}>
           Apply
         </Button>
-        <Button onClick={back} style={{ background: "#ee6c4d", marginLeft: "10px" }}>Back</Button>
+        <Button
+          onClick={back}
+          style={{ background: "#ee6c4d", marginLeft: "10px" }}
+        >
+          Back
+        </Button>
       </div>
-      {appliedResponseMessage && <p style={{ color: "black", margin: "auto", fontWeight: "bold" }}>{appliedResponseMessage}</p>}
+      {appliedResponseMessage && (
+        <p style={{ color: "black", margin: "auto", fontWeight: "bold" }}>
+          {appliedResponseMessage}
+        </p>
+      )}
     </JobDetailsStyle>
-
   );
 };
 
 export default JobDetailsCard;
-

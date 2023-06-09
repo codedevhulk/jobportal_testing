@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import {
   rejectApplicant,
   approveApplicant,
+  deleteApplicant,
 } from "../../service/recruiterService";
 
 const Container = styled.div`
@@ -60,6 +61,10 @@ export const approveFn = async (id) => {
   const res = await approveApplicant(id);
   return res;
 };
+export const deleteFn = async (id) => {
+  const res = await deleteApplicant(id);
+  return res;
+};
 
 const ViewAllApplicantComponent = () => {
   const dispatch = useDispatch();
@@ -80,15 +85,25 @@ const ViewAllApplicantComponent = () => {
 
   const rejectsApplicant = async (id) => {
     const res = await rejectFn(id);
-    setResponseMessage(res.message);
+    setResponseMessage("Job Application Rejected");
     console.log("rejected application res ", res);
     setTimeout(() => {
       setResponseMessage(null);
     }, 5000);
   };
+
   const acceptApplicant = async (id) => {
     const res = await approveFn(id);
-    setResponseMessage(res.message);
+    setResponseMessage("job application accepted for further process");
+    console.log("approved application res ", res);
+    setTimeout(() => {
+      setResponseMessage(null);
+    }, 5000);
+  };
+
+  const deletesApplicant = async (id) => {
+    const res = await deleteFn(id);
+    setResponseMessage("Applicant Deleted Successfully");
     console.log("approved application res ", res);
     setTimeout(() => {
       setResponseMessage(null);
@@ -118,7 +133,7 @@ const ViewAllApplicantComponent = () => {
           fontSize: "36px",
         }}
       >
-        <p>{error}</p>
+        <p>You Have No Applications Yet</p>
       </div>
     );
   }
@@ -174,6 +189,14 @@ const ViewAllApplicantComponent = () => {
                       }}
                     >
                       Reject
+                    </Button>
+                    <Button
+                      isApprove={false}
+                      onClick={() => {
+                        deletesApplicant(applicant.id);
+                      }}
+                    >
+                      Delete
                     </Button>
                   </TableCell>
                 </TableRow>

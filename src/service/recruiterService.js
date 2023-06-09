@@ -8,6 +8,7 @@ import {
   getAJobByIdApi,
   deleteJobByIdApi,
   updateAJobPostApi,
+  deleteApplicantApi,
 } from "./constants";
 import { useParams } from "react-router-dom";
 
@@ -104,6 +105,20 @@ export const rejectApplicant = async (applicant_id) => {
     const response = await fetch(url, {
       method: "PUT",
       body: JSON.stringify({ applicant_id }),
+    });
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const deleteApplicant = async (applicant_id) => {
+  try {
+    const url = deleteApplicantApi + applicant_id;
+    const response = await fetch(url, {
+      method: "DELETE",
     });
     const data = await response.json();
     console.log(data);

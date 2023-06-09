@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 import { deleteJobById } from "../../service/recruiterService";
 import { viewAllJobPostAction } from "../../store/slices/recruiter/recruiterViewAllPostedJobsSlice";
 // import { postedJobs } from "../../sampledata";
@@ -95,10 +97,23 @@ const PostedJobsList = () => {
   useEffect(() => {
     getPostedJobs();
   }, []);
-
   if (loading) {
-    return <p>Loading...</p>;
+    return (
+      <Box sx={{ width: "100%" }}>
+        <LinearProgress />
+      </Box>
+    );
   }
+  //delay this
+  setTimeout(() => {
+    if (Array.isArray(postedjobs) && postedjobs.length == 0) {
+      return (
+        <div style={{ display: "flex", fontSize: "32px" }}>
+          <p>You Have Not Posted Any Job Yet</p>
+        </div>
+      );
+    }
+  }, 0);
 
   return (
     <Container>

@@ -56,5 +56,6 @@ export const rejectApplicantApi =
   "http://localhost:8020/jobservice/recruiter/application/reject/";
 export const getAJobByIdApi = "http://localhost:8020/jobservice/job/";
 
-export const deleteApplicantsById = "";
+export const deleteApplicantApi =
+  "http://localhost:8062/jobservice/deleteapplication/";
 //need api getApplicantById, but using viewAllApplicantsApi and filtering it
