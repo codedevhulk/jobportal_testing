@@ -79,7 +79,7 @@ const PostedJobsList = () => {
     console.dir("response jobposts : ", res?.payload);
 
     if (Array.isArray(res.payload) && res.payload.length > 0) {
-      setPostedjobs([...postedjobs, ...res.payload]);
+      setPostedjobs([...res.payload]);
     } else if (Array.isArray(res.payload) && res.payload.length == 0) {
       setPostedjobs([...res.payload]);
     }

@@ -36,8 +36,8 @@ export const newjobpostApi =
   "http://localhost:8062/jobservice/recruiter/jobpost";
 export const deleteJobByIdApi =
   "http://localhost:8062/jobservice/recruiter/deletejobpost/";
-export const updateAJobPost =
-  "http://localhost:8062/jobservice/recruiter/updatejobpost/2";
+export const updateAJobPostApi =
+  "http://localhost:8062/jobservice/recruiter/updatejobpost/";
 export const viewAllApplicantsApi =
   "http://localhost:8020/jobservice/recruiter/applications";
 export const updateRecruiterProfileApi =

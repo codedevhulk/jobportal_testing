@@ -7,8 +7,27 @@ import {
   getRecruiterProfileApi,
   getAJobByIdApi,
   deleteJobByIdApi,
+  updateAJobPostApi,
 } from "./constants";
 import { useParams } from "react-router-dom";
+
+export const updateJobPost = async (updatedJobData) => {
+  try {
+    console.log("data client_", updatedJobData);
+    const { id } = updatedJobData;
+    const response = await fetch(updateAJobPostApi + id, {
+      method: "PUT",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(updatedJobData),
+    });
+    const result = await response.json();
+    console.log("data server", result);
+
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const newJobPost = async (newJobData) => {
   try {

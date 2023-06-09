@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
-import { postNewJobAction } from "../../store/slices/recruiter/recruiternewjobslice";
+import { updateJobPostAction } from "../../store/slices/recruiter/recruiternewjobslice";
 import { getAJobById } from "../../service/recruiterService";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -20,9 +20,9 @@ const EditPostedJob = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const result = await dispatch(postNewJobAction(jobData));
+    const result = await dispatch(updateJobPostAction(jobData));
 
-    setResponseMessage("Job Updated Successfully");
+    setResponseMessage("job post updated succesfully");
 
     setTimeout(() => {
       setResponseMessage(null);
@@ -57,7 +57,7 @@ const EditPostedJob = () => {
         <Input
           type="text"
           name="location"
-          value={jobData.jobTitle}
+          value={jobData.location}
           placeholder="Job Location"
           onChange={handleInputChange}
         />
