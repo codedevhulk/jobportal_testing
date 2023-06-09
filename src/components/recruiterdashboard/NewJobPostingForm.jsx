@@ -152,8 +152,8 @@ const TextArea = styled.textarea`
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  min-height: 200px;
-  max-height: 500px;
+  min-height: 100px;
+  max-height: 300px;
   overflow: auto;
 `;
 
