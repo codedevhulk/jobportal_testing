@@ -2,7 +2,7 @@ import { useSelector } from "react-redux";
 import SearchBarComponent from "../SearchBar";
 import JobsContainer from "../jobservicecomponents/JobsContainer";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const SearchJobsContainer = styled.div`
   display: flex;
@@ -14,9 +14,13 @@ const SearchJobsContainer = styled.div`
 `;
 
 const JobSeekerSearchJobs = () => {
+  const navigate = useNavigate();
   const { firstName, lastName } = useSelector(
     (state) => state.jobseekerApp.jobseeker
   );
+  if (!firstName && !lastName) {
+    navigate("/jobseeker/profile");
+  }
   return (
     <>
       {

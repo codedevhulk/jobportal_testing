@@ -141,7 +141,7 @@ const Header = ({ page }) => {
                   </MenuItem>
                 </Link>
                 <hr />
-                <Link to="/jobseeker">
+                <Link to="/jobseeker/searchjobs">
                   <MenuItem>
                     <span className="menu-item">Search Jobs</span>
                   </MenuItem>
@@ -239,7 +239,7 @@ const Header = ({ page }) => {
         {page === "jobseeker" ? (
           <>
             <Link
-              to="/jobseeker"
+              to="/jobseeker/searchjobs"
               style={{ color: "inherit", textDecoration: "none" }}
             >
               <NavigationLink>Search Jobs</NavigationLink>

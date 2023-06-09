@@ -74,7 +74,7 @@ export const appRouter = createBrowserRouter([
         path: "/jobseeker",
         element: <JobSeekerDashboardPage />,
         children: [
-          { path: "/jobseeker", element: <JobSeekerSearchJobs /> },
+          { path: "/jobseeker", element: <JobSeekerProfileCard /> },
           { path: "/jobseeker/profile", element: <JobSeekerProfileCard /> },
           {
             path: "/jobseeker/profile/update",
@@ -89,6 +89,7 @@ export const appRouter = createBrowserRouter([
             path: "/jobseeker/jobdetails/:id",
             element: <JobDetailsCard />,
           },
+          { path: "/jobseeker/searchjobs", element: <JobSeekerSearchJobs /> },
         ],
       },
     ],

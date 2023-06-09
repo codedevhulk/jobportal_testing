@@ -26,7 +26,7 @@ const EditPostedJob = () => {
 
     setTimeout(() => {
       setResponseMessage(null);
-    }, 2000);
+    }, 5000);
   };
 
   const getJob = async () => {
@@ -40,91 +40,94 @@ const EditPostedJob = () => {
   }, []);
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Input
-        type="text"
-        name="jobTitle"
-        placeholder="Job Title"
-        value={jobData.jobTitle}
-        onChange={handleInputChange}
-      />
-
-      <Input
-        type="text"
-        name="location"
-        value={jobData.jobTitle}
-        placeholder="Job Location"
-        onChange={handleInputChange}
-      />
-
-      <Input
-        type="text"
-        name="jobType"
-        placeholder="Job Type"
-        value={jobData.jobType}
-        onChange={handleInputChange}
-      />
-      <Input
-        type="text"
-        name="experience"
-        placeholder="Experience"
-        value={jobData.experience}
-        onChange={handleInputChange}
-      />
-      <Input
-        type="text"
-        name="salary"
-        placeholder="Salary"
-        value={jobData.salary}
-        onChange={handleInputChange}
-      />
-
-      <Input
-        type="text"
-        name="qualification"
-        placeholder="Qualification"
-        value={jobData.qualification}
-        onChange={handleInputChange}
-      />
-
-      <Input
-        type="text"
-        name="vacancies"
-        placeholder="Vacancies"
-        value={jobData.vacancies}
-        onChange={handleInputChange}
-      />
-      <Input
-        type="text"
-        name="companyName"
-        placeholder="companyName"
-        value={jobData.companyName}
-        onChange={handleInputChange}
-      />
-      <Input
-        type="text"
-        name="skillset"
-        placeholder="Skillset"
-        value={jobData.skillset}
-        onChange={handleInputChange}
-      />
-
-      <TextArea
-        style={{ gridColumnStart: 1, gridColumnEnd: 3 }}
-        type="text"
-        name="jobDescription"
-        placeholder="Job Description"
-        value={jobData.jobDescription}
-        onChange={handleInputChange}
-      ></TextArea>
-
-      <Button type="submit" disabled={loading}>
-        UPDATE JOB
-      </Button>
+    <>
       <div style={{ textAlign: "center" }}>
         {responseMessage && <p>{responseMessage}</p>}
       </div>
-    </Form>
+
+      <Form onSubmit={handleSubmit}>
+        <Input
+          type="text"
+          name="jobTitle"
+          placeholder="Job Title"
+          value={jobData.jobTitle}
+          onChange={handleInputChange}
+        />
+
+        <Input
+          type="text"
+          name="location"
+          value={jobData.jobTitle}
+          placeholder="Job Location"
+          onChange={handleInputChange}
+        />
+
+        <Input
+          type="text"
+          name="jobType"
+          placeholder="Job Type"
+          value={jobData.jobType}
+          onChange={handleInputChange}
+        />
+        <Input
+          type="text"
+          name="experience"
+          placeholder="Experience"
+          value={jobData.experience}
+          onChange={handleInputChange}
+        />
+        <Input
+          type="text"
+          name="salary"
+          placeholder="Salary"
+          value={jobData.salary}
+          onChange={handleInputChange}
+        />
+
+        <Input
+          type="text"
+          name="qualification"
+          placeholder="Qualification"
+          value={jobData.qualification}
+          onChange={handleInputChange}
+        />
+
+        <Input
+          type="text"
+          name="vacancies"
+          placeholder="Vacancies"
+          value={jobData.vacancies}
+          onChange={handleInputChange}
+        />
+        <Input
+          type="text"
+          name="companyName"
+          placeholder="companyName"
+          value={jobData.companyName}
+          onChange={handleInputChange}
+        />
+        <Input
+          type="text"
+          name="skillset"
+          placeholder="Skillset"
+          value={jobData.skillset}
+          onChange={handleInputChange}
+        />
+
+        <TextArea
+          style={{ gridColumnStart: 1, gridColumnEnd: 3 }}
+          type="text"
+          name="jobDescription"
+          placeholder="Job Description"
+          value={jobData.jobDescription}
+          onChange={handleInputChange}
+        ></TextArea>
+
+        <Button type="submit" disabled={loading}>
+          UPDATE JOB
+        </Button>
+      </Form>
+    </>
   );
 };
 
