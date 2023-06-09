@@ -21,9 +21,9 @@ const EditPostedJob = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const result = await dispatch(postNewJobAction(jobData));
-    if (result.message) {
-      setResponseMessage(result.message);
-    }
+
+    setResponseMessage("Job Updated Successfully");
+
     setTimeout(() => {
       setResponseMessage(null);
     }, 2000);
@@ -41,7 +41,6 @@ const EditPostedJob = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Button onClick={() => navigate(-1)}>BACK</Button>
       <Input
         type="text"
         name="jobTitle"
@@ -122,7 +121,9 @@ const EditPostedJob = () => {
       <Button type="submit" disabled={loading}>
         UPDATE JOB
       </Button>
-      {responseMessage && <div>{responseMessage}</div>}
+      <div style={{ textAlign: "center" }}>
+        {responseMessage && <p>{responseMessage}</p>}
+      </div>
     </Form>
   );
 };
@@ -152,8 +153,8 @@ const TextArea = styled.textarea`
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  min-height: 200px;
-  max-height: 500px;
+  min-height: 100px;
+  max-height: 300px;
   overflow: auto;
 `;
 

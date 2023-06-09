@@ -50,7 +50,7 @@ const PostNewJob = () => {
 
   return (
     <>
-      {responseMessage && <div>{responseMessage}</div>}
+      <div> {responseMessage && <p>{responseMessage}</p>}</div>
 
       <Form onSubmit={handleSubmit}>
         <Input
@@ -118,10 +118,14 @@ const PostNewJob = () => {
           placeholder="Job Description"
           onChange={handleInputChange}
         ></TextArea>
-        {responseMessage && <div>{responseMessage}</div>}
+
         <Button type="submit" disabled={loading}>
           POST JOB
         </Button>
+        <div style={{ textAlign: "center" }}>
+          {responseMessage && <p>{responseMessage}</p>}
+        </div>
+        <div style={{ textAlign: "center" }}>{<p>{"Hello OWrld"}</p>}</div>
       </Form>
     </>
   );
