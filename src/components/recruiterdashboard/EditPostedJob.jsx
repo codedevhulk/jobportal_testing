@@ -1,14 +1,14 @@
-
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
+
 import { postNewJobAction } from "../../store/slices/recruiter/recruiternewjobslice";
 import { getAJobById } from "../../service/recruiterService";
-import { useParams } from "react-router-dom";
-
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditPostedJob = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [jobData, setJobData] = useState({});
   const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
@@ -26,22 +26,22 @@ const EditPostedJob = () => {
     }
     setTimeout(() => {
       setResponseMessage(null);
-    }, 2000)
+    }, 2000);
   };
 
   const getJob = async () => {
-    const res = await getAJobById(id)
-    console.log("job", res)
-    setJobData(res)
-  }
+    const res = await getAJobById(id);
+    console.log("job", res);
+    setJobData(res);
+  };
 
   useEffect(() => {
-    getJob()
-
-  }, [])
+    getJob();
+  }, []);
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Button onClick={() => navigate(-1)}>BACK</Button>
       <Input
         type="text"
         name="jobTitle"
@@ -70,7 +70,6 @@ const EditPostedJob = () => {
         name="experience"
         placeholder="Experience"
         value={jobData.experience}
-
         onChange={handleInputChange}
       />
       <Input
@@ -78,7 +77,6 @@ const EditPostedJob = () => {
         name="salary"
         placeholder="Salary"
         value={jobData.salary}
-
         onChange={handleInputChange}
       />
 
@@ -87,7 +85,6 @@ const EditPostedJob = () => {
         name="qualification"
         placeholder="Qualification"
         value={jobData.qualification}
-
         onChange={handleInputChange}
       />
 
@@ -96,7 +93,6 @@ const EditPostedJob = () => {
         name="vacancies"
         placeholder="Vacancies"
         value={jobData.vacancies}
-
         onChange={handleInputChange}
       />
       <Input
@@ -104,7 +100,6 @@ const EditPostedJob = () => {
         name="companyName"
         placeholder="companyName"
         value={jobData.companyName}
-
         onChange={handleInputChange}
       />
       <Input
@@ -112,20 +107,17 @@ const EditPostedJob = () => {
         name="skillset"
         placeholder="Skillset"
         value={jobData.skillset}
-
         onChange={handleInputChange}
       />
 
-      <TextArea style={{ gridColumnStart: 1, gridColumnEnd: 3 }}
+      <TextArea
+        style={{ gridColumnStart: 1, gridColumnEnd: 3 }}
         type="text"
         name="jobDescription"
         placeholder="Job Description"
         value={jobData.jobDescription}
-
         onChange={handleInputChange}
       ></TextArea>
-
-
 
       <Button type="submit" disabled={loading}>
         UPDATE JOB
@@ -137,16 +129,13 @@ const EditPostedJob = () => {
 
 export default EditPostedJob;
 
-
 const Form = styled.form`
   display: flex;
-  flex-direction:column;
-  @media screen and (min-width:700px){
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-  
+  flex-direction: column;
+  @media screen and (min-width: 700px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
   }
-  
 `;
 
 const Input = styled.input`
@@ -163,9 +152,9 @@ const TextArea = styled.textarea`
   font-size: 16px;
   border: 1px solid #ccc;
   border-radius: 5px;
-  min-height:200px;
-  max-height:500px;
-  overflow:auto;
+  min-height: 200px;
+  max-height: 500px;
+  overflow: auto;
 `;
 
 const Button = styled.button`
@@ -177,11 +166,8 @@ const Button = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  width:100px;
+  width: 100px;
   grid-column-start: 2;
   grid-column-end: 3;
-  width:120px;
-  
+  width: 120px;
 `;
-
-

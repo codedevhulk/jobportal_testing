@@ -6,14 +6,13 @@ import { deleteJobById } from "../../service/recruiterService";
 import { viewAllJobPostAction } from "../../store/slices/recruiter/recruiterViewAllPostedJobsSlice";
 // import { postedJobs } from "../../sampledata";
 const Container = styled.div`
-  display: grid;
+  display: flex;
   padding-top: 30px;
-  grid-auto-columns: auto;
-  grid-auto-rows: auto;
+  flex-wrap: wrap;
+  justify-content: center;
   @media screen and (min-width: 700px) {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-    grid-auto-columns: none;
-    grid-auto-rows: none;
+
     margin: auto;
   }
 `;

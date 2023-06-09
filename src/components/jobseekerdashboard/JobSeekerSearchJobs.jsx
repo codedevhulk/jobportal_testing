@@ -19,18 +19,12 @@ const JobSeekerSearchJobs = () => {
   );
   return (
     <>
-      {!firstName && !lastName && (
-        <div>
-          <p>Update Your Profile!</p>
-          <Link to="profile/update">UPDATE</Link>
-        </div>
-      )}
-      {firstName && lastName && (
+      {
         <SearchJobsContainer>
           <SearchBarComponent />
           <JobsContainer />
         </SearchJobsContainer>
-      )}
+      }
     </>
   );
 };

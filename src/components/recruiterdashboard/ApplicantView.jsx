@@ -5,6 +5,7 @@ import { rejectFn, approveFn } from "./ApplicantsList";
 import { Button } from "@mui/material";
 import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
+import { useNavigate } from "react-router-dom";
 const Card = {
   display: "flex",
   border: "1px solid black",
@@ -20,6 +21,7 @@ const Card = {
   overflowX: "scroll",
 };
 const ApplicantView = () => {
+  const navigate = useNavigate();
   const [applicant, setApplicant] = useState();
   const [loading, setLoading] = useState(true);
   const mapFields = {
@@ -57,14 +59,18 @@ const ApplicantView = () => {
 
   if (loading) {
     return (
-      <Box sx={{ width: "100%" }}>
-        <LinearProgress />
-      </Box>
+      <>
+        <Button onClick={() => navigate(-1)}>BACK</Button>
+        <Box sx={{ width: "100%" }}>
+          <LinearProgress />
+        </Box>
+      </>
     );
   }
 
   return (
     <>
+      <Button onClick={() => navigate(-1)}>BACK</Button>
       {!loading && (
         <Container>
           <SubContainer>
