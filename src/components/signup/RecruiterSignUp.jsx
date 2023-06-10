@@ -7,11 +7,8 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
 import { useDispatch } from "react-redux";
 import { recruiterSignUp } from "../../store/slices/recruiter/recruiterslice";
-import { useSelector } from "react-redux";
 
-// interface SignInProps {
-//   onSignIn: (email: string, password: string) => void;
-// }
+
 
 const SignUpFormContainer = styled.div`
   display: flex;
@@ -67,11 +64,10 @@ const Title = styled.label`
 const RecruiterSignUp = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { message } = useSelector(state => state.recruiterApp)
   const [actionResponseMessage, setActionResponseMessage] = useState(null);
   const [recruiterSignUpDetails, setRecruiterSignUpDetails] = useState({});
   const [showPassword, setShowPassword] = useState(false);
-  const [rtoken, setRtoken] = useState();
+  const [rtoken] = useState(localStorage.getItem("rtoken"));
 
 
   const togglePasswordVisibility = () => {
@@ -88,7 +84,7 @@ const RecruiterSignUp = () => {
     if (rtoken) {
       navigate("/recruiter")
     }
-  }, [rtoken])
+  }, [navigate,rtoken])
 
   const handleSignUp = async (event) => {
     event.preventDefault();

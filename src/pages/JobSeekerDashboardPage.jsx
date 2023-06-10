@@ -24,7 +24,7 @@ const JobSeekerContainer = styled.div`
 
 const JobSeekerDashboardPage = () => {
   const navigate = useNavigate();
-  const [token, setJtoken] = useState(null);
+  const [, setJtoken] = useState(null);
   const jtoken = localStorage.getItem("jtoken");
 
 
@@ -35,7 +35,7 @@ const JobSeekerDashboardPage = () => {
     } else {
 
     }
-  }, [jtoken]);
+  }, [navigate,jtoken]);
   return <div >
     <Header page="jobseeker" />
     <JobSeekerContainer>

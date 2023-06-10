@@ -5,12 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { jobseekerSignIn } from "../../store/slices/jobseekerslice";
 
-// interface SignInProps {
-//   onSignIn: (email: string, password: string) => void;
-// }
+
 
 const SignInFormContainer = styled.div`
   display: flex;
@@ -69,7 +67,7 @@ const JobseekerSignIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [actionResponseMessage, setActionResponseMessage] = useState(null)
   const [jobseekerSignInDetails, setJobseekerSignInDetails] = useState({ email: "", password: "" });
-  const [jwttoken, setJwtToken] = useState(localStorage.getItem("jtoken"));
+  const [jwttoken] = useState(localStorage.getItem("jtoken"));
   useEffect(() => {
     if (!jwttoken) {
       navigate("/jobseeker/signin");

@@ -1,8 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   updateRecruiterProfileApi,
-  signinApi,
-  signupApi,
   recruiterSignupApi,
   recruiterSigninApi,
 } from "../../../service/constants";

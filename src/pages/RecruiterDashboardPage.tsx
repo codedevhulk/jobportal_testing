@@ -15,7 +15,7 @@ const RecruiterDashboardPage = () => {
     if (localStorage.getItem("rtoken") === null) {
       navigate("/recruiter/signin");
     }
-  }, []);
+  }, [navigate]);
   return (
     <div>
       <Header page="employer" />

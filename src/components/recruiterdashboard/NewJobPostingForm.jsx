@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { postNewJobAction } from "../../store/slices/recruiter/recruiternewjobslice";
-import { setCommentRange } from "typescript";
 
 const PostNewJob = () => {
   const [jobData, setJobData] = useState({
@@ -18,7 +17,7 @@ const PostNewJob = () => {
   });
   const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.newJobPostApp);
+  const { loading } = useSelector((state) => state.newJobPostApp);
 
   const handleInputChange = (event) => {
     setJobData({ ...jobData, [event.target.name]: event.target.value });
@@ -26,7 +25,7 @@ const PostNewJob = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const result = await dispatch(postNewJobAction(jobData));
+    await dispatch(postNewJobAction(jobData));
 
     setResponseMessage("Job Posted Sucessfully");
 
@@ -34,19 +33,7 @@ const PostNewJob = () => {
       setResponseMessage(null);
     }, 2000);
   };
-  //   {
-  //     "jobTitle":"Python full stack developer",-----
-  //      "jobDescription":"Expected to -----have knowledge on both frontend and backend technologies",
-  //       "location":"Hyderabad",------
-  //        "jobType":"Full type",--------
-  //         "experience":"2 years",-------
-  //          "salary":"10LPA",---------
-  //           "qualification":"Btech",---------
-  //            "vacancies":"30",---------
-  //            "recruiterId":"2",
-  //            "skillset":"react",----
-  //            "companyName":"Persistent"---
-  // }
+
 
   return (
     <>
@@ -125,7 +112,6 @@ const PostNewJob = () => {
         <div style={{ textAlign: "center" }}>
           {responseMessage && <p>{responseMessage}</p>}
         </div>
-        <div style={{ textAlign: "center" }}>{<p>{"Hello OWrld"}</p>}</div>
       </Form>
     </>
   );
@@ -175,3 +161,17 @@ const Button = styled.button`
   grid-column-end: 3;
   width: 120px;
 `;
+
+  //   {
+  //     "jobTitle":"Python full stack developer",-----
+  //      "jobDescription":"Expected to -----have knowledge on both frontend and backend technologies",
+  //       "location":"Hyderabad",------
+  //        "jobType":"Full type",--------
+  //         "experience":"2 years",-------
+  //          "salary":"10LPA",---------
+  //           "qualification":"Btech",---------
+  //            "vacancies":"30",---------
+  //            "recruiterId":"2",
+  //            "skillset":"react",----
+  //            "companyName":"Persistent"---
+  // }

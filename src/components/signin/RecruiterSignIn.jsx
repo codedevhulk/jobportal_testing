@@ -5,12 +5,10 @@ import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { recruiterSignin } from "../../store/slices/recruiter/recruiterslice"
 
-// interface SignInProps {
-//   onSignIn: (email: string, password: string) => void;
-// }
+
 
 const SignInFormContainer = styled.div`
   display: flex;
@@ -67,7 +65,6 @@ const RecruiterSignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [actionResponseMessage, setActionResponseMessage] = useState(null)
-  const { error } = useSelector(state => state.recruiterApp)
   const [showPassword, setShowPassword] = useState(false);
   const [recruiterSignInDetails, setRecruiterSignInDetails] = useState(null);
   const token = localStorage.getItem("rtoken");
@@ -75,13 +72,13 @@ const RecruiterSignIn = () => {
     if (token) {
       navigate("/recruiter")
     }
-  }, [token])
+  }, [navigate,token])
 
 
   const handleSignIn = async (event) => {
     event.preventDefault();
     console.log(recruiterSignInDetails)
-    const result = await dispatch(recruiterSignin(recruiterSignInDetails));
+     await dispatch(recruiterSignin(recruiterSignInDetails));
     if (localStorage.getItem("rtoken")) {
       navigate("/recruiter")
     }

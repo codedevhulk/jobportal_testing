@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { TextField, Button } from "@mui/material";
-import { useSelector, useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
+import {  useDispatch } from "react-redux";
+import { useState, useEffect, useCallback } from "react";
 import { useNavigate } from "react-router-dom"
 import { updateJobseekerProfileAction } from "../../store/slices/jobseekerslice";
 import { getJobseekerProfileAction } from "../../store/slices/jobseekerslice";
@@ -47,7 +47,7 @@ const JobSeekerProfileForm = () => {
   const navigate = useNavigate();
   let response;
   const [profileData, setProfileData] = useState({});
-  const [shrinkValue, setShrinkValue] = useState(false);
+  const [, setShrinkValue] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
 
@@ -76,7 +76,7 @@ const JobSeekerProfileForm = () => {
       }, 5000)
     }
   };
-  const getProfileDataFromRequest = async () => {
+  const getProfileDataFromRequest = useCallback(async () => {
 
     const res = await dispatch(getJobseekerProfileAction());
 
@@ -85,11 +85,11 @@ const JobSeekerProfileForm = () => {
     setProfileData({
       ...res.payload
     })
-  };
+  },[dispatch])
 
   useEffect(() => {
     getProfileDataFromRequest();
-  }, [response]);
+  }, [getProfileDataFromRequest,response]);
 
   return (
     <JobSeekerProfileContainer>

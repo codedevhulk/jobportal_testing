@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 import { displayAllApplicantsAction } from "../../store/slices/recruiter/applicantsSlice";
@@ -74,9 +74,7 @@ const ViewAllApplicantComponent = () => {
     loading,
     error,
   } = useSelector((state) => state.applicantsApp);
-  // const [loading, setLoading] = useState(false);
-  // const [allapplicants, setAllApplicants] = useState([]);
-  // const [error, setError] = useState(null);
+ 
   const [responseMessage, setResponseMessage] = useState(null);
 
   const getAllApplicants = async () => {
@@ -109,10 +107,10 @@ const ViewAllApplicantComponent = () => {
       setResponseMessage(null);
     }, 5000);
   };
-
+const getAllApplicantss = useCallback(getAllApplicants,[recruiter_id,dispatch])
   useEffect(() => {
-    getAllApplicants();
-  }, []);
+    getAllApplicantss();
+  }, [getAllApplicantss]);
 
   if (loading) {
     return (

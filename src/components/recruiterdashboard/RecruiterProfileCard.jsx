@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { Card, Button } from "@mui/material";
-import { getRecruiterProfileAction, updateRecruiterProfile } from "../../store/slices/recruiter/recruiterslice"
+import { getRecruiterProfileAction } from "../../store/slices/recruiter/recruiterslice"
 import styled from "styled-components";
 
 const ProfileContainer = styled.div`
@@ -138,13 +138,14 @@ const RecruiterProfileCard = () => {
 
   );
 
-  const getProfile = async () => {
-    await dispatch(getRecruiterProfileAction());
-  }
+  
 
   useEffect(() => {
+    const getProfile = async () => {
+      await dispatch(getRecruiterProfileAction());
+    }
     getProfile();
-  }, [])
+  }, [dispatch])
 
   return (
 

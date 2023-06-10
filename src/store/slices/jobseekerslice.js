@@ -5,7 +5,6 @@ import {
   updateJobseekerProfile,
 } from "../../service/jobSeekerService";
 import { jobApplicatonsOfJobseekerApi } from "../../service/constants";
-import JobDetailsCard from "../../components/jobservicecomponents/JobDetailsCard";
 
 //signup action
 export const jobseekerSignUp = createAsyncThunk(
@@ -58,7 +57,7 @@ export const updateJobseekerProfileAction = createAsyncThunk(
       let userName = localStorage.getItem("username");
       const jobseekerDetail = { ...jobseekerDetails, userName };
       const response = await updateJobseekerProfile(jobseekerDetail);
-      console.log("inside update jobseeker after response", response)
+      console.log("inside update jobseeker after response", response);
       return response;
     } catch (error) {
       return error;
@@ -71,7 +70,7 @@ export const getJobseekerProfileAction = createAsyncThunk(
     try {
       const username = localStorage.getItem("username");
       const response = await getJobseekerProfileData(username);
-      console.log("jobseeker profile response", response)
+      console.log("jobseeker profile response", response);
       return response;
     } catch (error) {
       return error;
@@ -82,18 +81,16 @@ export const jobApplicatonsOfJobseekerAction = createAsyncThunk(
   "jobApplicationsOfJobseeker",
   async () => {
     try {
-      const id = localStorage.getItem("jobseekerId")
+      const id = localStorage.getItem("jobseekerId");
       const url = `${jobApplicatonsOfJobseekerApi}${id}`;
-      console.log(url)
+      console.log(url);
       const response = await fetch(url);
       const data = response.json();
-      console.log(data)
+      console.log(data);
       return data;
-
     } catch (error) {
       return error;
     }
-
   }
 );
 
@@ -167,7 +164,7 @@ const jobSeekerSlice = createSlice({
       })
       .addCase(getJobseekerProfileAction.fulfilled, (state, action) => {
         state.loading = false;
-        console.log("action get jobseeker profile fulfilled", action.payload)
+        console.log("action get jobseeker profile fulfilled", action.payload);
         state.jobseeker = { ...action.payload };
         console.log(
           "fulfiled getJobseeker profile from jobseeker slice",
@@ -186,12 +183,12 @@ const jobSeekerSlice = createSlice({
         console.log("state.application", state.applications);
         state.applications = action.payload;
 
-        console.log("action.payload", action.payload)
+        console.log("action.payload", action.payload);
       })
       .addCase(jobApplicatonsOfJobseekerAction.rejected, (state, action) => {
         state.loading = false;
-        console.log(action.payload)
-      })
+        console.log(action.payload);
+      });
   },
 });
 

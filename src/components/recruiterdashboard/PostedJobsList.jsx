@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState,useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -6,7 +6,6 @@ import Box from "@mui/material/Box";
 import LinearProgress from "@mui/material/LinearProgress";
 import { deleteJobById } from "../../service/recruiterService";
 import { viewAllJobPostAction } from "../../store/slices/recruiter/recruiterViewAllPostedJobsSlice";
-// import { postedJobs } from "../../sampledata";
 const Container = styled.div`
   display: flex;
   padding-top: 30px;
@@ -78,14 +77,17 @@ const PostedJobsList = () => {
     setLoading(true);
     const res = await dispatch(viewAllJobPostAction());
     setLoading(false);
+    console.log(res)
     console.dir("response jobposts : ", res?.payload);
 
     if (Array.isArray(res.payload) && res.payload.length > 0) {
       setPostedjobs([...res.payload]);
-    } else if (Array.isArray(res.payload) && res.payload.length == 0) {
+    } else if (Array.isArray(res.payload) && res.payload.length === 0) {
       setPostedjobs([...res.payload]);
     }
   };
+  // const getPostedJobss = useCallback(getPostedJobs,[]) 
+
   const deleteAJob = async (id) => {
     await deleteJobById(id);
     setResponseMessage("Deleted Job with JobId ", id);
@@ -106,7 +108,7 @@ const PostedJobsList = () => {
   }
   //delay this
   setTimeout(() => {
-    if (Array.isArray(postedjobs) && postedjobs.length == 0) {
+    if (Array.isArray(postedjobs) && postedjobs.length === 0) {
       return (
         <div style={{ display: "flex", fontSize: "32px" }}>
           <p>You Have Not Posted Any Job Yet</p>

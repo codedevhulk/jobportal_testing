@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styled from "styled-components";
 
@@ -12,7 +12,7 @@ const EditPostedJob = () => {
   const [jobData, setJobData] = useState({});
   const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.newJobPostApp);
+  const { loading } = useSelector((state) => state.newJobPostApp);
 
   const handleInputChange = (event) => {
     setJobData({ ...jobData, [event.target.name]: event.target.value });
@@ -20,7 +20,7 @@ const EditPostedJob = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const result = await dispatch(updateJobPostAction(jobData));
+    await dispatch(updateJobPostAction(jobData));
 
     setResponseMessage("job post updated succesfully");
 
@@ -34,10 +34,11 @@ const EditPostedJob = () => {
     console.log("job", res);
     setJobData(res);
   };
+  const getJobForEdit = useCallback(getJob,[id]) 
 
   useEffect(() => {
-    getJob();
-  }, []);
+    getJobForEdit();
+  }, [getJobForEdit,navigate]);
 
   return (
     <>

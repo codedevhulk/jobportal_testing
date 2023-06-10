@@ -10,7 +10,6 @@ import {
   updateAJobPostApi,
   deleteApplicantApi,
 } from "./constants";
-import { useParams } from "react-router-dom";
 
 export const updateJobPost = async (updatedJobData) => {
   try {

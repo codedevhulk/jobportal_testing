@@ -4,7 +4,7 @@ import {
   getRecruiterProfileAction,
   updateRecruiterProfile,
 } from "../../store/slices/recruiter/recruiterslice";
-import { useSelector, useDispatch } from "react-redux";
+import {  useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@mui/material";
 
@@ -77,19 +77,20 @@ const RecruiterProfileForm = () => {
       }, 5000);
     }
   };
-  const getProfileDataFromRequest = async () => {
-    const res = await dispatch(getRecruiterProfileAction());
-
-    console.log("res from  get profile dispatch in edit component", res);
-
-    setProfileData({
-      ...res.payload,
-    });
-  };
+  
 
   useEffect(() => {
+    const getProfileDataFromRequest = async () => {
+      const res = await dispatch(getRecruiterProfileAction());
+  
+      console.log("res from  get profile dispatch in edit component", res);
+  
+      setProfileData({
+        ...res.payload,
+      });
+    }
     getProfileDataFromRequest();
-  }, [response]);
+  }, [response,dispatch]);
 
   return (
     <>

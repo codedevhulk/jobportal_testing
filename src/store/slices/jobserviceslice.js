@@ -1,26 +1,25 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { viewAllPostApi, jobApplicatonsOfJobseekerApi } from "../../service/constants"
+import { viewAllPostApi } from "../../service/constants";
 import { applyToJob } from "../../service/jobSeekerService";
 
-
-export const applyToJobAction = createAsyncThunk("applyToJobAction", async (jobApplied) => {
-  try {
-    console.log("from jobdetail component", jobApplied);
-    const response = await applyToJob(jobApplied);
-    return response
-  } catch (error) {
-    return error;
+export const applyToJobAction = createAsyncThunk(
+  "applyToJobAction",
+  async (jobApplied) => {
+    try {
+      console.log("from jobdetail component", jobApplied);
+      const response = await applyToJob(jobApplied);
+      return response;
+    } catch (error) {
+      return error;
+    }
   }
-
-})
+);
 
 export const getAllJobs = createAsyncThunk("getAllJobs", async () => {
   try {
-    const response = await fetch(
-      viewAllPostApi
-    );
+    const response = await fetch(viewAllPostApi);
     const result = await response.json();
-    console.log("view all jobs", result)
+    console.log("view all jobs", result);
     return result;
   } catch (error) {
     return error;
@@ -39,8 +38,8 @@ const jobserviceslice = createSlice({
   initialState,
   reducers: {
     getJobByIdFromStore: (state, action) => {
-      return state.jobs.filter(job => job.id === action.payload.id);
-    }
+      return state.jobs.filter((job) => job.id === action.payload.id);
+    },
   },
   extraReducers: (builder) => {
     builder

@@ -83,6 +83,7 @@ const ApplicantView = () => {
                       <p style={Card}>{item[1]}</p>
                     </FieldContainer>
                   );
+                else return null
               })}
           </SubContainer>
           <div
