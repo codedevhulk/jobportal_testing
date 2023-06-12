@@ -86,7 +86,7 @@ const PostedJobsList = () => {
       setPostedjobs([...res.payload]);
     }
   };
-  // const getPostedJobss = useCallback(getPostedJobs,[]) 
+  const getPostedJobss = useCallback(getPostedJobs,[dispatch]) 
 
   const deleteAJob = async (id) => {
     await deleteJobById(id);
@@ -97,8 +97,8 @@ const PostedJobsList = () => {
     }, []);
   };
   useEffect(() => {
-    getPostedJobs();
-  }, []);
+    getPostedJobss();
+  }, [getPostedJobss]);
   if (loading) {
     return (
       <Box sx={{ width: "100%" }}>
@@ -107,15 +107,15 @@ const PostedJobsList = () => {
     );
   }
   //delay this
-  setTimeout(() => {
+ 
     if (Array.isArray(postedjobs) && postedjobs.length === 0) {
       return (
-        <div style={{ display: "flex", fontSize: "32px" }}>
+        <div style={{ display: "flex", fontSize: "32px",fontWeight:"600",justifyContent:"center" }}>
           <p>You Have Not Posted Any Job Yet</p>
         </div>
       );
     }
-  }, 0);
+  
 
   return (
     <Container>

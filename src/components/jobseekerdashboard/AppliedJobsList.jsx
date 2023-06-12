@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import AppliedJobCard from "../jobseekerdashboard/AppliedJobCard";
-import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { jobApplicatonsOfJobseekerApi } from "../../service/constants";
 import { jobApplicatonsOfJobseeker } from "../../service/jobSeekerService";
 
 const AppliedJobsListContainer = styled.div`
