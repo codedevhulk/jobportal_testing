@@ -34,7 +34,6 @@ const PostNewJob = () => {
     }, 2000);
   };
 
-
   return (
     <>
       <div> {responseMessage && <p>{responseMessage}</p>}</div>
@@ -45,6 +44,7 @@ const PostNewJob = () => {
           name="jobTitle"
           placeholder="Job Title"
           onChange={handleInputChange}
+          required
         />
 
         <Input
@@ -52,24 +52,28 @@ const PostNewJob = () => {
           name="location"
           placeholder="Job Location"
           onChange={handleInputChange}
+          required
         />
         <Input
           type="text"
           name="jobType"
           placeholder="Job Type"
           onChange={handleInputChange}
+          required
         />
         <Input
           type="text"
           name="experience"
           placeholder="Experience"
           onChange={handleInputChange}
+          required
         />
         <Input
           type="text"
           name="salary"
           placeholder="Salary"
           onChange={handleInputChange}
+          required
         />
 
         <Input
@@ -77,6 +81,7 @@ const PostNewJob = () => {
           name="qualification"
           placeholder="Qualification"
           onChange={handleInputChange}
+          required
         />
 
         <Input
@@ -84,18 +89,21 @@ const PostNewJob = () => {
           name="vacancies"
           placeholder="Vacancies"
           onChange={handleInputChange}
+          required
         />
         <Input
           type="text"
           name="companyName"
           placeholder="companyName"
           onChange={handleInputChange}
+          required
         />
         <Input
           type="text"
           name="skillset"
           placeholder="Skillset"
           onChange={handleInputChange}
+          required
         />
 
         <TextArea
@@ -104,6 +112,7 @@ const PostNewJob = () => {
           name="jobDescription"
           placeholder="Job Description"
           onChange={handleInputChange}
+          required
         ></TextArea>
 
         <Button type="submit" disabled={loading}>
@@ -162,16 +171,16 @@ const Button = styled.button`
   width: 120px;
 `;
 
-  //   {
-  //     "jobTitle":"Python full stack developer",-----
-  //      "jobDescription":"Expected to -----have knowledge on both frontend and backend technologies",
-  //       "location":"Hyderabad",------
-  //        "jobType":"Full type",--------
-  //         "experience":"2 years",-------
-  //          "salary":"10LPA",---------
-  //           "qualification":"Btech",---------
-  //            "vacancies":"30",---------
-  //            "recruiterId":"2",
-  //            "skillset":"react",----
-  //            "companyName":"Persistent"---
-  // }
+//   {
+//     "jobTitle":"Python full stack developer",-----
+//      "jobDescription":"Expected to -----have knowledge on both frontend and backend technologies",
+//       "location":"Hyderabad",------
+//        "jobType":"Full type",--------
+//         "experience":"2 years",-------
+//          "salary":"10LPA",---------
+//           "qualification":"Btech",---------
+//            "vacancies":"30",---------
+//            "recruiterId":"2",
+//            "skillset":"react",----
+//            "companyName":"Persistent"---
+// }
