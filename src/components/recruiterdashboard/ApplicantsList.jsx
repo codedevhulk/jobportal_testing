@@ -74,7 +74,7 @@ const ViewAllApplicantComponent = () => {
     loading,
     error,
   } = useSelector((state) => state.applicantsApp);
- 
+
   const [responseMessage, setResponseMessage] = useState(null);
 
   const getAllApplicants = async () => {
@@ -90,27 +90,30 @@ const ViewAllApplicantComponent = () => {
     }, 5000);
   };
 
-  const acceptApplicant = async (id) => {
+  const acceptApplicant = useCallback(async (id) => {
     const res = await approveFn(id);
     setResponseMessage("job application accepted for further process");
     console.log("approved application res ", res);
     setTimeout(() => {
       setResponseMessage(null);
     }, 5000);
-  };
+  }, []);
 
-  const deletesApplicant = async (id) => {
+  const deletesApplicant = useCallback(async (id) => {
     const res = await deleteFn(id);
     setResponseMessage("Applicant Deleted Successfully");
     console.log("approved application res ", res);
     setTimeout(() => {
       setResponseMessage(null);
     }, 5000);
-  };
-const getAllApplicantss = useCallback(getAllApplicants,[recruiter_id,dispatch])
+  }, []);
+  const getAllApplicantss = useCallback(getAllApplicants, [
+    recruiter_id,
+    dispatch,
+  ]);
   useEffect(() => {
     getAllApplicantss();
-  }, [getAllApplicantss]);
+  }, [getAllApplicantss, deletesApplicant, acceptApplicant]);
 
   if (loading) {
     return (

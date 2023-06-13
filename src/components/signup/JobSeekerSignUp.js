@@ -71,7 +71,11 @@ const JobseekerSignUp = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [jtoken] = useState(localStorage.getItem("jtoken"));
-  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({ userName: "", email: "", password: "" });
+  const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({
+    userName: "",
+    email: "",
+    password: "",
+  });
   const [showPassword, setShowPassword] = useState(false);
   const [actionResponseMessage, setActionResponseMessage] = useState(null);
   const togglePasswordVisibility = () => {
@@ -81,23 +85,27 @@ const JobseekerSignUp = () => {
   const handleSignUp = async (event) => {
     event.preventDefault();
     const result = await dispatch(jobseekerSignUp(jobseekerSignUpDetails));
-    // console.log("results ",result)    
-    setActionResponseMessage(result.payload.message)
-    let token = localStorage.getItem("jtoken")
+    console.log("results ", result);
+    if (result.payload.error) {
+      setActionResponseMessage(result.payload.error);
+    } else {
+      setActionResponseMessage(result.payload.message);
+    }
+
+    let token = localStorage.getItem("jtoken");
     if (token) {
       navigate("/jobseeker");
     }
 
     setTimeout(() => {
       setActionResponseMessage(null);
-    }, 3000)
-
+    }, 10000);
   };
   useEffect(() => {
     if (jtoken) {
-      navigate("/jobseeker")
+      navigate("/jobseeker");
     }
-  }, [navigate, jtoken])
+  }, [navigate, jtoken]);
 
   const getSigUpDetails = (e) => {
     setJobseekerSignUpDetails({
@@ -142,7 +150,8 @@ const JobseekerSignUp = () => {
             fullWidth
             value={jobseekerSignUpDetails?.username}
             onChange={getSigUpDetails}
-            required />
+            required
+          />
 
           <TextField
             type="email"
@@ -153,7 +162,8 @@ const JobseekerSignUp = () => {
             fullWidth
             value={jobseekerSignUpDetails?.email}
             onChange={getSigUpDetails}
-            required />
+            required
+          />
 
           <TextField
             type={showPassword ? "text" : "password"}
@@ -176,8 +186,6 @@ const JobseekerSignUp = () => {
             }}
           />
 
-
-
           <SignUpButton type="submit">Sign Up</SignUpButton>
           {actionResponseMessage && <div>{actionResponseMessage}</div>}
           <span
@@ -188,7 +196,6 @@ const JobseekerSignUp = () => {
           </span>
         </SignUpForm>
       </SignUpFormContainer>
-
     </>
   );
 };

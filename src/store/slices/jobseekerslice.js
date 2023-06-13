@@ -125,12 +125,14 @@ const jobSeekerSlice = createSlice({
         state.loading = true;
       })
       .addCase(jobseekerSignUp.fulfilled, (state, action) => {
-        if (action.payload.status === 409) {
-          state.error = action.payload.message;
-        } else if (action.payload.status === 200) {
-          state.error = null;
-          state.jobseeker = { ...action.payload.data };
-        }
+        state.error = action.payload.message;
+        state.message = action.payload.message;
+        // if (action.payload.status === 409) {
+        //   state.error = action.payload.message;
+        // } else if (action.payload.status === 200) {
+        //   state.error = n;
+        //   state.jobseeker = { ...action.payload.data };
+        // }
       })
       .addCase(jobseekerSignUp.rejected, (state, action) => {
         state.error = action.payload.message;
