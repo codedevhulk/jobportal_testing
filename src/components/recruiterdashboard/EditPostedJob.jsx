@@ -34,11 +34,11 @@ const EditPostedJob = () => {
     console.log("job", res);
     setJobData(res);
   };
-  const getJobForEdit = useCallback(getJob,[id]) 
+  const getJobForEdit = useCallback(getJob, [id]);
 
   useEffect(() => {
     getJobForEdit();
-  }, [getJobForEdit,navigate]);
+  }, [getJobForEdit, navigate]);
 
   return (
     <>
@@ -109,7 +109,7 @@ const EditPostedJob = () => {
         />
         <Input
           type="text"
-          name="skillset"
+          name="skillSet"
           placeholder="Skillset"
           value={jobData.skillset}
           onChange={handleInputChange}
