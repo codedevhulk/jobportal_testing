@@ -111,7 +111,7 @@ const EditPostedJob = () => {
           type="text"
           name="skillSet"
           placeholder="Skillset"
-          value={jobData.skillset}
+          value={jobData.skillSet}
           onChange={handleInputChange}
         />
 

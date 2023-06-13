@@ -26,6 +26,7 @@ const PostNewJob = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log("submited jobdata  ", jobData);
     await dispatch(postNewJobAction(jobData));
 
     setResponseMessage("Job Posted Sucessfully");
