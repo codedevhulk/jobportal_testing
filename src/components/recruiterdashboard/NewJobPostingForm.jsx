@@ -14,6 +14,7 @@ const PostNewJob = () => {
     qualification: "",
     vacancies: "",
     companyName: "",
+    skillSet: "",
   });
   const [responseMessage, setResponseMessage] = useState(null);
   const dispatch = useDispatch();
@@ -100,7 +101,7 @@ const PostNewJob = () => {
         />
         <Input
           type="text"
-          name="skillset"
+          name="skillSet"
           placeholder="Skillset"
           onChange={handleInputChange}
           required
