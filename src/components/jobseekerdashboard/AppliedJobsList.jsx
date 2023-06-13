@@ -2,6 +2,8 @@ import styled from "styled-components";
 import AppliedJobCard from "../jobseekerdashboard/AppliedJobCard";
 import { useEffect, useState } from "react";
 import { jobApplicatonsOfJobseeker } from "../../service/jobSeekerService";
+import Box from "@mui/material/Box";
+import LinearProgress from "@mui/material/LinearProgress";
 
 const AppliedJobsListContainer = styled.div`
   display: grid;
@@ -31,6 +33,14 @@ const AppliedJobsList = () => {
     jobApplications();
   }, []);
   if (!Array.isArray(applications)) {
+    return (
+      <Box sx={{ width: "100%" }}>
+        <LinearProgress />
+      </Box>
+    );
+  }
+
+  if (Array.isArray(applications) && applications.length === 0) {
     return (
       <div style={{ display: "flex", fontSize: "32px" }}>
         <p>You Have not applied to any job yet</p>

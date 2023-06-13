@@ -21,6 +21,7 @@ const JobSeekerSearchJobs = () => {
   if (!firstName && !lastName) {
     navigate("/jobseeker/profile");
   }
+
   return (
     <>
       {
