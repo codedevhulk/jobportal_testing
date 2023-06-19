@@ -10,6 +10,7 @@ const SmallMenuContainer = styled.nav`
   padding: 10px;
   background: ${(props) => (props.active ? "#98c1d9" : "inherit")};
   padding-left: ${(props) => (props.active ? "144px" : "0")};
+  z-index: 100;
   @media screen and (min-width: 700px) {
     display: none;
   }

@@ -1,16 +1,14 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 interface JobCardProps {
   job: {
     id: string;
     jobTitle: string;
-    jobDescription
-    : string;
+    jobDescription: string;
     salary: number;
     location: string;
     applicationStatus: string;
-
   };
 }
 
@@ -48,8 +46,8 @@ const JobDescription = styled.p`
   font-size: 14px;
 `;
 const Status = styled.p`
-margin: 0;
-font-size: 14px;
+  margin: 0;
+  font-size: 14px;
 `;
 
 const Salary = styled.p`
@@ -76,21 +74,21 @@ const DetailsButton = styled.button`
 
 const AppliedJobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
   const navigate = useNavigate();
-  const { id, jobTitle, jobDescription
-    , salary, location, applicationStatus } = props.job;
+  const { id, jobTitle, jobDescription, salary, location, applicationStatus } =
+    props.job;
   const showDetails = () => {
     navigate(`/jobseeker/appliedlist/${id}`);
-  }
+  };
   return (
     <Card>
       <Title>{jobTitle}</Title>
-      <JobDescription style={{ overflow: "scroll" }}>{jobDescription}</JobDescription>
+      <JobDescription style={{ overflow: "scroll" }}>
+        {jobDescription}
+      </JobDescription>
       <Salary>{salary ? `${salary}$/hr` : null}</Salary>
       <Location>{location}</Location>
-      <Status>Your Application Status  is {applicationStatus}</Status>
-
+      <Status>Your Application Status is {applicationStatus}</Status>
       <DetailsButton onClick={showDetails}>Show Details</DetailsButton>
-
     </Card>
   );
 };
