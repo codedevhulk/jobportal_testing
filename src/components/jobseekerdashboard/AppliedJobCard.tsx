@@ -80,16 +80,18 @@ const AppliedJobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
     navigate(`/jobseeker/appliedlist/${id}`);
   };
   return (
-    <Card>
-      <Title>{jobTitle}</Title>
-      <JobDescription style={{ overflow: "scroll" }}>
-        {jobDescription}
-      </JobDescription>
-      <Salary>{salary ? `${salary}$/hr` : null}</Salary>
-      <Location>{location}</Location>
-      <Status>Your Application Status is {applicationStatus}</Status>
-      <DetailsButton onClick={showDetails}>Show Details</DetailsButton>
-    </Card>
+    <div data-testid="applied-jobcard">
+      <Card>
+        <Title>{jobTitle}</Title>
+        <JobDescription style={{ overflow: "scroll" }}>
+          {jobDescription}
+        </JobDescription>
+        <Salary data-testid="salary">{salary ? `${salary}$/hr` : null}</Salary>
+        <Location>{location}</Location>
+        <Status>Your Application Status is {applicationStatus}</Status>
+        <DetailsButton onClick={showDetails}>Show Details</DetailsButton>
+      </Card>
+    </div>
   );
 };
 

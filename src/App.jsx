@@ -29,7 +29,7 @@ import ApplicantsList from "./components/recruiterdashboard/ApplicantsList";
 import PostedJobsList from "./components/recruiterdashboard/PostedJobsList";
 import EditPostedJob from "./components/recruiterdashboard/EditPostedJob";
 import RejectedCandidatesList from "./components/recruiterdashboard/RejectedCandidatesList";
-import ShortListedCandidatesList from "./components/recruiterdashboard/ShortlistedCandidatesList";
+// import ShortListedCandidatesList from "./components/recruiterdashboard/ShortlistedCandidatesList";
 import ApplicantView from "./components/recruiterdashboard/ApplicantView";
 import JobSeekerSearchJobs from "./components/jobseekerdashboard/JobSeekerSearchJobs";
 
@@ -63,10 +63,7 @@ export const appRouter = createBrowserRouter([
             path: "/recruiter/rejectedcandidates",
             element: <RejectedCandidatesList />,
           },
-          {
-            path: "/recruiter/shortlistedcandidates",
-            element: <ShortListedCandidatesList />,
-          },
+
           { path: "/recruiter/newjobpost", element: <NewJobPostingForm /> },
         ],
       },

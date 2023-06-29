@@ -1,6 +1,5 @@
-import React from "react";
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter as Router } from "react-router-dom";
+import { render, fireEvent, screen } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
 import AppliedJobCard from "../AppliedJobCard";
 
 const jobData = {
@@ -11,12 +10,13 @@ const jobData = {
   location: "New York",
   applicationStatus: "Pending",
 };
-describe("AppliedJobCard Test", () => {
-  test("renders job card correctly", () => {
+
+describe("testing AppliedJobCard", () => {
+  test("renders job card  correctly", () => {
     render(
-      <Router>
+      <BrowserRouter>
         <AppliedJobCard job={jobData} />
-      </Router>
+      </BrowserRouter>
     );
 
     expect(screen.getByText(jobData.jobTitle)).toBeInTheDocument();
@@ -29,5 +29,34 @@ describe("AppliedJobCard Test", () => {
       )
     ).toBeInTheDocument();
     expect(screen.getByText("Show Details")).toBeInTheDocument();
+  });
+
+  test("navigate to /jobseeker/appliedlist/ when Show Details button is clicked", () => {
+    render(
+      <BrowserRouter>
+        <AppliedJobCard job={jobData} />
+      </BrowserRouter>
+    );
+
+    const showDetailsButton = screen.getByText("Show Details");
+    fireEvent.click(showDetailsButton);
+    console.log(window.location.pathname);
+
+    setTimeout(() => {
+      expect(window.location.pathname).toBe(
+        `/jobseeker/appliedlist/${jobData.id}`
+      );
+    }, 500);
+  });
+
+  test("branch null", () => {
+    render(
+      <BrowserRouter>
+        <AppliedJobCard job={{ ...jobData, salary: null }} />
+      </BrowserRouter>
+    );
+
+    const pEl = screen.queryByTestId("salary");
+    expect(pEl).toBeEmptyDOMElement();
   });
 });
