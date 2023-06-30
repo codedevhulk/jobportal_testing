@@ -30,8 +30,8 @@ export const recruiterSignupApi =
 export const recruiterSigninApi =
   "http://localhost:7171/api/auth/recruiter/signin";
 export const getRecruiterProfileApi = "http://localhost:8062/recruiter/";
-export const signinApi = "http://localhost:8062/api/auth/signin";
-export const signoutApi = "http://localhost:8062/api/auth/signout";
+export const signinApi = "http://localhost:7171/api/auth/signin";
+export const signoutApi = "http://localhost:7171/api/auth/signout";
 export const newjobpostApi =
   "http://localhost:8062/jobservice/recruiter/jobpost";
 export const deleteJobByIdApi =
@@ -48,7 +48,7 @@ export const applytojobApi =
   "http://localhost:8062/jobservice/jobseeker/apply/";
 export const updateJobseekerProfileApi =
   "http://localhost:8062/jobseeker/updateprofile";
-export const getJobseekerProfileApi = "http://localhost:8062/jobseeker/";
+export const getJobseekerProfileApi = "http://localhost:7672/jobseeker/";
 export const jobApplicatonsOfJobseekerApi = appliedJobsByJobseekerApi;
 export const approveApplicantApi =
   "http://localhost:8020/jobservice/recruiter/application/accept/";
