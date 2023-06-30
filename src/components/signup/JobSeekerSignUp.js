@@ -72,7 +72,7 @@ const JobseekerSignUp = () => {
   const dispatch = useDispatch();
   const [jtoken] = useState(localStorage.getItem("jtoken"));
   const [jobseekerSignUpDetails, setJobseekerSignUpDetails] = useState({
-    userName: "",
+    username: "",
     email: "",
     password: "",
   });

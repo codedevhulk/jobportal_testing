@@ -5,15 +5,13 @@ import { Link, useNavigate } from "react-router-dom";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import InputAdornment from "@mui/material/InputAdornment";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { jobseekerSignIn } from "../../store/slices/jobseekerslice";
-
-
 
 const SignInFormContainer = styled.div`
   display: flex;
   height: 100vh;
-  width: 100vw; 
+  width: 100vw;
   align-items: center;
   justify-content: center;
   box-sizing: border-box;
@@ -65,8 +63,11 @@ const JobseekerSignIn = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
-  const [actionResponseMessage, setActionResponseMessage] = useState(null)
-  const [jobseekerSignInDetails, setJobseekerSignInDetails] = useState({ email: "", password: "" });
+  const [actionResponseMessage, setActionResponseMessage] = useState(null);
+  const [jobseekerSignInDetails, setJobseekerSignInDetails] = useState({
+    username: "",
+    password: "",
+  });
   const [jwttoken] = useState(localStorage.getItem("jtoken"));
   useEffect(() => {
     if (!jwttoken) {
@@ -80,14 +81,13 @@ const JobseekerSignIn = () => {
     const result = await dispatch(jobseekerSignIn(jobseekerSignInDetails));
 
     if (localStorage.getItem("jtoken")) {
-      navigate("/jobseeker")
-    }
-    else {
-      setActionResponseMessage(result.payload.message + "  Try Again")
+      navigate("/jobseeker");
+    } else {
+      setActionResponseMessage(result.payload.message);
     }
     setTimeout(() => {
       setActionResponseMessage(null);
-    }, 3000)
+    }, 3000);
   };
 
   const getSignInDetails = (e) => {
