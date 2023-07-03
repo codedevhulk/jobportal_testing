@@ -24,6 +24,8 @@ const ApplicantView = () => {
   const navigate = useNavigate();
   const [applicant, setApplicant] = useState();
   const [loading, setLoading] = useState(true);
+  const [status,setStatus] = useState(false)
+
   const mapFields = {
     firstName: "First Name",
     lastName: "Last Name",
@@ -53,7 +55,7 @@ const ApplicantView = () => {
 
   useEffect(() => {
     getApplicant();
-  }, []);
+  }, [status]);
 
   const fieldException = ["id", "jobSeekerId", "recruiterId", "jobId"];
 
@@ -102,6 +104,7 @@ const ApplicantView = () => {
               }}
               onClick={() => {
                 approveFn(applicant.id);
+                setStatus(!status);
               }}
             >
               Approve
@@ -116,6 +119,7 @@ const ApplicantView = () => {
               }}
               onClick={() => {
                 rejectFn(applicant.id);
+                setStatus(!status);
               }}
             >
               Reject

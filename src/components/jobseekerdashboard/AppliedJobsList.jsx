@@ -25,13 +25,19 @@ const AppliedJobsList = () => {
 
   const jobApplications = async () => {
     const res = await jobApplicatonsOfJobseeker();
+    if(res.errorMessage){
+      setApplications([])
+    }
     if (Array.isArray(res)) setApplications(res);
-    else setApplications(null);
+   
   };
+
+ 
 
   useEffect(() => {
     jobApplications();
   }, []);
+
   if (!Array.isArray(applications)) {
     return (
       <Box sx={{ width: "100%" }}>

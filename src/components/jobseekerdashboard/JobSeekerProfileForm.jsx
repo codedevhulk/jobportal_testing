@@ -102,8 +102,8 @@ const JobSeekerProfileForm = () => {
             size="small"
             variant="outlined"
             label="Username"
-            name="userName"
-            value={profileData?.userName}
+            name="username"
+            value={profileData?.username}
             onChange={getProfileData}
             InputLabelProps={{ shrink: true }}
             disabled

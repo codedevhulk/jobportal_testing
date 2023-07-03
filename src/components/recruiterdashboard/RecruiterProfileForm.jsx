@@ -109,8 +109,8 @@ const RecruiterProfileForm = () => {
 
         <FormInput
           type="text"
-          name="userName"
-          value={profileData?.userName}
+          name="username"
+          value={profileData?.username}
           placeholder="Username"
           onChange={getProfileData}
           disabled

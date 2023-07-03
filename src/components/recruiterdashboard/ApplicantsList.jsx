@@ -68,6 +68,7 @@ export const deleteFn = async (id) => {
 
 const ViewAllApplicantComponent = () => {
   const dispatch = useDispatch();
+  const [render,setRender] = useState(false);
   const recruiter_id = localStorage.getItem("recruiterId");
   const {
     applicants: allapplicants,
@@ -101,6 +102,7 @@ const ViewAllApplicantComponent = () => {
 
   const deletesApplicant = useCallback(async (id) => {
     const res = await deleteFn(id);
+    setRender(!render)
     setResponseMessage("Applicant Deleted Successfully");
     console.log("approved application res ", res);
     setTimeout(() => {
@@ -113,7 +115,7 @@ const ViewAllApplicantComponent = () => {
   ]);
   useEffect(() => {
     getAllApplicantss();
-  }, [getAllApplicantss, deletesApplicant, acceptApplicant]);
+  }, [getAllApplicantss, deletesApplicant, acceptApplicant,render]);
 
   if (loading) {
     return (

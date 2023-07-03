@@ -79,11 +79,19 @@ const JobseekerSignIn = () => {
     event.preventDefault();
     console.log(jobseekerSignInDetails);
     const result = await dispatch(jobseekerSignIn(jobseekerSignInDetails));
+    const jwttoken_jobseeker = localStorage.getItem("jwttoken_jobseeker");
 
-    if (localStorage.getItem("jtoken")) {
+    if (localStorage.getItem("jtoken") && jwttoken_jobseeker) {
       navigate("/jobseeker");
     } else {
-      setActionResponseMessage(result.payload.message);
+      console.log("errorMessage",result)
+      if(result.payload.errorMessage){
+        setActionResponseMessage(result.payload.errorMessage);
+
+      }else{
+        setActionResponseMessage(result.payload.message);
+
+      }
     }
     setTimeout(() => {
       setActionResponseMessage(null);

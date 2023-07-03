@@ -78,12 +78,16 @@ const RecruiterSignIn = () => {
   const handleSignIn = async (event) => {
     event.preventDefault();
     console.log(recruiterSignInDetails)
-     await dispatch(recruiterSignin(recruiterSignInDetails));
-    if (localStorage.getItem("rtoken")) {
+    const resp = await dispatch(recruiterSignin(recruiterSignInDetails));
+    const jwttoken_recruiter = localStorage.getItem("jwttoken_recruiter")
+    if (localStorage.getItem("rtoken") && jwttoken_recruiter ) {
       navigate("/recruiter")
     }
     else {
-      setActionResponseMessage("Incorrect Username or Password!")
+      if(resp.payload.errorMessage)
+        setActionResponseMessage(resp.payload.errorMessage)
+      else
+      setActionResponseMessage(resp.payload.message)
     }
     setTimeout(() => {
       setActionResponseMessage(null);

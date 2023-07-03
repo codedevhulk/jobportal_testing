@@ -85,11 +85,11 @@ const JobseekerSignUp = () => {
   const handleSignUp = async (event) => {
     event.preventDefault();
     const result = await dispatch(jobseekerSignUp(jobseekerSignUpDetails));
-    console.log("results ", result);
-    if (result.payload.error) {
-      setActionResponseMessage(result.payload.error);
+    console.log("results ", result.payload);
+    if (result.payload.errorMessage) {
+      setActionResponseMessage(result.payload.errorMessage);
     } else {
-      setActionResponseMessage(result.payload.message);
+      setActionResponseMessage(result.payload.message);// {message:"user registered successfully!!"}
     }
 
     let token = localStorage.getItem("jtoken");

@@ -70,6 +70,7 @@ const PostedJobsList = () => {
   const dispatch = useDispatch();
   const [postedjobs, setPostedjobs] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [render,setRender] = useState(false);
   const [hover, setHover] = useState(false);
   const [responseMessage, setResponseMessage] = useState(null);
 
@@ -78,27 +79,29 @@ const PostedJobsList = () => {
     const res = await dispatch(viewAllJobPostAction());
     setLoading(false);
     console.log(res)
-    console.dir("response jobposts : ", res?.payload);
+    console.dir("response jobposts : ", res); ///this placing
 
-    if (Array.isArray(res.payload) && res.payload.length > 0) {
-      setPostedjobs([...res.payload]);
-    } else if (Array.isArray(res.payload) && res.payload.length === 0) {
+    if (Array.isArray(res.payload) ) {
       setPostedjobs([...res.payload]);
     }
   };
-  const getPostedJobss = useCallback(getPostedJobs,[dispatch]) 
+  const getPostedJobss = useCallback(getPostedJobs,[render]) 
 
   const deleteAJob = async (id) => {
+    console.log("jobiD", id)
     await deleteJobById(id);
+    
     setResponseMessage("Deleted Job with JobId ", id);
-    getPostedJobs();
+   
+    setRender(!render)
+    await getPostedJobs();
     setTimeout(() => {
       setResponseMessage(null);
-    }, []);
+    }, 5000);
   };
   useEffect(() => {
     getPostedJobss();
-  }, [getPostedJobss]);
+  }, [getPostedJobss,render]);
   if (loading) {
     return (
       <Box sx={{ width: "100%" }}>

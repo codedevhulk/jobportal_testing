@@ -72,12 +72,15 @@ const Header = ({ page }) => {
       localStorage.removeItem("rtoken");
       localStorage.removeItem("recruiterId");
       localStorage.removeItem("username");
+      localStorage.removeItem("jwttoken_recruiter");
       navigate("/recruiter/signin");
     }
     if (jtoken) {
       localStorage.removeItem("jtoken");
       localStorage.removeItem("jobseekerId");
       localStorage.removeItem("username");
+      localStorage.removeItem("jwttoken_jobseeker");
+
       navigate("/jobseeker/signin");
     }
   };

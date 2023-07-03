@@ -88,8 +88,14 @@ const RecruiterSignUp = () => {
 
   const handleSignUp = async (event) => {
     event.preventDefault();
-    const res = await dispatch(recruiterSignUp(recruiterSignUpDetails));
-    setActionResponseMessage(res.payload.message);
+    const result = await dispatch(recruiterSignUp(recruiterSignUpDetails));
+    if(result.payload.errorMessage){
+      setActionResponseMessage(result.payload.errorMessage);
+
+    }else{
+      setActionResponseMessage(result.payload.message);
+
+    }
     setTimeout(() => { setActionResponseMessage(null) }, 3000)
 
   }

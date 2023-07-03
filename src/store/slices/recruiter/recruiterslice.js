@@ -19,11 +19,16 @@ export const recruiterSignin = createAsyncThunk(
       });
       const result = await response.json();
       console.log("signin recruiter response", result);
-      if (result.roles[0] === "ROLE_RECRUITER")
+      if (Array.isArray(result.roles) && result.roles[0] === "ROLE_RECRUITER"){
+      localStorage.setItem("jwttoken_recruiter",result.jwttoken)
         localStorage.setItem("rtoken", JSON.stringify("recruiter"));
       localStorage.setItem("recruiterId", result.id);
       localStorage.setItem("username", result.username);
       return result;
+    }else if(result.errorMessage){
+      return result
+    }
+     throw new Error("Error in Signin")
     } catch (error) {
       return error;
     }

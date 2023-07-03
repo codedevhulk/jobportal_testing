@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { signinApi, signupApi } from "../../service/constants";
+import { jobseekerSigninApi, jobseekerSignupApi } from "../../service/constants";
 import {
   getJobseekerProfileData,
   updateJobseekerProfile,
@@ -12,7 +12,7 @@ export const jobseekerSignUp = createAsyncThunk(
   async (jobseekerSignUpDetails) => {
     try {
       console.log("from signup component", jobseekerSignUpDetails);
-      const response = await fetch(signupApi, {
+      const response = await fetch(jobseekerSignupApi, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(jobseekerSignUpDetails),
@@ -21,6 +21,7 @@ export const jobseekerSignUp = createAsyncThunk(
       console.log("from jobseekersignup slice", result);
       return result;
     } catch (error) {
+      console.log("from jobseekersignup slice in catch", error);
       return error;
     }
   }
@@ -30,7 +31,7 @@ export const jobseekerSignIn = createAsyncThunk(
   "jobseekerSignIn",
   async (jobseekerSignInDetails) => {
     try {
-      const response = await fetch(signinApi, {
+      const response = await fetch(jobseekerSigninApi, {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify(jobseekerSignInDetails),
@@ -38,13 +39,20 @@ export const jobseekerSignIn = createAsyncThunk(
       const result = await response.json();
 
       console.log("from jobseekersignin slice", result);
-      if (result.roles[0] === "ROLE_JOBSEEKER")
+      if (Array.isArray(result.roles) && result.roles[0] === "ROLE_JOBSEEKER"){
+
         localStorage.setItem("jtoken", "jobseeker");
       localStorage.setItem("username", result.username);
       localStorage.setItem("jobseekerId", result.id);
-
+      localStorage.setItem("jwttoken_jobseeker", result.jwttoken);
       return result;
+
+    }else if(result.errorMessage){
+      return result;
+    }
+    throw new Error("Error in signin")
     } catch (error) {
+      console.log("error from jobseeker slice",error)
       return error;
     }
   }
@@ -82,9 +90,10 @@ export const jobApplicatonsOfJobseekerAction = createAsyncThunk(
   async () => {
     try {
       const id = localStorage.getItem("jobseekerId");
+    const jwttoken_jobseeker = localStorage.getItem("jwttoken_jobseeker")
       const url = `${jobApplicatonsOfJobseekerApi}${id}`;
       console.log(url);
-      const response = await fetch(url);
+      const response = await fetch(url,{Authorization:jwttoken_jobseeker});
       const data = response.json();
       console.log(data);
       return data;
@@ -183,6 +192,7 @@ const jobSeekerSlice = createSlice({
       .addCase(jobApplicatonsOfJobseekerAction.fulfilled, (state, action) => {
         state.loading = false;
         console.log("state.application", state.applications);
+        
         state.applications = action.payload;
 
         console.log("action.payload", action.payload);

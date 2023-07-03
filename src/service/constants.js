@@ -24,14 +24,16 @@
 // "https://64571a7e5f9a4f236151cbaf.mockapi.io/api/jobs";
 export const viewAllPostApi = "http://localhost:8062/jobservice/alljobs";
 export const signupApi = "http://localhost:8062/api/auth/signup";
+export const jobseekerSigninApi = "http://localhost:8062/jobseeker/signin"
+export const jobseekerSignupApi = "http://localhost:8062/jobseeker/signup"
 
 export const recruiterSignupApi =
-  "http://localhost:7171/api/auth/recruiter/signup";
+  "http://localhost:8062/recruiter/signup";
 export const recruiterSigninApi =
-  "http://localhost:7171/api/auth/recruiter/signin";
+  "http://localhost:8062/recruiter/signin";
 export const getRecruiterProfileApi = "http://localhost:8062/recruiter/";
-export const signinApi = "http://localhost:7171/api/auth/signin";
-export const signoutApi = "http://localhost:7171/api/auth/signout";
+export const signinApi = "http://localhost:8062/api/auth/signin";
+export const signoutApi = "http://localhost:8062/api/auth/signout";
 export const newjobpostApi =
   "http://localhost:8062/jobservice/recruiter/jobpost";
 export const deleteJobByIdApi =
@@ -39,22 +41,22 @@ export const deleteJobByIdApi =
 export const updateAJobPostApi =
   "http://localhost:8062/jobservice/recruiter/updatejobpost/";
 export const viewAllApplicantsApi =
-  "http://localhost:8020/jobservice/recruiter/applications";
+  "http://localhost:8062/jobservice/recruiter/applications";
 export const updateRecruiterProfileApi =
-  "http://localhost:7673/recruiter/updateprofile";
+  "http://localhost:8062/recruiter/updateprofile";
 const appliedJobsByJobseekerApi =
   "http://localhost:8062/jobservice/jobseeker/applications/";
 export const applytojobApi =
   "http://localhost:8062/jobservice/jobseeker/apply/";
 export const updateJobseekerProfileApi =
   "http://localhost:8062/jobseeker/updateprofile";
-export const getJobseekerProfileApi = "http://localhost:7672/jobseeker/";
+export const getJobseekerProfileApi = "http://localhost:8062/jobseeker/";
 export const jobApplicatonsOfJobseekerApi = appliedJobsByJobseekerApi;
 export const approveApplicantApi =
-  "http://localhost:8020/jobservice/recruiter/application/accept/";
+  "http://localhost:8062/jobservice/recruiter/application/accept/";
 export const rejectApplicantApi =
-  "http://localhost:8020/jobservice/recruiter/application/reject/";
-export const getAJobByIdApi = "http://localhost:8020/jobservice/job/";
+  "http://localhost:8062/jobservice/recruiter/application/reject/";
+export const getAJobByIdApi = "http://localhost:8062/jobservice/job/";
 
 export const deleteApplicantApi =
   "http://localhost:8062/jobservice/deleteapplication/";

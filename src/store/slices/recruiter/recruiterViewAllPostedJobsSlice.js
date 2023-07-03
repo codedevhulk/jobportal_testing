@@ -7,9 +7,11 @@ export const viewAllJobPostAction = createAsyncThunk(
     try {
       const recruiter_id = localStorage.getItem("recruiterId")
       const result = await viewAllJobPost();
-      const res = result.filter(job => job.recruiterId === Number(recruiter_id))
-
-      return res;
+      if(Array.isArray(result)){
+        const res = result.filter(job => job.recruiterId === Number(recruiter_id))
+        return res;
+      }
+      return []
     } catch (error) {
       return error;
     }

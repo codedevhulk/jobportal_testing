@@ -38,6 +38,9 @@ const AppliedJobDetails = () => {
   const { id } = useParams();
   const jobApplicationByApplicationId = async () => {
     const jobApplications = await jobApplicatonsOfJobseeker();
+    if(jobApplications.errorMessage){
+      return;
+    }
     const jobApplicationByAppId = jobApplications.filter(
       (application) => application.id == id
     )[0];

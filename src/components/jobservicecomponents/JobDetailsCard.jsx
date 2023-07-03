@@ -70,6 +70,9 @@ const Button = styled.button`
   background-color: #00a0ff;
   color: #fff;
   cursor: pointer;
+  :active{
+    background:#00f6ff
+  }
 `;
 
 const BackButton = styled.button`
@@ -82,6 +85,9 @@ border:none;
 border-radius:5px; 
 background-color:#ee6c4d; 
 color:#333
+:active{
+  background:#ef8f4d
+}
 `;
 const FieldStyle = {
   boxSizing: "border-box",
@@ -206,7 +212,7 @@ const JobDetailsCard = () => {
       </div>
 
       <div style={{ display: "flex", justifyContent: "space-around" }}>
-        <Button type="button" onClick={onApply}>
+        <Button type="button" onClick={onApply} >
           Apply
         </Button>
         <Button
