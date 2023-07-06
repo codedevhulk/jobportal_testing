@@ -1,4 +1,4 @@
-import { useEffect, useState,useCallback } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -77,7 +77,7 @@ const PostedJobsList = () => {
     setLoading(true);
     const res = await dispatch(viewAllJobPostAction());
     setLoading(false);
-    console.log(res)
+    console.log(res);
     console.dir("response jobposts : ", res?.payload);
 
     if (Array.isArray(res.payload) && res.payload.length > 0) {
@@ -86,7 +86,7 @@ const PostedJobsList = () => {
       setPostedjobs([...res.payload]);
     }
   };
-  const getPostedJobss = useCallback(getPostedJobs,[dispatch]) 
+  const getPostedJobss = useCallback(getPostedJobs, [dispatch]);
 
   const deleteAJob = async (id) => {
     await deleteJobById(id);
@@ -107,15 +107,21 @@ const PostedJobsList = () => {
     );
   }
   //delay this
- 
-    if (Array.isArray(postedjobs) && postedjobs.length === 0) {
-      return (
-        <div style={{ display: "flex", fontSize: "32px",fontWeight:"600",justifyContent:"center" }}>
-          <p>You Have Not Posted Any Job Yet</p>
-        </div>
-      );
-    }
-  
+
+  if (Array.isArray(postedjobs) && postedjobs.length === 0) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          fontSize: "32px",
+          fontWeight: "600",
+          justifyContent: "center",
+        }}
+      >
+        <p>You Have Not Posted Any Job Yet</p>
+      </div>
+    );
+  }
 
   return (
     <Container>
@@ -124,14 +130,16 @@ const PostedJobsList = () => {
         postedjobs.map((job) => (
           <JobCard key={job.id}>
             <div>
-              <JobTitle>{job.jobTitle}</JobTitle>
+              <JobTitle style={{ textTransform: "capitalize" }}>
+                {job.jobTitle}
+              </JobTitle>
               <JobDetails>
                 <p>{job.description}</p>
                 <p>Location: {job.location}</p>
                 <p>Salary: {job.salary}</p>
               </JobDetails>
             </div>
-            <ButtonContainer>
+            <ButtonContainer style={{ marginLeft: "20px" }}>
               <Link to={`edit/${job.id}`} target="_blank">
                 <Button>VIEW DETAILS</Button>
               </Link>

@@ -152,13 +152,12 @@ const RecruiterProfileCard = () => {
                 return label !== "recruiterId" && label !== "password" ? (
                   <FieldItem>
                     <Card style={{ ...FieldStyle, lineSpacing: "1px" }}>
-                      {label}
+                      {label.toUpperCase()}
                     </Card>{" "}
                     <Card
                       style={{
                         ...FieldStyle,
                         background: "rgba(255,255,255,0.6)",
-                        textTransform: "capitalize",
                         overflow: "scroll",
                         minHeight: "30px",
                       }}

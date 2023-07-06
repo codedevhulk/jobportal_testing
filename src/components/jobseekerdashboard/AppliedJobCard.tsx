@@ -82,7 +82,7 @@ const AppliedJobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
   return (
     <div data-testid="applied-jobcard">
       <Card>
-        <Title>{jobTitle}</Title>
+        <Title style={{ textTransform: "capitalize" }}>{jobTitle}</Title>
         <JobDescription style={{ overflow: "scroll" }}>
           {jobDescription}
         </JobDescription>

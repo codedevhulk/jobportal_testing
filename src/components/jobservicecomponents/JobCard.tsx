@@ -72,7 +72,7 @@ const JobCard: React.FC<JobCardProps> = (props: JobCardProps) => {
   const { id, jobTitle, company, salary, location, onApply } = props.job;
   return (
     <Card>
-      <Title>{jobTitle}</Title>
+      <Title style={{ textTransform: "capitalize" }}>{jobTitle}</Title>
       <Company>{company}</Company>
       <Salary>{salary}</Salary>
       <Location>{location}</Location>
